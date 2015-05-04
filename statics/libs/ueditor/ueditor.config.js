@@ -21,7 +21,7 @@
      */
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
-    var SERVER_ROOT = 'http://localhost:6005';
+    var SERVER_ROOT = 'http://ecpkn.com';
 
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。

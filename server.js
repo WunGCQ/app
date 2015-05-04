@@ -45,7 +45,7 @@ app.use('/statics',express.static(__dirname + '/dist'));
 app.use('/', router.index);
 
 // admin pages
-app.use('/admin/editor.html', router.editor);
+app.use('/admin/editor', router.editor);
 
 
 app.listen(config.server.port);
