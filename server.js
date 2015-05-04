@@ -48,4 +48,4 @@ app.use('/', router.index);
 app.use('/admin/editor.html', router.editor);
 
 
-app.listen(config.server.port, config.server.address);
+app.listen(config.server.port);
