@@ -12,6 +12,8 @@ machine:
 
 ## Customize dependencies
 dependencies:
+  pre:
+    - npm install -g npm@latest
   override:
     - npm install -g gulp # install gulp as global
     - npm install: # note ':' here
