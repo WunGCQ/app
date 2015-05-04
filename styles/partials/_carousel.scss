@@ -1,0 +1,32 @@
+/**
+ * site carousel
+ */
+
+ .carousel {
+    @extend .box--clip;
+ }
+
+ .slides {
+    @extend .column--full;
+    @extend .w-9;
+    @extend .box--clip;
+    @extend .rel;
+    display: inline-block;
+ }
+ .slide {
+    @extend .abs;
+    @extend .abs--left;
+    @extend .abs--top;
+    @extend .box--clip;
+    max-width: 100%;
+    max-height: 100%;
+ }
+
+ .indicators {
+    @extend .w-1;
+    display: inline-block;
+    vertical-align: top;
+ }
+ .indicator {
+
+ }

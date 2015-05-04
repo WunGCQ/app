@@ -1,0 +1,10 @@
+.site-footer {
+    border-top: 1px dashed #ccc;
+    height: $site-footer-height;
+    color: white;
+    background-color: transparentize($oxford-blue, 0.4);
+    &__link {
+        color: $default-color;
+        display: inline-block;
+    }
+}

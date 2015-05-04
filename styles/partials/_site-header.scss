@@ -1,0 +1,11 @@
+.site-header {
+    @extend .ptb--extra;
+    height: $site-header-height;
+    border-bottom: 1px dashed #ccc;
+    background-color: transparentize($sky-blue, 0.8);
+    color: white;
+    &__link {
+        color: $default-color;
+        display: inline-block;
+    }
+}

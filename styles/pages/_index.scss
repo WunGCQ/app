@@ -1,0 +1,30 @@
+/* ========================
+ * index page
+ * =============================== */
+
+body {
+    background: #fff url('/statics/images/bg2.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.news-carousel-box {
+    @extend .row--full;
+    @include padding(4% 5%);    
+    height: calc(100% - #{$site-header-height} - #{$site-footer-height}); 
+}
+
+.news-box {
+    @extend .w-4;
+    @extend .column--full;
+
+    border: 1px dashed #ccc;
+    display: inline-block; 
+}
+.carousel {
+    @extend .w-6;
+    @extend .column--full;
+
+    border: 1px dashed #ccc;
+    display: inline-block; 
+}

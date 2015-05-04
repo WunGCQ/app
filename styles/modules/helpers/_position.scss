@@ -1,0 +1,90 @@
+
+.abs{
+  position: absolute;
+}
+.fixed{
+    position: fixed;
+}
+.abs,
+.fixed {
+    &--top {
+        top: 0;
+    }
+    &--left {
+        left: 0;
+    }
+    &--right {
+        right: 0;
+    }
+    &--bottom {
+        bottom: 0;
+    }
+}
+.rel{
+    position: relative;
+}
+
+// left right full top bottom
+
+
+/**
+ * padding and margin helper
+ * =============================== */
+$size-value: (0: 0, sm: 3px, md: 6px, lg: 12px, extra: 24px);
+$directions: (l: left, r: right, t: top, b: bottom);
+@each $size, $value in $size-value{
+    @each $ds, $df in $directions{
+        @if $size == md{
+            .p#{$ds}{
+                padding-#{$df}: $value;
+            }
+            .m#{$ds}{
+                margin-#{$df}: $value;
+            }
+        }@else{
+            .p#{$ds}--#{$size}{
+                padding-#{$df}: $value;
+            }
+            .m#{$ds}--#{$size}{
+                margin-#{$df}: $value;
+            }
+        }
+    }
+}
+@each $size, $value in $size-value{
+    @if $size == md{
+        .plr{
+            @extend .pl;
+            @extend .pr;
+        }
+        .ptb{
+            @extend .pt;
+            @extend .pb;
+        }
+        .mlr{
+            @extend .ml;
+            @extend .mr;
+        }
+        .mtb{
+            @extend .mt;
+            @extend .mb;
+        }
+    }@else{
+        .plr--#{$size}{
+            @extend .pl--#{$size};
+            @extend .pr--#{$size};
+        }
+        .ptb--#{$size}{
+            @extend .pt--#{$size};
+            @extend .pb--#{$size};
+        }
+        .mlr--#{$size}{
+            @extend .ml--#{$size};
+            @extend .mr--#{$size};
+        }
+        .mtb--#{$size}{
+            @extend .mt--#{$size};
+            @extend .mb--#{$size};
+        }
+    }
+}

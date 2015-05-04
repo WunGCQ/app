@@ -1,0 +1,36 @@
+## Customize the test machine
+machine:
+
+  # Version of node to use
+  node:
+    version: 0.12.0
+
+  # Override /etc/hosts with custom vhost
+  hosts:
+    dev.io: 127.0.0.1
+
+
+## Customize dependencies
+dependencies:
+  override:
+    - npm install -g gulp # install gulp as global
+    - npm install: # note ':' here
+        timeout: 1800 # fail if command has no output for 30 minutes
+
+test:
+  pre:
+    - node server.js:
+        background: true
+
+  override:
+    - gulp test # launch the gulp test task
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: ecpkn
+  staging:
+    branch: staging
+    heroku:
+      appname: ecpkn-staging

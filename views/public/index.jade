@@ -1,0 +1,48 @@
+extend ../base.jade
+
+block title
+    //
+        title 北航中法工程师学院欢迎您
+    title page
+
+block links
+    link(rel = 'stylesheet', href = '/statics/styles/index.min.css')
+
+block styles
+
+block headScripts
+    script(src='//g.alicdn.com/kissy/k/1.4.7/seed.js' data-config='{combine:true}')
+
+
+
+block content
+    div.site-header
+        h2.text--center
+    div.news-carousel-box
+        div.news-box
+        div.carousel
+            div.slides
+                div.slide
+                    img(src = '/statics/images/bg1.jpg')
+                div.slide
+                    img(src = '/statics/images/bg1.jpg')
+                div.slide
+                    img(src = '/statics/images/bg1.jpg')
+            div.indicators
+                div.indicator
+                    img(src = '/statics/images/bg1.jpg')
+                div.indicator
+                    img(src = '/statics/images/bg1.jpg')
+                div.indicator
+                    img(src = '/statics/images/bg1.jpg')
+    div.site-footer
+        h2.text--center
+block scripts
+
+    //
+        custom KISSY components
+    script(src= '/statics/scripts/components/carousel.min.js')
+
+
+    script(src= '/statics/scripts/index.min.js')
+
