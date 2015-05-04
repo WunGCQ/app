@@ -14,6 +14,7 @@ machine:
 dependencies:
   pre:
     - npm install -g npm@latest
+    - npm install -g bower
   override:
     - npm install -g gulp # install gulp as global
     - npm install: # note ':' here
