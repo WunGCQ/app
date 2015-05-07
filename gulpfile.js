@@ -51,6 +51,7 @@ gulp.task('scripts', function(){
     return gulp.src(config.scripts.scriptFiles)
         // .pipe(plugins.jshint('.jshintrc'))
         // .pipe(plugins.jshint.reporter('default'))
+        .pipe(gulp.dest(config.scripts.distDir))
         .pipe(plugins.rename({suffix: '.min'}))
         .pipe(plugins.uglify())
         .pipe(gulp.dest(config.scripts.distDir))

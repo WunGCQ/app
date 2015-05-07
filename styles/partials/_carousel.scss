@@ -4,29 +4,41 @@
 
  .carousel {
     @extend .box--clip;
- }
+    border-radius: 6px;
+    &__slides-wrapper {
+        @extend .column--full;
+        @extend .w-9;
+        @extend .box--clip;
+        @extend .rel;
+        display: inline-block;
+    }
+    &__slide {
+        @extend .abs;
+        @extend .abs--left;
+        @extend .abs--top;
+        @extend .box--clip;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        opacity: 0;
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
 
- .slides {
-    @extend .column--full;
-    @extend .w-9;
-    @extend .box--clip;
-    @extend .rel;
-    display: inline-block;
- }
- .slide {
-    @extend .abs;
-    @extend .abs--left;
-    @extend .abs--top;
-    @extend .box--clip;
-    max-width: 100%;
-    max-height: 100%;
- }
+        
+        &__sublayer {
 
- .indicators {
-    @extend .w-1;
-    display: inline-block;
-    vertical-align: top;
- }
- .indicator {
-
+        }
+        &__indicator {
+            opacity: 0.6;
+            &--active {
+               opacity: 1; 
+               border: 1px solid white;
+            }
+        }
+    }
+    &__indicators-wrapper {
+        @extend .w-1;
+        display: inline-block;
+        vertical-align: top;
+    }
  }

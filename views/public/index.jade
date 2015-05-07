@@ -11,8 +11,11 @@ block links
 block styles
 
 block headScripts
-    script(src='//g.alicdn.com/kissy/k/1.4.7/seed.js' data-config='{combine:true}')
-
+    script(src='//g.alicdn.com/kissy/k/5.0.1/seed.js' data-config='{combine:true}')
+    // script(src='http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js')
+    // script(src='/statics/libs/gasp/tweenlite.min.js')
+    // script(src='http://cdn.bootcss.com/velocity/1.2.2/velocity.js')
+    script(src='/statics/tweenjs/build/tween.min.js')
 
 
 block content
@@ -21,28 +24,40 @@ block content
     div.news-carousel-box
         div.news-box
         div.carousel
-            div.slides
-                div.slide
+            div.carousel__slides-wrapper
+                div.carousel__slide
                     img(src = '/statics/images/bg1.jpg')
-                div.slide
+                    div.carousel__slide__sublayer
+                        h1 hllo 1
+                div.carousel__slide
+                    img(src = '/statics/images/bg2.jpg')
+                    div.carousel__slide__sublayer
+                        h1 hllo 2
+                div.carousel__slide
+                    img(src = '/statics/images/bg3.jpg')
+                    div.carousel__slide__sublayer
+                        h1 hllo 3
+                div.carousel__slide
+                    img(src = '/statics/images/bg4.jpg')
+                    div.carousel__slide__sublayer
+                        h1 hllo 4
+            div.carousel__indicators-wrapper
+                div.carousel__slide__indicator
                     img(src = '/statics/images/bg1.jpg')
-                div.slide
-                    img(src = '/statics/images/bg1.jpg')
-            div.indicators
-                div.indicator
-                    img(src = '/statics/images/bg1.jpg')
-                div.indicator
-                    img(src = '/statics/images/bg1.jpg')
-                div.indicator
-                    img(src = '/statics/images/bg1.jpg')
+                div.carousel__slide__indicator
+                    img(src = '/statics/images/bg2.jpg')
+                div.carousel__slide__indicator
+                    img(src = '/statics/images/bg3.jpg')
+                div.carousel__slide__indicator
+                    img(src = '/statics/images/bg4.jpg')
     div.site-footer
         h2.text--center
 block scripts
 
     //
         custom KISSY components
-    script(src= '/statics/scripts/components/carousel.min.js')
+    script(src= '/statics/scripts/components/carousel.js')
 
 
-    script(src= '/statics/scripts/index.min.js')
+    script(src= '/statics/scripts/index.js')
 

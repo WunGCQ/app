@@ -23,6 +23,9 @@
     "plupload": "~2.1.2",
     "velocity": "~1.2.2",
     "bourbon": "~4.2.2",
-    "kissy": "1.4.8"
-  }
+    "neat": "~1.7.2",
+    "kissy": "1.4.8",
+    "tweenjs": "*"
+  },
+  "devDependencies": {}
 }

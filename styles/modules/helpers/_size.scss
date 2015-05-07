@@ -10,6 +10,13 @@
     }
 }
 
+$totalColumn: 12;
+@for $i from 0 through $totalColumn{
+    .col-#{$i} {
+        width: $i / $totalColumn * 100%;
+    }
+}
+
 .row{
     &--half {
         @extend .w-5;

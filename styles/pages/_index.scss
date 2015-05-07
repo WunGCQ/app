@@ -15,14 +15,15 @@ body {
 }
 
 .news-box {
-    @extend .w-4;
+    @extend .w-3;
     @extend .column--full;
 
     border: 1px dashed #ccc;
     display: inline-block; 
 }
 .carousel {
-    @extend .w-6;
+    width: 68%;
+    margin-left: 2%;
     @extend .column--full;
 
     border: 1px dashed #ccc;
