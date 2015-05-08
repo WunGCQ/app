@@ -1,7 +1,8 @@
+/* jshint -W030 */
+/* global TWEEN */
 define('carousel', ['node', 'promise'], function(require, exports, module) {
-    var Node = require('node');
+    var $ = require('node');
     var Promise = require('promise');
-
     /**
      * Carousel component.
      * =================================================
@@ -22,15 +23,25 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
      *         #pause()
      *         #resume()
      * // Slide
-     *         #
+     *         #trans(direction)
+     *         #updateSlide(pos)
+     * // SubLayer
+     *     /////////// TODO: support sublayer animation
      *
      */
     var reqAnimFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     var arrProto = Array.prototype;
     var proto;
 
+    // TODO: use a prefixer plugin instead.
+    var setTransform = function _setTransform(style, transform) {
+        style.webkitTransform = transform;
+        style.mozTransform = transform;
+        style.transform = transform;
+    };
+
     function Carousel(dom, conf) {
-        dom = typeof dom === 'string' ? Node(dom).getDOMNode() : dom;
+        dom = typeof dom === 'string' ? $(dom).getDOMNode() : dom;
         this.conf = conf || Carousel.CONF;
         this.dom = dom;
 
@@ -51,26 +62,19 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         this.carousel = carousel;
         this.indicator = indicator;
 
-
+        // set the first slide as default
         if (arrProto.indexOf.call(dom.parentElement.children, dom) === 0) {
             indicator.active();
         } else {
-            var transform = 'translateX(100%)';
-            style.webkitTransform = transform;
-            style.mozTransform = transform;
-            style.transform = transform;
+            setTransform(style, 'translateX(100%)');
         }
         style.opacity = 1;
-
 
         this.subLayers = arrProto.map.call(dom.querySelectorAll('.carousel__slide__sublayer'), function(subLayer) {
             return new SubLayer(subLayer);
         });
-
     }
 
-    //////// don't do this.. should support older browsers. maybe left to some prefixer plugins
-    Slide.ANIM = {};
 
     function SubLayer(dom) {
         this.dom = dom;
@@ -80,10 +84,10 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         this.dom = dom;
     }
 
-
     Carousel.CONF = {
-        DUR: 2600, // duration. auto loop slides after every DUR
-        TD: 800 // transition duration between slides
+        break: 2600, // time in ms. auto loop slides after every break
+        duration: 600, // transition duration between slides
+        auto_start: true // should slide auto start or not
     };
 
     //=============\
@@ -102,17 +106,19 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         var defer = new Promise.Defer();
         var promise = defer.promise;
 
+        // slide transition attrs
         var from = {};
         var to = {};
         from.tx = direction <= 2 ? 0 : (direction === 3 ? -100 : 100);
         from.op = direction <= 2 ? 1 : 0;
-        to.tx = direction >= 2 ? 0 : (direction === 1 ? -100 : 100);
-        to.op = direction >= 2 ? 1 : 0;
+        to.tx = direction > 2 ? 0 : (direction === 1 ? -100 : 100);
+        to.op = direction > 2 ? 1 : 0;
 
         direction > 2 ? this.indicator.active() : this.indicator.inActive();
+
         var tween = new TWEEN.Tween(from);
-        tween.to(to, _this.carousel.conf.TD)
-            // .easing(TWEEN.Easing.Linear.None)
+        tween.to(to, _this.carousel.conf.duration)
+            .easing(TWEEN.Easing.Quintic.InOut)
             .onUpdate(function() {
                 _this.updateSlide(this);
             })
@@ -121,6 +127,8 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
                 defer.resolve();
             })
             .start();
+
+        // setup Tween update loop
         function tick(ts) {
             if (!ts) {
                 ts = +(new Date());
@@ -132,18 +140,10 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         }
         reqAnimFrame(tick);
 
-
         return promise;
     };
     proto.updateSlide = function(pos) {
-        console.log(pos);
-        var style = this.dom.style;
-        var transform = 'translateX(' + pos.tx + '%)';
-        style.webkitTransform = transform;
-        style.mozTransform = transform;
-        style.transform = transform;
-        // style.left = pos.tx + 'px';
-        // style.opacity = pos.op;
+        setTransform(this.dom.style, 'translateX(' + pos.tx + '%)');
     };
 
     //=============\
@@ -160,6 +160,26 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     // Carousel.prototype
     proto = Carousel.prototype;
     proto.init = function() {
+        var _this = this;
+        var $carousel = $(_this.dom);
+        var conf = _this.conf;
+        var slideSwitcher = function(event) {
+            var $target = $(event.currentTarget);
+            var index = $target.index();
+            if (index !== _this.currentIndex) {
+                _this.pause();
+                _this.promise.then(function(){
+                    _this.go(index);
+                });
+            }
+        };
+        var resume = function(event){
+            _this.resume();
+        };
+
+        $carousel.delegate('mouseover', '.carousel__slide__indicator', slideSwitcher);
+        $carousel.delegate('mouseleave', '.carousel__indicators-wrapper', resume);
+
         this.loop();
     };
     proto.loop = function() {
@@ -168,8 +188,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
             _this.next().then(function() {
                 _this.loop();
             });
-        }, _this.conf.DUR);
-
+        }, _this.conf.break);
     };
     proto.go = function(index) {
         var slidesCount = this.slides.length;
@@ -177,12 +196,15 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         var isNext = index > this.currentIndex;
 
         index = (index + slidesCount) % slidesCount;
+        console.log('trans from %d to %d', this.currentIndex + 1, index + 1);
         this.currentIndex = index;
 
         var nextSlide = this.slides[index];
         var inPromise = nextSlide.trans(isNext ? 4 : 3);
         var outPromise = currentSlide.trans(isNext ? 1 : 2);
-        return Promise.all([inPromise, outPromise]);
+        this.promise = Promise.all([inPromise, outPromise]);
+
+        return this.promise;
     };
     proto.pre = function() {
         return this.go(this.currentIndex - 1);
