@@ -9,6 +9,7 @@
         @extend .column--full;
         @extend .w-9;
         @extend .box--clip;
+        height: 600px;
         @extend .rel;
         display: inline-block;
     }
@@ -20,6 +21,8 @@
         width: 100%;
         max-width: 100%;
         max-height: 100%;
+        min-height: 400px;
+        height: 400px;
         opacity: 0;
         transform-style: preserve-3d;
         backface-visibility: hidden;

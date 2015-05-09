@@ -1,9 +1,7 @@
 extend ../base.jade
 
 block title
-    //
-        title 北航中法工程师学院欢迎您
-    title page
+    title 北航中法工程师学院
 
 block links
     link(rel = 'stylesheet', href = '/statics/styles/index.min.css')
@@ -11,10 +9,15 @@ block links
 block styles
 
 block headScripts
+    
+    // script(src='/statics/scripts/utils/shim.min.js')
+
     script(src='//g.alicdn.com/kissy/k/5.0.1/seed.js' data-config='{combine:true}')
+
     // script(src='http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js')
     // script(src='/statics/libs/gasp/tweenlite.min.js')
     // script(src='http://cdn.bootcss.com/velocity/1.2.2/velocity.js')
+
     script(src='/statics/tweenjs/build/tween.min.js')
 
 
@@ -54,6 +57,8 @@ block content
         h2.text--center
 block scripts
 
+    // script(src='https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js')
+    
     //
         custom KISSY components
     script(src= '/statics/scripts/components/carousel.js')

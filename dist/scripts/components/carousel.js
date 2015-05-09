@@ -1,5 +1,3 @@
-/* jshint -W030 */
-/* global TWEEN */
 define('carousel', ['node', 'promise'], function(require, exports, module) {
     var $ = require('node');
     var Promise = require('promise');
@@ -12,7 +10,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
      *            .carousel__slide(data-conf="")
      *                .carousel__slide__sublayer
      *        .carousel__indicators-wrapper
-     *            .carousel__indicator
+     *            .carousel__slide__indicator
      * ------------------------------
      * // Carousel
      *         #init()
@@ -33,7 +31,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     var arrProto = Array.prototype;
     var proto;
 
-    // TODO: use a prefixer plugin instead.
+    // TODO: use a prefixer plugin instead: prefixfree
     var setTransform = function _setTransform(style, transform) {
         style.webkitTransform = transform;
         style.mozTransform = transform;
@@ -45,10 +43,13 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         this.conf = conf || Carousel.CONF;
         this.dom = dom;
 
-        this.indicators = arrProto.map.call(dom.lastElementChild.children, function(indicator) {
+        var slides = dom.querySelectorAll('.carousel__slide');
+        var indicators = dom.querySelectorAll('.carousel__slide__indicator');
+
+        this.indicators = arrProto.map.call(indicators, function(indicator) {
             return new Indicator(indicator, this);
         }, this);
-        this.slides = arrProto.map.call(dom.firstElementChild.children, function(slide, i) {
+        this.slides = arrProto.map.call(slides, function(slide, i) {
             return new Slide(slide, this.indicators[i], this);
         }, this);
 
@@ -85,7 +86,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     }
 
     Carousel.CONF = {
-        break: 2600, // time in ms. auto loop slides after every break
+        mute: 2600, // time in ms. auto loop slides after every break
         duration: 600, // transition duration between slides
         auto_start: true // should slide auto start or not
     };
@@ -168,9 +169,13 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
             var index = $target.index();
             if (index !== _this.currentIndex) {
                 _this.pause();
-                _this.promise.then(function(){
+                if (_this.promise) {
+                    _this.promise.then(function(){
+                        _this.go(index);
+                    });
+                } else {
                     _this.go(index);
-                });
+                }
             }
         };
         var resume = function(event){
@@ -179,8 +184,9 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
 
         $carousel.delegate('mouseover', '.carousel__slide__indicator', slideSwitcher);
         $carousel.delegate('mouseleave', '.carousel__indicators-wrapper', resume);
-
-        this.loop();
+        if (conf.auto_start) {
+            _this.loop();
+        }
     };
     proto.loop = function() {
         var _this = this;
@@ -188,7 +194,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
             _this.next().then(function() {
                 _this.loop();
             });
-        }, _this.conf.break);
+        }, _this.conf.mute);
     };
     proto.go = function(index) {
         var slidesCount = this.slides.length;

@@ -563,11 +563,14 @@ pre > code {
 .carousel {
   border-radius: 6px; }
   .carousel__slides-wrapper {
+    height: 600px;
     display: inline-block; }
   .carousel__slide {
     width: 100%;
     max-width: 100%;
     max-height: 100%;
+    min-height: 400px;
+    height: 400px;
     opacity: 0;
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
