@@ -32,24 +32,26 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     var proto;
 
     // TODO: use a prefixer plugin instead: prefixfree
-    var setTransform = function _setTransform(style, transform) {
-        style.webkitTransform = transform;
-        style.mozTransform = transform;
-        style.transform = transform;
+    var setTransform = function _setTransform($dom, transform) {
+        var rules = {
+            transform: transform,
+            '-webkit-transform': transform,
+            '-moz-transform': transform
+        };
+        $dom.css(rules);
     };
 
     function Carousel(dom, conf) {
-        dom = typeof dom === 'string' ? $(dom).getDOMNode() : dom;
+        var $dom =  this.$dom = dom === 'string' ? $(dom) : $(dom);
         this.conf = conf || Carousel.CONF;
-        this.dom = dom;
 
-        var slides = dom.querySelectorAll('.carousel__slide');
-        var indicators = dom.querySelectorAll('.carousel__slide__indicator');
+        var $slides = $dom.children('.carousel__slides-wrapper').children();
+        var $indicators = $dom.children('.carousel__indicators-wrapper').children();
 
-        this.indicators = arrProto.map.call(indicators, function(indicator) {
+        this.indicators = arrProto.map.call($indicators, function(indicator) {
             return new Indicator(indicator, this);
         }, this);
-        this.slides = arrProto.map.call(slides, function(slide, i) {
+        this.slides = arrProto.map.call($slides, function(slide, i) {
             return new Slide(slide, this.indicators[i], this);
         }, this);
 
@@ -58,31 +60,31 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     }
 
     function Slide(dom, indicator, carousel) {
-        var style = dom.style;
-        this.dom = dom;
+        var $dom = this.$dom = $(dom);
         this.carousel = carousel;
         this.indicator = indicator;
 
         // set the first slide as default
-        if (arrProto.indexOf.call(dom.parentElement.children, dom) === 0) {
+        if ($dom.index() === 0) {
             indicator.active();
         } else {
-            setTransform(style, 'translateX(100%)');
+            setTransform($dom, 'translateX(100%)');
         }
-        style.opacity = 1;
+        $dom.css('opacity', 1);
 
-        this.subLayers = arrProto.map.call(dom.querySelectorAll('.carousel__slide__sublayer'), function(subLayer) {
+        var $subLayers = $dom.children('.carousel__slide__sublayer');
+        this.subLayers = arrProto.map.call($subLayers, function(subLayer) {
             return new SubLayer(subLayer);
         });
     }
 
 
     function SubLayer(dom) {
-        this.dom = dom;
+        this.$dom = $(dom);
     }
 
     function Indicator(dom) {
-        this.dom = dom;
+        this.$dom = $(dom);
     }
 
     Carousel.CONF = {
@@ -144,17 +146,17 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         return promise;
     };
     proto.updateSlide = function(pos) {
-        setTransform(this.dom.style, 'translateX(' + pos.tx + '%)');
+        setTransform(this.$dom, 'translateX(' + pos.tx + '%)');
     };
 
     //=============\
     // Indicator.prototype
     proto = Indicator.prototype;
     proto.active = function() {
-        this.dom.classList.add('carousel__slide__indicator--active');
+        this.$dom.addClass('carousel__slide__indicator--active');
     };
     proto.inActive = function() {
-        this.dom.classList.remove('carousel__slide__indicator--active');
+        this.$dom.removeClass('carousel__slide__indicator--active');
     };
 
     //=============\
@@ -162,7 +164,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     proto = Carousel.prototype;
     proto.init = function() {
         var _this = this;
-        var $carousel = $(_this.dom);
+        var $carousel = _this.$dom;
         var conf = _this.conf;
         var slideSwitcher = function(event) {
             var $target = $(event.currentTarget);
