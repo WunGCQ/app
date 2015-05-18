@@ -1,11 +1,35 @@
 .site-header {
-    @extend .ptb--extra;
-    height: $site-header-height;
-    border-bottom: 1px dashed #ccc;
-    background-color: transparentize($sky-blue, 0.8);
     color: white;
+    background-color: $public-header_bgc;
+    &__logo {
+        width: $public-logo_width;
+    }
+    &__row {
+    }
+    &__nav {
+
+    }
+    &--blue {
+        background-color: $public-header_bgc;
+    }
+    &__main-nav {
+        height: $public-header__main-nav_height;
+    }
+    &__sub-nav {
+        //height: $public-header__sub-nav_height;
+        line-height: $public-header__sub-nav_height;
+        background-color: $public-header__sub-nav_bgc; 
+    }
+    &__link-group {
+    }
     &__link {
-        color: $default-color;
-        display: inline-block;
+        @extend .inline-block;
+        @extend .link;
+        @extend .plr--extra;
+        color: $public-header__link_c;
+        @include link-hover(null, $public-header__link--hover_bgc);
+        &--flat {
+            @include link-hover(null, transparent);
+        }
     }
 }

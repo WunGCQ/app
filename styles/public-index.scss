@@ -1,10 +1,23 @@
 @charset 'utf-8';
 
+
 // import third-party libs
 @import 'configs/_imports';
 
+
+// app related configs
 @import 'configs/_colors';
 @import 'configs/_sizes';
+// default value of $vars for theming
+@import 'configs/_vars';
+
+
+// import utils
+@import 'utils/_mixins';
+
+
+// import spec theme setting
+@import 'themes/_theme';
 
 
 // import modules
@@ -13,6 +26,7 @@
 @import 'modules/helpers/_position';
 @import 'modules/helpers/_text';
 @import 'modules/helpers/_visibility';
+@import 'modules/_link';
 
 
 @import 'base/_tags';
@@ -20,4 +34,4 @@
 @import 'partials/_site-footer';
 @import 'partials/_carousel';
 
-@import 'pages/_index';
+@import 'pages/_public-index';

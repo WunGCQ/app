@@ -1,7 +1,7 @@
-;'use strict';
+'use strict';
 
 exports.db = {
-    connectionUrl: 'mongodb://localhost:27017/izone',
+    connectionUrl: 'mongodb://localhost:27017/ecpkn',
     options:{
         server:{
             socketOptions:{

@@ -1,6 +1,10 @@
 
 .abs{
   position: absolute;
+  &--center {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
 }
 .fixed{
     position: fixed;
@@ -20,8 +24,35 @@
         bottom: 0;
     }
 }
+.float{
+    &--left {
+        float: left
+    }
+    &--right {
+        float: right;
+    }
+}
 .rel{
     position: relative;
+}
+.inline-block {
+    display: inline-block;
+    vertical-align: top;
+}
+.table {
+    display: table;
+    &-row {
+        display: table-row;
+    }
+    &-cell {
+        display: table-cell;
+        &--top {
+            vertical-align: top;
+        }
+        &--middle {
+            vertical-align: middle;
+        }
+    }
 }
 
 // left right full top bottom

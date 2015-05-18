@@ -1,0 +1,44 @@
+/**
+ * default $var related for theming
+ * --------------------------------------------
+ * naming: item-name__sub-item-name--state-name_prop-name
+ */
+
+// commons
+$row--single_line-height:               40px !default;
+
+// admin side menu
+$admin-side-menu_bgc:                   $oxford-blue !default;
+$admin-side-menu--dark_bgc:             $oxford-blue !default;
+$admin-side-menu__item--hover_bgc:      tint($admin-side-menu_bgc, 12%) !default;
+$admin-side-menu__item_bc:              tint($admin-side-menu_bgc, 36%) !default;
+$admin-side-menu_width:                 46px !default;
+$admin-side-menu__item_line-height:     44px !default;
+$admin-news-list__title-line-height:    44px !default;
+$admin-news-list__item--hover_bgc:      #eee !default;
+$admin-news-list_width:                 24% !default;
+
+// public header & footer
+$public-header_bgc:                     $primary-blue !default;
+$public-header--blue_bgc:               $primary-blue !default;
+$public-logo_width:                     260px !default;
+$public-header__link_c:                 $dark-white !default;
+$public-header__link--hover_c:          shade($public-header_bgc, 8%) !default;
+$public-header__link--hover_bgc:        shade($public-header_bgc, 16%) !default;
+$public-header__sub-nav_bgc:            $light-dark !default;
+$public-header__main-nav_height:        100px !default;
+$public-header__sub-nav_height:         42px !default;
+$public-footer_height:                  90px !default;
+$public-footer--dark_bgc:               $light-dark !default;
+
+// public news page
+$public-news-main-wrapper_height:       calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
+$public-news__height:                   600px !default;
+$public-latest-news_height:             600px !default;
+$public-latest-news_width:              300px !default;
+$public-news-wrapper_width:             calc(100% - #{$public-latest-news_width} - 60px);
+
+// components
+$tooltip--dark_bgc:                     rgba(0,0,0,0.8) !default;
+$tooltip__arrow_size:                   8px !default;
+

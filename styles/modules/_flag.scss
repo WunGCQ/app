@@ -1,0 +1,11 @@
+.flag {
+    @extend .pl--lg;
+    @extend .ptb--lg;
+    &--left {
+        border-left: 2px solid;
+    }
+    &--primary {
+        border-color: $primary-blue;
+    }
+
+}

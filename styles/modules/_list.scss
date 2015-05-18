@@ -1,0 +1,8 @@
+.list {
+    @extend .pl--0;
+    &__item {
+        display: block;
+        @extend .ptb--lg;
+        @extend .pl;
+    }
+}

@@ -14,3 +14,10 @@ html,
 body {
     @extend .shape--cover;
 }
+
+* {
+    box-sizing: border-box;
+}
+html body input[disabled]{
+    cursor: not-allowed;
+}

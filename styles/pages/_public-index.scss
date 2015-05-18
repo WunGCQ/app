@@ -8,6 +8,11 @@ body {
     background-attachment: fixed;
 }
 
+.site-header{
+    height: $site-header-height;
+    border-bottom: 1px dashed #ccc;
+    background-color: transparentize($sky-blue, 0.8);
+}
 .news-carousel-box {
     @extend .row--full;
     @include padding(4% 5%);    

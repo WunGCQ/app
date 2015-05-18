@@ -1,5 +1,5 @@
 {
-  "name": "auto-cms",
+  "name": "ecpkn",
   "version": "0.0.0",
   "authors": [
     "jl- <i.dragonxx@gmail.com>"
@@ -24,8 +24,9 @@
     "velocity": "~1.2.2",
     "bourbon": "~4.2.2",
     "neat": "~1.7.2",
-    "kissy": "1.4.8",
-    "tweenjs": "*"
+    "tweenjs": "*",
+    "qwest": "~1.5.11",
+    "axios": "~0.5.4"
   },
   "devDependencies": {}
 }

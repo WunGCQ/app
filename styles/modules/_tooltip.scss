@@ -1,0 +1,32 @@
+.tooltip-container {
+    @extend .abs;
+    padding: $tooltip__arrow-size;
+    opacity: 0;
+}
+.tooltip__arrow {
+    @extend .abs;
+    &--right {
+        left: $tooltip__arrow_size/2;
+        top: calc(50% - #{$tooltip__arrow_size/2});
+        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, left);
+    }
+    &--left {
+        left: 0px;
+        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, left);
+    }
+    &--top {
+        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, up);
+    }
+    &--bottom {
+        top: $tooltip__arrow_size/2;
+        left: calc(50% - #{$tooltip__arrow_size/2});
+        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, up);
+    }
+}
+.tooltip__content {
+    background-color: $tooltip--dark_bgc;
+    color: white;
+    @extend .ptb--sm;
+    @extend .plr;
+    border-radius: 4px;
+}

@@ -18,6 +18,16 @@
     "define": true,
     "window": true,
     "module": true,
-    "TWEEN": true
+    "TWEEN": true,
+    "axios": true,
+    "UE": true,
+    "document": true,
+    "describe": true,
+    "it": true,
+    "before": true,
+    "casper": true,
+    "console": true,
+    "should": true,
+    "expect": true
   }
 }
