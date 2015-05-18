@@ -1,0 +1,19 @@
+.editor {
+    @extend .inline-block;
+    @extend .column--full;
+    @extend .ptb;
+    @extend .plr;
+    width: calc(100% - #{$side-menu-width} - #{$admin-news-list-width});
+}
+.ueditor-action-bar {
+    height: $ueditor-action-bar-height;
+    background-color: $dark-white;
+}
+#ueditor-container {
+    height: calc(100% - #{$ueditor-action-bar-height});
+    text-align: center;
+}
+.edui-default.edui-editor {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}

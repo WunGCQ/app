@@ -1,0 +1,28 @@
+extends ../base.jade
+
+block title
+    title news
+
+
+block append commonLinks
+    link(rel="stylesheet", href="/statics/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/statics/fontawesome/css/font-awesome.min.css")
+    link(rel="stylesheet", href="//g.alicdn.com/kissy/k/5.0.1/overlay/assets/dpl.css")
+
+block append headScripts
+    script(src='//g.alicdn.com/kissy/k/5.0.1/seed.js' data-config='{combine:true}')
+
+block content
+
+    div.side-menu.side-menu--dark.rel
+        nav.side-menu__nav--top
+            a.link.link--light.side-menu__item.fa.fa-home(href="", data-type="tooltip", data-content=LANG.sections.home, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-pencil(href="" data-type="tooltip", data-content=LANG.sections.news, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-graduation-cap(href="" data-type="tooltip", data-content=LANG.sections.faculty, data-placement="right")
+        nav.side-menu__nav--bottom
+            a.link.link--light.side-menu__item.fa.fa-cogs(href="", data-type="tooltip", data-content=LANG.actions.setting, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-sign-out(href="", data-type="tooltip", data-content=LANG.actions.signout, data-placement="right")
+block append scripts
+    script(src="/statics/axios/dist/axios.min.js")
+    script(src="/statics/scripts/components/axios-interceptors.min.js")
+

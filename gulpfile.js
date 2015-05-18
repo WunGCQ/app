@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-
+var spawn = require('child_process').spawn;
 var plugins = require('gulp-load-plugins')({lazy: false});
 
 // for dev; remove `lazy: false` before released
@@ -24,7 +24,9 @@ var config = {
     },
     test: {
         root: 'test',
-        files: 'test/**/*-spec.js'
+        files: 'test/**/*-spec.js',
+        casperFiles: ['test/components/tooltip-casper.js'],
+        reporter: 'spec'
     },
     livereload: {
 
@@ -69,14 +71,25 @@ gulp.task('build', function(){
 
 });
 
-
-// mocha test task
-gulp.task('test', function(){
+gulp.task('plainTest', function(){
     return gulp.src(config.test.files)
         .pipe(plugins.mocha({
             reporter: 'spec'
         }));
 });
+gulp.task('casperTest', function(){
+    var casperChild = spawn('mocha-casperjs', config.test.casperFiles.concat(['--reporter=' + config.test.reporter]));
+    var result = '';
+    casperChild.stdout.on('data', function (data) {
+        result += data;
+    });
+    casperChild.on('close', function (code) {
+        console.log(result.toString());
+    });
+});
+
+// mocha test task
+gulp.task('test',['plainTest']);
 
 // watch file changes, then run tasks
 gulp.task('watch', function(){

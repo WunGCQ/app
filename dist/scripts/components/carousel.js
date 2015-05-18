@@ -27,8 +27,13 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
      *     /////////// TODO: support sublayer animation
      *
      */
-    var reqAnimFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-    var arrProto = Array.prototype;
+    var reqAnimFrame = window.requestAnimationFrame ||
+        window.mozRequestAnimationFrame || 
+        window.webkitRequestAnimationFrame || 
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 1000/60);
+        };
     var proto;
 
     // TODO: use a prefixer plugin instead: prefixfree
@@ -44,16 +49,16 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     function Carousel(dom, conf) {
         var $dom =  this.$dom = dom === 'string' ? $(dom) : $(dom);
         this.conf = conf || Carousel.CONF;
+        this.indicators = [];
+        this.slides = [];
 
         var $slides = $dom.children('.carousel__slides-wrapper').children();
         var $indicators = $dom.children('.carousel__indicators-wrapper').children();
 
-        this.indicators = arrProto.map.call($indicators, function(indicator) {
-            return new Indicator(indicator, this);
-        }, this);
-        this.slides = arrProto.map.call($slides, function(slide, i) {
-            return new Slide(slide, this.indicators[i], this);
-        }, this);
+        for (var i = 0, slidesCount = $slides.length; i < slidesCount; i++) {
+            this.indicators.push(new Indicator($indicators[i], this));
+            this.slides.push(new Slide($slides[i], this.indicators[i], this));
+        }
 
         this.currentIndex = 0;
         this.init();
@@ -63,6 +68,7 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         var $dom = this.$dom = $(dom);
         this.carousel = carousel;
         this.indicator = indicator;
+        this.subLayers = [];
 
         // set the first slide as default
         if ($dom.index() === 0) {
@@ -73,9 +79,9 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
         $dom.css('opacity', 1);
 
         var $subLayers = $dom.children('.carousel__slide__sublayer');
-        this.subLayers = arrProto.map.call($subLayers, function(subLayer) {
-            return new SubLayer(subLayer);
-        });
+        for (var i = 0, subLayersCount = $subLayers.length; i < subLayersCount; i++) {
+            this.subLayers.push(new SubLayer($subLayers[i]));
+        }
     }
 
 
@@ -153,10 +159,10 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
     // Indicator.prototype
     proto = Indicator.prototype;
     proto.active = function() {
-        this.$dom.addClass('carousel__slide__indicator--active');
+        //this.$dom.addClass('carousel__slide__indicator--active');
     };
     proto.inActive = function() {
-        this.$dom.removeClass('carousel__slide__indicator--active');
+        //this.$dom.removeClass('carousel__slide__indicator--active');
     };
 
     //=============\
@@ -170,8 +176,8 @@ define('carousel', ['node', 'promise'], function(require, exports, module) {
             var $target = $(event.currentTarget);
             var index = $target.index();
             if (index !== _this.currentIndex) {
-                _this.pause();
                 if (_this.promise) {
+                    _this.pause();
                     _this.promise.then(function(){
                         _this.go(index);
                     });

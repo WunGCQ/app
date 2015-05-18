@@ -1,7 +1,7 @@
-;'use strict';
+'use strict';
 
-var config = require('../configs/config');
-var ueditorConf = require('../configs/ueditor');
+var config = require('../../configs/config');
+var ueditorConf = require('../../configs/ueditor');
 var jwt = require('express-jwt');
 var router = require('express').Router();
 

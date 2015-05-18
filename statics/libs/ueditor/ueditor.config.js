@@ -54,6 +54,7 @@
         //,themePath:URL +"themes/"
 
         //,zIndex : 900     //编辑器层级的基数,默认是900
+        ,zIndex : 1     //编辑器层级的基数,默认是900
 
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
@@ -87,9 +88,10 @@
 
         //启用自动保存
         //,enableAutoSave: true
+        ,enableAutoSave: false
         //自动保存间隔时间， 单位ms
         //,saveInterval: 500
-        ,saveInterval: 1000
+        // ,saveInterval: 1000
 
         //,fullscreen : false //是否开启初始化时即全屏，默认关闭
 
@@ -191,6 +193,7 @@
         //autoHeightEnabled
         // 是否自动长高,默认true
         //,autoHeightEnabled:true
+        ,autoHeightEnabled: false
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)

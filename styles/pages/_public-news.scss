@@ -1,0 +1,34 @@
+.news-wrapper{
+    height: 100%;
+    width: $public-news-wrapper_width;
+}
+.latest-news {
+    &-container {
+        max-height: $public-latest-news_height;
+        width: $public-latest-news_width;
+        height: 100%;
+        border-radius: 4px;
+        box-shadow: 0 0 1px #cdcdcd;
+        &__title {
+            @extend .mtb--0;
+            @extend .pr--lg;
+        }
+    }
+}
+.news-list {
+    @extend .pl--0;
+    li {
+        list-style-type: square;
+        list-style-position: inside;
+    }
+    &__item {
+        @extend .ptb;
+        @extend .pl;
+        a {
+            display: block;
+        }
+    }
+}
+.search-input {
+    
+}

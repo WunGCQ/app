@@ -1,0 +1,14 @@
+.link {
+    text-decoration: none;
+    @include link-decoration('hover', underline);
+    &--light {
+        @include link-color();
+    }
+    &--flat {
+        @extend .plr--extra;
+        @extend .ptb--lg;
+    }
+    &__more {
+        font-size: 12px;
+    }
+}

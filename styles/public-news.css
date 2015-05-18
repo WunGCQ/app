@@ -1,3 +1,28 @@
+/**
+ * default $var related for theming
+ * --------------------------------------------
+ * naming: item-name__sub-item-name--state-name_prop-name
+ */
+/* mixin utils
+=============================== */
+/**
+ * state color for <a>
+ * @param  {colorType} $link:    white         color value for :link
+ * @param  {colorType} $visited: $link         color value for :visited
+ * @param  {colorType} $hover:   $link         color value for :hover
+ * @param  {colorType} $actived: $link         color value for :actived
+ */
+/**
+ * hover bgc for <a>
+ * @param  {[type]} $link:    white         [description]
+ * @param  {[type]} $visited: $link         [description]
+ * @param  {[type]} $hover:   $link         [description]
+ * @param  {[type]} $actived: $link         [description]
+ * @return {[type]}           [description]
+ */
+/**
+ * color for themes
+ */
 /* ====================================
  * handy width|height helpers
  * ===================================== */
@@ -7,7 +32,7 @@
 .h-0 {
   height: 0%; }
 
-.w-1, .carousel__indicators-wrapper {
+.w-1 {
   width: 10%; }
 
 .h-1 {
@@ -19,7 +44,7 @@
 .h-2 {
   height: 20%; }
 
-.w-3, .news-box {
+.w-3 {
   width: 30%; }
 
 .h-3 {
@@ -55,16 +80,16 @@
 .h-8 {
   height: 80%; }
 
-.w-9, .carousel__slides-wrapper {
+.w-9 {
   width: 90%; }
 
 .h-9 {
   height: 90%; }
 
-.w-10, .row--full, .shape--cover, html, body, .news-carousel-box {
+.w-10, .row--full, .shape--cover, html, body {
   width: 100%; }
 
-.h-10, .column--full, .shape--cover, html, body, .carousel__slides-wrapper, .news-box, .carousel {
+.h-10, .column--full, .shape--cover, html, body {
   height: 100%; }
 
 .col-0 {
@@ -371,28 +396,53 @@
   -ms-flex: 10;
   flex: 10; }
 
-.abs, .carousel__slide {
+.abs {
   position: absolute; }
+  .abs--center {
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%); }
 
 .fixed {
   position: fixed; }
 
-.abs--top, .carousel__slide, .fixed--top {
+.abs--top, .fixed--top {
   top: 0; }
-.abs--left, .carousel__slide, .fixed--left {
+.abs--left, .fixed--left {
   left: 0; }
 .abs--right, .fixed--right {
   right: 0; }
 .abs--bottom, .fixed--bottom {
   bottom: 0; }
 
-.rel, .carousel__slides-wrapper {
+.float--left {
+  float: left; }
+.float--right {
+  float: right; }
+
+.rel {
   position: relative; }
+
+.inline-block, .site-header__link {
+  display: inline-block;
+  vertical-align: top; }
+
+.table {
+  display: table; }
+  .table-row {
+    display: table-row; }
+  .table-cell {
+    display: table-cell; }
+    .table-cell--top {
+      vertical-align: top; }
+    .table-cell--middle {
+      vertical-align: middle; }
 
 /**
  * padding and margin helper
  * =============================== */
-.pl--0, .plr--0 {
+.pl--0, .plr--0, .list, .news-list {
   padding-left: 0; }
 
 .ml--0, .mlr--0 {
@@ -407,13 +457,13 @@
 .pt--0, .ptb--0 {
   padding-top: 0; }
 
-.mt--0, .mtb--0 {
+.mt--0, .mtb--0, .latest-news-container__title {
   margin-top: 0; }
 
 .pb--0, .ptb--0 {
   padding-bottom: 0; }
 
-.mb--0, .mtb--0 {
+.mb--0, .mtb--0, .latest-news-container__title {
   margin-bottom: 0; }
 
 .pl--sm, .plr--sm {
@@ -440,7 +490,7 @@
 .mb--sm, .mtb--sm {
   margin-bottom: 3px; }
 
-.pl, .plr {
+.pl, .plr, .list__item, .news-list__item {
   padding-left: 6px; }
 
 .ml, .mlr {
@@ -452,80 +502,115 @@
 .mr, .mlr {
   margin-right: 6px; }
 
-.pt, .ptb {
+.pt, .ptb, .news-list__item {
   padding-top: 6px; }
 
 .mt, .mtb {
   margin-top: 6px; }
 
-.pb, .ptb {
+.pb, .ptb, .news-list__item {
   padding-bottom: 6px; }
 
 .mb, .mtb {
   margin-bottom: 6px; }
 
-.pl--lg, .plr--lg {
+.pl--lg, .plr--lg, .flag {
   padding-left: 12px; }
 
 .ml--lg, .mlr--lg {
   margin-left: 12px; }
 
-.pr--lg, .plr--lg {
+.pr--lg, .plr--lg, .latest-news-container__title {
   padding-right: 12px; }
 
 .mr--lg, .mlr--lg {
   margin-right: 12px; }
 
-.pt--lg, .ptb--lg {
+.pt--lg, .ptb--lg, .link--flat, .list__item, .flag {
   padding-top: 12px; }
 
 .mt--lg, .mtb--lg {
   margin-top: 12px; }
 
-.pb--lg, .ptb--lg {
+.pb--lg, .ptb--lg, .link--flat, .list__item, .flag {
   padding-bottom: 12px; }
 
 .mb--lg, .mtb--lg {
   margin-bottom: 12px; }
 
-.pl--extra, .plr--extra {
+.pl--extra, .plr--extra, .link--flat, .site-header__link {
   padding-left: 24px; }
 
 .ml--extra, .mlr--extra {
   margin-left: 24px; }
 
-.pr--extra, .plr--extra {
+.pr--extra, .plr--extra, .link--flat, .site-header__link {
   padding-right: 24px; }
 
 .mr--extra, .mlr--extra {
   margin-right: 24px; }
 
-.pt--extra, .ptb--extra, .site-header {
+.pt--extra, .ptb--extra, .site-footer {
   padding-top: 24px; }
 
 .mt--extra, .mtb--extra {
   margin-top: 24px; }
 
-.pb--extra, .ptb--extra, .site-header {
+.pb--extra, .ptb--extra, .site-footer {
   padding-bottom: 24px; }
 
 .mb--extra, .mtb--extra {
   margin-bottom: 24px; }
 
-.text--center {
+.text--center, .site-footer {
   text-align: center; }
 
 .box-x--auto, .box--auto {
   overflow-x: auto; }
 
-.box-x--clip, .box--clip, .carousel, .carousel__slides-wrapper, .carousel__slide {
+.box-x--clip, .box--clip {
   overflow-x: hidden; }
 
 .box-y--auto, .box--auto {
   overflow-y: auto; }
 
-.box-y--clip, .box--clip, .carousel, .carousel__slides-wrapper, .carousel__slide {
+.box-y--clip, .box--clip {
   overflow-y: hidden; }
+
+.link, .site-header__link {
+  text-decoration: none; }
+  .link:hover, .site-header__link:hover {
+    text-decoration: underline; }
+  .link--light:link {
+    color: white; }
+  .link--light:visited {
+    color: white; }
+  .link--light:hover {
+    color: white; }
+  .link--light:active {
+    color: white; }
+  .link__more {
+    font-size: 12px; }
+
+.list__item {
+  display: block; }
+
+.input {
+  outline: none;
+  border: none;
+  border-radius: 4px; }
+  .input--light {
+    color: #0e151b; }
+  .input:focus {
+    box-shadow: 0 0 8px 2px #428bca; }
+
+.flag--left {
+  border-left: 2px solid; }
+.flag--primary {
+  border-color: #005faf; }
+
+.row--single {
+  line-height: 40px; }
 
 img {
   max-width: 100%; }
@@ -539,14 +624,30 @@ code {
 pre > code {
   display: block !important; }
 
+* {
+  box-sizing: border-box; }
+
+html body input[disabled] {
+  cursor: not-allowed; }
+
 .site-header {
-  height: 120px;
-  border-bottom: 1px dashed #ccc;
-  background-color: rgba(85, 172, 238, 0.2);
-  color: white; }
+  color: white;
+  background-color: #005faf; }
+  .site-header__logo {
+    width: 260px; }
+  .site-header--blue {
+    background-color: #005faf; }
+  .site-header__main-nav {
+    height: 100px; }
+  .site-header__sub-nav {
+    line-height: 42px;
+    background-color: #0e151b; }
   .site-header__link {
-    color: #0c0c0d;
-    display: inline-block; }
+    color: #f2f5f9; }
+    .site-header__link:hover {
+      background-color: #004f93; }
+    .site-header__link--flat:hover {
+      background-color: transparent; }
 
 .site-footer {
   border-top: 1px dashed #ccc;
@@ -556,53 +657,27 @@ pre > code {
   .site-footer__link {
     color: #0c0c0d;
     display: inline-block; }
+  .site-footer--dark {
+    background-color: #0e151b; }
 
-/**
- * site carousel
- */
-.carousel {
-  border-radius: 6px; }
-  .carousel__slides-wrapper {
-    height: 600px;
-    display: inline-block; }
-  .carousel__slide {
-    width: 100%;
-    max-width: 100%;
-    max-height: 100%;
-    min-height: 400px;
-    height: 400px;
-    opacity: 0;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden; }
-    .carousel__slide__indicator {
-      opacity: 0.6; }
-      .carousel__slide__indicator--active {
-        opacity: 1;
-        border: 1px solid white; }
-  .carousel__indicators-wrapper {
-    display: inline-block;
-    vertical-align: top; }
+.main-wrapper__news {
+  min-height: calc(100% - 100px - 42px - 90px);
+  padding: 4%; }
 
-/* ========================
- * index page
- * =============================== */
-body {
-  background: #fff url('/statics/images/bg2.jpg');
-  background-size: cover;
-  background-attachment: fixed; }
+.news-wrapper {
+  height: 100%;
+  width: calc(100% - 300px - 60px); }
 
-.news-carousel-box {
-  padding: 4% 5%;
-  height: calc(100% - 120px - 90px); }
+.latest-news-container {
+  max-height: 600px;
+  width: 300px;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 1px #cdcdcd; }
 
-.news-box {
-  border: 1px dashed #ccc;
-  display: inline-block; }
+.news-list li {
+  list-style-type: square;
+  list-style-position: inside; }
+.news-list__item a {
+  display: block; }
 
-.carousel {
-  width: 68%;
-  margin-left: 2%;
-  border: 1px dashed #ccc;
-  display: inline-block; }

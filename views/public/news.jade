@@ -1,0 +1,47 @@
+extend ../base.jade
+
+block title
+    title=news.title
+
+block links
+    link(rel = 'stylesheet', href = '/statics/styles/public-news.min.css')
+
+
+block content
+    div.site-header.site-header--blue
+        div.site-header__row.site-header__main-nav.ptb--lg.plr--extra.table.row--full
+            img.site-header__logo(src="/statics/images/logo.jpg").table-cell
+            div.site-header__link-group.table-cell.table-cell--middle
+                a.site-header__link.link--flat(href="#")=LANG.sections.overview
+                a.site-header__link.link--flat(href="#")=LANG.sections.news
+                a.site-header__link.link--flat(href="#")=LANG.sections.faculty
+                a.site-header__link.link--flat(href="#")=LANG.sections.party
+                a.site-header__link.link--flat(href="#")=LANG.sections.cooperation
+            div.site-header__link-group.table-cell.table-cell--middle
+                a.link.link--flat.link--light(href="?lang=en") ENGLISH
+                a.link.link--flat.link--light(href="?lang=zh") 中文
+        div.site-header__row.site-header__sub-nav.rel.plr--lg
+            a.site-header__link.site-header__link--flat.link--light(href="#")=LANG.sections.news
+            a.site-header__link.site-header__link--flat.link--light(href="#")=LANG.sections.announcement
+            input.input.input--light.w-2.abs.abs--center.abs--right.mr--extra.ptb.plr(type="search" placeholder=LANG.actions.search)
+
+    div.main-wrapper__news.row--full.plr--extra.ptb--extra
+        article.news-wrapper.h-10.ptb--extra.plr--extra.inline-block
+            header
+                h2.news-title.text--center=news.title
+            section#news-content!=news.content
+        aside.latest-news-container.inline-block.w-3.float--right
+            h4.row--single.latest-news-container__title.pl--lg.flag--left.flag--primary=LANG.news.latest
+                a.float--right.link__more(href="#")=LANG.actions.more
+            ul.news-list
+                each news in list
+                    li.news-list__item
+                        a.link(data-id=news._id, href=""+news._id)=news.title
+    div.site-footer.site-footer--dark
+        a.link.link--flat.link--light(href="#")=LANG.sections.about
+
+block scripts
+    script(src="/statics/libs/ueditor/ueditor.parse.min.js")
+    script.
+        uParse('#news-content');
+

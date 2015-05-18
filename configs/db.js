@@ -1,4 +1,4 @@
-;'use strict';
+'use strict';
 
 var mongoose = require('mongoose'),
     config = require('./config');
@@ -37,6 +37,6 @@ process.on('uncaughtException', function(err) {
 
 
 exports.start = function(){
-    mongoose.connect(config.db.connectionUrl,config.db.options);
+    mongoose.connect(config.db.connectionUrl, config.db.options);
 };
 

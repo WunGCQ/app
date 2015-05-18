@@ -1,5 +1,5 @@
 doctype html
-html(lang="zh-cmn-Hans")
+html(lang=LANG.LANG)
     head
         block title
             title= document
@@ -8,17 +8,23 @@ html(lang="zh-cmn-Hans")
             meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
         block commonLinks
-            link(rel = 'stylesheet', href = '/statics/normalize.css/normalize.css')
-            link(rel = 'stylesheet', href = '/statics/bootstrap/dist/css/bootstrap.css')
+            link(rel="shortcut icon", href="/statics/assets/favicon.ico")
+            link(rel="bookmark", href="/favicon.ico")
+            link(rel="stylesheet", href = "/statics/normalize.css/normalize.css")
+
         block links
             
         block styles
 
 
         block headScripts
+            script.
+                var LANG_CODE = '#{LANG.LANG_CODE}';
 
 
     body
+    
         block content
+
         block scripts
 

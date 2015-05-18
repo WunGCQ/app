@@ -1,0 +1,14 @@
+.input{
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    &--flat {
+
+    }
+    &--light {
+        color: $light-dark;
+    }
+    &:focus {
+        box-shadow: 0 0 8px 2px $true-blue;
+    }
+}

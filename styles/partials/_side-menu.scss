@@ -1,0 +1,25 @@
+.side-menu {
+    @extend .column--full;
+    @extend .inline-block;
+    &--dark {
+        background-color: $admin-side-menu--dark_bgc;
+        color: white;
+    }
+    &__item {
+        @extend .text--center;
+        width: $admin-side-menu_width;
+        display: block;
+        font-size: 1.2em;
+        line-height: $admin-side-menu__item-line-height;
+        @include link-hover(null, $admin-side-menu__item--hover_bgc);
+        &:nth-of-type(n+2){
+            border-top: 1px dashed $admin-side-menu__item_bc;
+        }
+    }
+    &__nav {
+        &--bottom {
+            @extend .abs;
+            @extend .abs--bottom;
+        }
+    }
+}

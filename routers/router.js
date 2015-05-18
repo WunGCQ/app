@@ -1,9 +1,6 @@
-;'use strict';
+'use strict';
 
-// public pages
-exports.index = require('./index');
+exports.public = require('./public');
 
-
-// admin pages
-exports.editor = require('./editor');
+exports.admin = require('./admin');
 

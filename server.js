@@ -1,13 +1,16 @@
-;'use strict';
+'use strict';
 
 var config = require('./configs/config');
+var db = require('./configs/db');
 var express = require('express');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var app = express();
 var router = require('./routers');
+var I18N = require('./configs/lang');
 
-
+// connect database
+db.start();
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -41,11 +44,21 @@ app.use('/statics',express.static(__dirname + '/dist'));
 
 // bussiness logic routes
 //============================
+// lang route
+app.all('*', function(req,res,next){
+    var lang = req.query.lang || req.body.lang || 'zh';
+    res.locals.LANG = I18N[lang];
+    next();
+});
 // public pages
-app.use('/', router.index);
+app.use('/', router.public.index);
+app.use('/news', router.public.news);
 
 // admin pages
-app.use('/admin/editor', router.editor);
+app.use('/admin/editor', router.admin.editor);
+app.use('/admin/news', router.admin.news);
+
+//
 
 
 app.listen(config.server.port);
