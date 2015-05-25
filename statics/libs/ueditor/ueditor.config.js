@@ -22,7 +22,7 @@
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
 
     var SERVER_ROOT = 'http://ecpkn.com';
-
+    
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -32,12 +32,13 @@
         UEDITOR_HOME_URL: URL
 
         // 服务器统一请求接口路径
-        //, serverUrl: URL + "config"
-        , serverUrl: SERVER_ROOT + "/admin/editor/config"
+        // , serverUrl: URL + "php/controller.php"
+        // , serverUrl: SERVER_ROOT + "/admin/editor/config"
+        , serverUrl: SERVER_ROOT + "/admin/attachments"
 
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         
-        , toolbars: [["fullscreen","source","undo","redo","insertunorderedlist","insertorderedlist","unlink","link","searchreplace","preview","simpleupload","insertimage","attachment","date","time","horizontal","anchor","blockquote","bold","italic","underline","strikethrough","forecolor","backcolor","superscript","subscript","justifyleft","justifycenter","justifyright","justifyjustify","fontsize","imagenone","imageleft","imageright","imagecenter","inserttable","deletetable","splittocells","mergecells","insertcol","insertrow","deletecol","deleterow","insertparagraphbeforetable"]]
+        , toolbars: [["fullscreen","source","undo","redo","insertunorderedlist","insertorderedlist","unlink","link","searchreplace","preview","help","|","simpleupload","insertimage","pagebreak","insertvideo","attachment","insertframe","date","time","wordimage","horizontal","anchor","spechars","blockquote","pasteplain","insertcode","template","background","bold","italic","underline","fontborder","strikethrough","forecolor","superscript","subscript","justifyleft","justifycenter","justifyright","justifyjustify","indent","removeformat","formatmatch","autotypeset","customstyle","paragraph","rowspacingbottom","rowspacingtop","lineheight","fontfamily","fontsize","imagenone","imageleft","imageright","imagecenter","backcolor","inserttable","deletetable","mergeright","mergedown","splittocols","splittorows","splittocells","mergecells","insertcol","insertrow","deletecol","deleterow","insertparagraphbeforetable","charts"]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
         //    'anchor':'', 'undo':''
@@ -78,6 +79,10 @@
 
         //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑器内部引入一个css文件
 
+        //indentValue
+        //首行缩进距离,默认是2em
+        //,indentValue:'2em'
+
         //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
         //,initialFrameHeight:320  //初始化编辑器高度,默认320
         ,initialFrameHeight:420  //初始化编辑器高度,默认320
@@ -91,11 +96,12 @@
         ,enableAutoSave: false
         //自动保存间隔时间， 单位ms
         //,saveInterval: 500
-        // ,saveInterval: 1000
 
         //,fullscreen : false //是否开启初始化时即全屏，默认关闭
 
         //,imagePopup:true      //图片操作的浮层开关，默认打开
+
+        //,autoSyncData:true //自动同步编辑器要提交的数据
 
         //粘贴只保留标签，去除标签所有属性
         //,retainOnlyLabelPasted: false
@@ -164,12 +170,64 @@
 
         //,autoTransWordToList:false  //禁止word中粘贴进来的列表自动变成列表标签
 
+        //fontfamily
+        //字体设置 label留空支持多语言自动切换，若配置，则以配置值为准
+        //,'fontfamily':[
+        //    { label:'',name:'songti',val:'宋体,SimSun'},
+        //    { label:'',name:'kaiti',val:'楷体,楷体_GB2312, SimKai'},
+        //    { label:'',name:'yahei',val:'微软雅黑,Microsoft YaHei'},
+        //    { label:'',name:'heiti',val:'黑体, SimHei'},
+        //    { label:'',name:'lishu',val:'隶书, SimLi'},
+        //    { label:'',name:'andaleMono',val:'andale mono'},
+        //    { label:'',name:'arial',val:'arial, helvetica,sans-serif'},
+        //    { label:'',name:'arialBlack',val:'arial black,avant garde'},
+        //    { label:'',name:'comicSansMs',val:'comic sans ms'},
+        //    { label:'',name:'impact',val:'impact,chicago'},
+        //    { label:'',name:'timesNewRoman',val:'times new roman'}
+        //]
+
         //fontsize
         //字号
         //,'fontsize':[10, 11, 12, 14, 16, 18, 20, 24, 36]
 
+        //paragraph
+        //段落格式 值留空时支持多语言自动识别，若配置，则以配置值为准
+        //,'paragraph':{'p':'', 'h1':'', 'h2':'', 'h3':'', 'h4':'', 'h5':'', 'h6':''}
+
+        //rowspacingtop
+        //段间距 值和显示的名字相同
+        //,'rowspacingtop':['5', '10', '15', '20', '25']
+
+        //rowspacingBottom
+        //段间距 值和显示的名字相同
+        //,'rowspacingbottom':['5', '10', '15', '20', '25']
+
+        //lineheight
+        //行内间距 值和显示的名字相同
+        //,'lineheight':['1', '1.5','1.75','2', '3', '4', '5']
+
+        //customstyle
+        //自定义样式，不支持国际化，此处配置值即可最后显示值
+        //block的元素是依据设置段落的逻辑设置的，inline的元素依据BIU的逻辑设置
+        //尽量使用一些常用的标签
+        //参数说明
+        //tag 使用的标签名字
+        //label 显示的名字也是用来标识不同类型的标识符，注意这个值每个要不同，
+        //style 添加的样式
+        //每一个对象就是一个自定义的样式
+        //,'customstyle':[
+        //    {tag:'h1', name:'tc', label:'', style:'border-bottom:#ccc 2px solid;padding:0 4px 0 0;text-align:center;margin:0 0 20px 0;'},
+        //    {tag:'h1', name:'tl',label:'', style:'border-bottom:#ccc 2px solid;padding:0 4px 0 0;margin:0 0 10px 0;'},
+        //    {tag:'span',name:'im', label:'', style:'font-style:italic;font-weight:bold'},
+        //    {tag:'span',name:'hi', label:'', style:'font-style:italic;font-weight:bold;color:rgb(51, 153, 204)'}
+        //]
+
         //快捷菜单
-        //,shortcutMenu:["fontfamily", "fontsize", "bold", "italic", "underline", "forecolor", "backcolor", "insertorderedlist", "insertunorderedlist"]
+        ,shortcutMenu:["fontfamily","fontsize","bold","italic","underline","forecolor","backcolor","insertorderedlist","insertunorderedlist"]
+
+        //elementPathEnabled
+        //是否启用元素路径，默认是显示
+        //,elementPathEnabled : true
 
         //wordCount
         //,wordCount:true          //是否开启字数统计
@@ -183,6 +241,13 @@
         //点击tab键时移动的距离,tabSize倍数，tabNode什么字符做为单位
         //,tabSize:4
         //,tabNode:'&nbsp;'
+
+        //removeFormat
+        //清除格式时可以删除的标签和属性
+        //removeForamtTags标签
+        //,removeFormatTags:'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,span,strike,strong,sub,sup,tt,u,var'
+        //removeFormatAttributes属性
+        //,removeFormatAttributes:'class,style,lang,width,height,align,hspace,valign'
 
         //undo
         //可以最多回退的次数,默认20
@@ -208,6 +273,30 @@
         //,topOffset:30
         //编辑器底部距离工具栏高度(如果参数大于等于编辑器高度，则设置无效)
         //,toolbarTopOffset:400
+
+        //pageBreakTag
+        //分页标识符,默认是_ueditor_page_break_tag_
+        //,pageBreakTag:'_ueditor_page_break_tag_'
+
+        //autotypeset
+        //自动排版参数
+        //,autotypeset: {
+        //    mergeEmptyline: true,           //合并空行
+        //    removeClass: true,              //去掉冗余的class
+        //    removeEmptyline: false,         //去掉空行
+        //    textAlign:"left",               //段落的排版方式，可以是 left,right,center,justify 去掉这个属性表示不执行排版
+        //    imageBlockLine: 'center',       //图片的浮动方式，独占一行剧中,左右浮动，默认: center,left,right,none 去掉这个属性表示不执行排版
+        //    pasteFilter: false,             //根据规则过滤没事粘贴进来的内容
+        //    clearFontSize: false,           //去掉所有的内嵌字号，使用编辑器默认的字号
+        //    clearFontFamily: false,         //去掉所有的内嵌字体，使用编辑器默认的字体
+        //    removeEmptyNode: false,         // 去掉空节点
+        //    //可以去掉的标签
+        //    removeTagNames: {标签名字:1},
+        //    indent: false,                  // 行首缩进
+        //    indentValue : '2em',            //行首缩进的大小
+        //    bdc2sb: false,
+        //    tobdc: false
+        //}
 
         //tableDragable
         //表格是否可以拖拽

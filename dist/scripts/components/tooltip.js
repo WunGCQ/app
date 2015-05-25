@@ -1,6 +1,6 @@
-define('tooltip', ['node', 'util'], function(require, exports, module) {
+define('tooltip', ['node', 'utils'], function(require, exports, module) {
     var $ = require('node');
-    var Util = require('util');
+    var Utils = require('utils');
 
     var CONF = {
         placement: 'bottom',
@@ -24,7 +24,7 @@ define('tooltip', ['node', 'util'], function(require, exports, module) {
     Tooltip._tables = [];
 
     Tooltip.buildTooltipNode = function (conf) {
-        conf = Util.merge({}, CONF, conf);
+        conf = Utils.merge({}, CONF, conf);
         if (!conf.standalone) {
             return Tooltip.$tooltip;
         }
@@ -40,7 +40,7 @@ define('tooltip', ['node', 'util'], function(require, exports, module) {
     document.body.appendChild(Tooltip.$tooltip.getDOMNode());
     Tooltip.init = function(conf){
         var $triggers = $('[data-type="tooltip"]');
-        Util.each($triggers,function($trigger){
+        Utils.each($triggers,function($trigger){
             new Tooltip($trigger);
         });
     };
@@ -127,7 +127,7 @@ define('tooltip', ['node', 'util'], function(require, exports, module) {
         if (placement) conf.placement = placement;
         if (content) conf.content = content;
         if (standalone) conf.standalone = !!standalone;
-        this.conf = conf = Util.merge({}, CONF, conf);
+        this.conf = conf = Utils.merge({}, CONF, conf);
     };
     Tooltip.prototype.setTrigger = function (trigger) {
         this.$trigger = $(trigger);
@@ -137,7 +137,7 @@ define('tooltip', ['node', 'util'], function(require, exports, module) {
     };
     Tooltip.prototype.setContent = function (content) {
         this.$tooltip.$content.html(content);
-        this.conf = Util.merge(this.conf, {content: content});
+        this.conf = Utils.merge(this.conf, {content: content});
     };
     Tooltip.prototype.show = function () {
         // if !standalone. set content before each show

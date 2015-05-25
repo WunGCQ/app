@@ -1,0 +1,23 @@
+.record-groups {
+    @extend .inline-block;
+    @extend .column--full;
+    width: $admin-news-list-width;
+    border-right: 1px solid #ddd;
+}
+.record-metas {
+    & > * {
+        @extend .inline-block;
+    }
+}
+#record-title-input {
+    outline: none;
+    min-width: 300px; 
+    @extend .ptb;
+    @extend .plr;
+}
+#record-create-btn {
+    line-height: 32px;
+}
+body {
+    @extend .box--clip;
+}

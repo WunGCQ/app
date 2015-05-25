@@ -1,0 +1,11 @@
+.panel {
+    &__heading {
+        @extend .mtb--0;
+        @extend .ptb--lg;
+        @extend .plr;
+        border-bottom: 1px solid #ddd;
+    }
+    &__body {
+        
+    }
+}

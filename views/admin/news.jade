@@ -1,39 +1,21 @@
-extends ./admin.jade
+extends ./record.jade
 
-block title
-    title news
+block recordsListMetas
+    // span=LANG.news.listTitle
+    div.inline-block.column--full
+        select#records-group-selector.select.select--flat
+            each key in LANG.news.groupsKey
+                option(value='#{key}')=LANG.news.groups[key]
 
+block recordMetas
+    div.w-4.mr--lg
+        span=LANG.news.groupSelectorLabel 
+        select#record-group-selector.select.select--flat
+            each key in LANG.news.groupsKey
+                option(value='#{key}')=LANG.news.groups[key]
+    input#record-title-input.input--flat.float--right.form-control.w-4(type="text" required placeholder=LANG.record.title)
 
-block links
-    link(rel="stylesheet", href="/statics/styles/admin-news.min.css")
-
-
-block append content
-    div.news-category
-        h4.news-category__title=LANG.components.newsList
-            span#news-create-btn.cursor--pointer.fa.fa-plus.float--right(data-type="tooltip", data-placement="bottom", data-content=LANG.actions.add)
-        ul#news-list.list
-            each news in newsList
-                li.news-list__item(data-id=news._id)=news.title
-
-    div.editor
-        div.ueditor-action-bar.ptb.plr
-             button#news-publish-btn.btn.btn-primary.inline-block.float--right(data-enabled-text=LANG.actions.publish, data-disabled-text=LANG.actions.publishing)=LANG.actions.publish
-             button#news-draft-btn.btn.btn-primary.inline-block.mr--lg.float--right(data-enabled-text=LANG.actions.draft, data-disabled-text=LANG.actions.drafting)=LANG.actions.draft
-        input#news-title-input.input--flat(type="text" required placeholder=LANG.news.title)
-        div#ueditor-container
-            script#ueditor(name="content", type="text/plain")
 
 block append scripts
-    <!-- 编辑器配置文件 -->
-    script(src="/statics/libs/ueditor/ueditor.config.js")
-    <!-- 编辑器源码文件 -->
-    script(src="/statics/libs/ueditor/ueditor.all.js")
-
-    // KISSY related scripts
-    script(src="/statics/scripts/config.js")
-    script(src="/statics/scripts/components/mask.js")
-    script(src="/statics/scripts/components/toast.js")
-    script(src="/statics/scripts/components/tooltip.js")
-    script(src="/statics/scripts/components/news-manager.js")
     script(src="/statics/scripts/admin-news.js")
+

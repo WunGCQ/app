@@ -18,9 +18,9 @@ html(lang=LANG.LANG)
 
 
         block headScripts
-            script.
+            script(type='text/javascript').
                 var LANG_CODE = '#{LANG.LANG_CODE}';
-
+                var Ecpkn = !{JSON.stringify(Ecpkn || ''));
 
     body
     

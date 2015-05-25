@@ -10,7 +10,7 @@ block append commonLinks
     link(rel="stylesheet", href="//g.alicdn.com/kissy/k/5.0.1/overlay/assets/dpl.css")
 
 block append headScripts
-    script(src='//g.alicdn.com/kissy/k/5.0.1/seed.js' data-config='{combine:true}')
+    script(src="//g.alicdn.com/kissy/k/5.0.1/seed.js" data-config="{combine:true}")
 
 block content
 
@@ -25,4 +25,10 @@ block content
 block append scripts
     script(src="/statics/axios/dist/axios.min.js")
     script(src="/statics/scripts/components/axios-interceptors.min.js")
-
+    
+    block kissyScripts
+        script(src="/statics/scripts/config.js")
+        script(src="/statics/scripts/utils/utils.js")
+        script(src="/statics/scripts/components/mask.js")
+        script(src="/statics/scripts/components/toast.js")
+        script(src="/statics/scripts/components/tooltip.js")

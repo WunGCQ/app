@@ -8,61 +8,137 @@ block links
 
 block styles
 
-block headScripts
-    
-    // script(src='/statics/scripts/utils/shim.min.js')
-
-    script(src='//g.alicdn.com/kissy/k/5.0.1/seed.js' data-config='{combine:true}')
-
-    // script(src='http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js')
-    // script(src='/statics/libs/gasp/tweenlite.min.js')
-    // script(src='http://cdn.bootcss.com/velocity/1.2.2/velocity.js')
-
-    script(src='/statics/tweenjs/build/tween.min.js')
-
-
 block content
-    div.site-header
-        h2.text--center
-    div.news-carousel-box
-        div.news-box
-        div.carousel
-            div.carousel__slides-wrapper
-                div.carousel__slide
-                    img(src = '/statics/images/bg1.jpg')
-                    div.carousel__slide__sublayer
-                        h1 hllo 1
-                div.carousel__slide
-                    img(src = '/statics/images/bg2.jpg')
-                    div.carousel__slide__sublayer
-                        h1 hllo 2
-                div.carousel__slide
-                    img(src = '/statics/images/bg3.jpg')
-                    div.carousel__slide__sublayer
-                        h1 hllo 3
-                div.carousel__slide
-                    img(src = '/statics/images/bg4.jpg')
-                    div.carousel__slide__sublayer
-                        h1 hllo 4
-            div.carousel__indicators-wrapper
-                div.carousel__slide__indicator
-                    img(src = '/statics/images/bg1.jpg')
-                div.carousel__slide__indicator
-                    img(src = '/statics/images/bg2.jpg')
-                div.carousel__slide__indicator
-                    img(src = '/statics/images/bg3.jpg')
-                div.carousel__slide__indicator
-                    img(src = '/statics/images/bg4.jpg')
-    div.site-footer
-        h2.text--center
+    .wrap
+      .container-wrapper
+        .container
+          // header
+          header.header
+            .logo(style="background-color:rbg(0,29,89);")
+            nav.nav
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+              .item
+                a.item-txt(href='') 内容
+                .sub-menu
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+                  a.sub-item(href='') 项目1
+          // main
+          section.main
+            .search-section
+              input.search-input(type='text')
+              button.search-btn G
+            .left-nav
+              a.item.active(href='#', tabindex='1') 新闻
+              .page#news-block
+                //.first
+                //  img.img(src='../img/fxjj.jpg', alt='')
+                //  time.time 4.16
+                //  a.link(href='') 这里是关于它的介绍链接这里是关于它的介绍链接里是关于它的介绍链接
+                //a.a(href='')
+                //  time.time 4.18
+                //  |               里是关于它的介绍链接关于它的介绍链接
+                a.more(href='') 更多
+              a.item(href='#', tabindex='2') tab2
+              .page#announcement-block
+                a.more(href='') 更多
+              a.item(href='#', tabindex='3') tab3
+              .page
+                a.more(href='') 更多
+            .pic-round
+              .pic-wrapper
+                a.pic-nav.active
+                a.img
+                  em.tip 图片注解1
+                a.pic-nav
+                a.img
+                  em.tip 图片注解1
+                a.pic-nav
+                a.img
+                  em.tip 图片注解1
+                .pic-nav
+                a.img
+                  em.tip 图片注解1
+          // footer
+          section.footer-section
+            nav.system-nav
+              .item
+                a.a(href='') 系统1
+              .item
+                a.a(href='') 系统1
+              .item
+                a.a(href='') 系统1
+            a.link(href='') link1
+            a.link(href='') link2
+            a.link(href='') link3
+            a.link(href='') link4
+            a.link(href='') link5
+    footer.footer
+      .txt
+        span 版权所有2010北京航空航天大学   
+        address 北京市海淀区学院路37号教学区2号楼  邮编：100191
+      .txt
+        span 通讯方式：
+        address 电话：010-82339307
+        span 电子邮箱：
+        address
+          a(href='mailto:ecpkn@buaa.edu.cn') ecpkn@buaa.edu.cn
+      .txt
+        span 京ICP备05004617
+        span 文保网安备案号1001080018
+
 block scripts
-
-    // script(src='https://cdn.jsdelivr.net/classlist/2014.01.31/classList.min.js')
-    
-    //
-        custom KISSY components
-    script(src= '/statics/scripts/components/carousel.js')
-
-
-    script(src= '/statics/scripts/index.js')
-
+    script(src="/statics/scripts/public-index.js")

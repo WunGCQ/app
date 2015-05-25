@@ -86,10 +86,10 @@
 .h-9 {
   height: 90%; }
 
-.w-10, .row--full, .shape--cover, html, body, #news-title-input {
+.w-10, .row--full, .shape--cover, html, body {
   width: 100%; }
 
-.h-10, .column--full, .shape--cover, html, body, .side-menu, .editor, .news-category {
+.h-10, .column--full, .shape--cover, html, body, .side-menu, .editor, .records-category {
   height: 100%; }
 
 .col-0 {
@@ -424,7 +424,7 @@
 .rel {
   position: relative; }
 
-.inline-block, .side-menu, .editor, .news-category {
+.inline-block, .side-menu, .editor, .records-category {
   display: inline-block;
   vertical-align: top; }
 
@@ -457,13 +457,13 @@
 .pt--0, .ptb--0 {
   padding-top: 0; }
 
-.mt--0, .mtb--0, .news-category__title {
+.mt--0, .mtb--0, .panel__heading {
   margin-top: 0; }
 
 .pb--0, .ptb--0 {
   padding-bottom: 0; }
 
-.mb--0, .mtb--0, .news-category__title {
+.mb--0, .mtb--0, .panel__heading {
   margin-bottom: 0; }
 
 .pl--sm, .plr--sm {
@@ -490,25 +490,25 @@
 .mb--sm, .mtb--sm {
   margin-bottom: 3px; }
 
-.pl, .plr, .tooltip__content, .editor, .news-category__title, #news-title-input, .list__item, .news-list__item {
+.pl, .plr, .tooltip__content, .panel__heading, .editor, .record__list-item, .records-archive__title, #record-title-input, .list__item {
   padding-left: 6px; }
 
 .ml, .mlr {
   margin-left: 6px; }
 
-.pr, .plr, .tooltip__content, .editor, .news-category__title, #news-title-input {
+.pr, .plr, .tooltip__content, .panel__heading, .editor, .record__list-item, .records-archive__title, #record-title-input {
   padding-right: 6px; }
 
 .mr, .mlr {
   margin-right: 6px; }
 
-.pt, .ptb, .editor, #news-title-input {
+.pt, .ptb, .editor, .records-archive__title, #record-title-input {
   padding-top: 6px; }
 
 .mt, .mtb {
   margin-top: 6px; }
 
-.pb, .ptb, .editor, #news-title-input {
+.pb, .ptb, .editor, .records-archive__title, #record-title-input {
   padding-bottom: 6px; }
 
 .mb, .mtb {
@@ -526,13 +526,13 @@
 .mr--lg, .mlr--lg {
   margin-right: 12px; }
 
-.pt--lg, .ptb--lg, .link--flat, .list__item, .news-list__item, .news-category__title {
+.pt--lg, .ptb--lg, .link--flat, .list__item, .record__list-item, .panel__heading {
   padding-top: 12px; }
 
 .mt--lg, .mtb--lg {
   margin-top: 12px; }
 
-.pb--lg, .ptb--lg, .link--flat, .list__item, .news-list__item, .news-category__title {
+.pb--lg, .ptb--lg, .link--flat, .list__item, .record__list-item, .panel__heading {
   padding-bottom: 12px; }
 
 .mb--lg, .mtb--lg {
@@ -565,6 +565,9 @@
 .text--center, .side-menu__item {
   text-align: center; }
 
+.text--right {
+  text-align: right; }
+
 .box-x--auto, .box--auto {
   overflow-x: auto; }
 
@@ -577,9 +580,9 @@
 .box-y--clip, .box--clip, body {
   overflow-y: hidden; }
 
-.link, .news-list__item {
+.link {
   text-decoration: none; }
-  .link:hover, .news-list__item:hover {
+  .link:hover {
     text-decoration: underline; }
   .link--light:link {
     color: white; }
@@ -592,7 +595,7 @@
   .link__more {
     font-size: 12px; }
 
-.list__item, .news-list__item {
+.list__item, .record__list-item {
   display: block; }
 
 .tooltip-container {
@@ -637,6 +640,9 @@
 .cursor--pointer {
   cursor: pointer; }
 
+.panel__heading {
+  border-bottom: 1px solid #ddd; }
+
 img {
   max-width: 100%; }
 
@@ -669,7 +675,7 @@ html body input[disabled] {
     border-top: 1px dashed #69727e; }
 
 .editor {
-  width: calc(100% - 46px - 24%); }
+  width: calc(100% - 46px - 32%); }
 
 .ueditor-action-bar {
   height: 46px;
@@ -683,19 +689,20 @@ html body input[disabled] {
   border-top-left-radius: 0px !important;
   border-top-right-radius: 0px !important; }
 
-.news-category {
-  width: 24%;
-  border-right: 1px solid #ddd; }
-  .news-category__title {
-    border-bottom: 1px solid #ddd; }
+.record__list-item {
+  cursor: pointer;
+  border-bottom: 1px dashed #ccc; }
+  .record__list-item--active, .record__list-item:hover {
+    background-color: #f6f6f6; }
 
-#news-title-input {
+.records-archive__title {
+  border-bottom: 2px solid #005faf; }
+
+.records-category {
+  width: 32%;
+  border-right: 1px solid #ddd; }
+
+#record-title-input {
   display: block;
   outline: none; }
 
-.news-list__item {
-  cursor: pointer;
-  border-bottom: 1px dashed #ccc; }
-  .news-list__item:hover {
-    color: black;
-    background-color: #eee; }

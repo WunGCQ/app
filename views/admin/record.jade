@@ -1,0 +1,40 @@
+extends ./admin.jade
+
+block title
+    title news
+
+
+block links
+    link(rel="stylesheet", href="/statics/styles/admin-record.min.css")
+
+
+block append content
+    div.panel.record-groups
+        div.panel__heading
+            block recordsListMetas
+
+            span#record-create-btn.cursor--pointer.fa.fa-plus.float--right(data-type="tooltip", data-placement="bottom", data-content='#{LANG.actions.add}')
+        div.panel__body
+            div#records-group-container
+            div#records-loader-indicator
+
+    div.editor
+        div.ueditor-action-bar.ptb.plr
+             button#record-publish-btn.btn.btn-primary.inline-block.float--right(data-enabled-text=LANG.actions.publish, data-disabled-text=LANG.actions.publishing)=LANG.actions.publish
+             button#record-draft-btn.btn.btn-primary.inline-block.mr--lg.float--right(data-enabled-text=LANG.actions.draft, data-disabled-text=LANG.actions.drafting)=LANG.actions.draft
+        div.record-metas.ptb.plr.box--clip
+            block recordMetas
+                input#record-title-input.input--flat.form-control(type="text" required placeholder=LANG.record.title)
+        div#ueditor-container(data-placeholder='#{LANG.record.content}')
+            script#ueditor(name="content", type="text/plain")
+
+block append scripts
+    <!-- 编辑器配置文件 -->
+    script(src="/statics/libs/ueditor/ueditor.config.js")
+    <!-- 编辑器源码文件 -->
+    script(src="/statics/libs/ueditor/ueditor.all.js")
+    
+    block recordManagerScripts
+        script(src="/statics/scripts/components/record-store.js")
+        script(src="/statics/scripts/components/record-ctrl.js")
+

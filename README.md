@@ -29,10 +29,10 @@
 
 ---
 ### \#\#静态文件访问
-需要在 模板文件中引用 bower_components | dist | statics 目录下的静态文件时， 只需要把相应地一级目录改为 /statics。 （目前是在 server.js中通过 express 处理， //TODO =>nginx）如：
+需要在 模板文件中引用 bower_components | dist | statics 目录下的静态文件时， 只需要把相应的一级目录改为 /statics。 （目前是在 server.js中通过 express 处理， //TODO =>nginx）如：
 
 - bower_components/jquery/dist/jquery.js  => /statics/jquery/dist/jquery.js
-- dist/scripts/index.min.js => /statics/scripts/index.min.js
+- dist/scripts/public-index.min.js => /statics/scripts/public-index.min.js
 
 
 ---

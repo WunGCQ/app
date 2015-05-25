@@ -1,0 +1,13 @@
+.select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    @extend %bare;
+    @extend .plr--lg;
+    @extend .ptb--sm;
+    border: 1px dashed #ccc;
+    &--flat {
+
+    }
+}

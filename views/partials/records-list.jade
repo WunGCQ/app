@@ -1,0 +1,5 @@
+ul#records-list.list
+    each record in list
+        li.records-list__item(data-id='#{record._id}')
+            a.link.records-list__item__title=record.title
+            span.fa.fa-trash.float--right.record-delete-btn(data-id='#{record._id}')

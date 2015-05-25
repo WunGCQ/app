@@ -24,15 +24,24 @@ var actions = {
 };
 var news = {
     title: 'news title',
-    latest: 'Latest news'
+    content: 'news content',
+    latest: 'Latest news',
+    listTitle:'News List',
+    groupSelectorLabel: 'News Group:',
+    groupsKey: ['default', 'school'],
+    groups: {
+        default: 'Default News',
+        school: 'School News'
+    },
+    publishedAt: 'Published At:'
 };
 var components = {
-    newsList: 'News List'
 };
 en.sections = sections;
 en.actions = actions;
 en.news = news;
 en.components = components;
+en.record = news;
 
 en.LANG = 'en'; // <html lang=en.LANG>
 en.LANG_CODE = 'en'; // inject in to page for script reference

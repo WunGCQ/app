@@ -4,5 +4,11 @@
         display: block;
         @extend .ptb--lg;
         @extend .pl;
+        &--active {
+
+        }
+        &--light {
+
+        }
     }
 }

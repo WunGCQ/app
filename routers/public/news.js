@@ -26,6 +26,8 @@ router.route('/:newsId')
             _id: req.newsId
         }).then(function(res){
             news = res[0];
+            if (news)
+                news.date = (new Date(news.createdAt)).toISOString().split('T')[0];
         }).then(function(){
             return News.get(conds, fields, opts);
         }).then(function(list){
@@ -35,7 +37,8 @@ router.route('/:newsId')
             });
         },function(err){
             res.render('public/news',{
-                news: {}
+                news: {},
+                list: []
             });
         });
     });

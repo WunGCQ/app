@@ -24,15 +24,24 @@ var actions = {
 };
 var news = {
     title: '新闻标题', // 创建新闻的默认标题.
-    latest: '最近新闻推荐'
+    content: '新闻内容',
+    latest: '最近新闻推荐',
+    listTitle:'新闻列表',
+    groupsKey: ['default', 'school'],
+    groups: {
+        default: '学院新闻',
+        school: '校际新闻'
+    },
+    groupSelectorLabel: '新闻类别:',
+    publishedAt: '发布日期:'
 };
 var components = {
-    newsList: '新闻列表'
 };
 zh.sections = sections;
 zh.actions = actions;
 zh.news = news;
 zh.components = components;
+zh.record = news;
 
 zh.LANG = 'zh-cmn-Hans'; // <html lang=...>
 zh.LANG_CODE = 'zh'; // 注入页面，供页面脚本识别当前语言

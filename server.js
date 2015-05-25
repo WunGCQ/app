@@ -4,10 +4,11 @@ var config = require('./configs/config');
 var db = require('./configs/db');
 var express = require('express');
 var bodyParser = require('body-parser');
-var multer = require('multer');
+var uploadHelper = require('./utils/upload-helper');
 var app = express();
 var router = require('./routers');
 var I18N = require('./configs/lang');
+var appMetas = require('./configs/app-metas');
 
 // connect database
 db.start();
@@ -18,7 +19,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // preprocess for uploads
-app.use(multer({dest: __dirname + '/statics/uploads/'}));
+app.use(uploadHelper.multer);
+app.use(uploadHelper.expose);
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
@@ -44,19 +46,22 @@ app.use('/statics',express.static(__dirname + '/dist'));
 
 // bussiness logic routes
 //============================
-// lang route
+// lang, conf route
 app.all('*', function(req,res,next){
     var lang = req.query.lang || req.body.lang || 'zh';
     res.locals.LANG = I18N[lang];
+    appMetas.mount(req, res);
     next();
 });
 // public pages
 app.use('/', router.public.index);
 app.use('/news', router.public.news);
 
-// admin pages
+app.use('/admin/attachments', router.admin.attachment);
+// admin
 app.use('/admin/editor', router.admin.editor);
 app.use('/admin/news', router.admin.news);
+app.use('/records', router.records);
 
 //
 

@@ -28,6 +28,8 @@
     "casper": true,
     "console": true,
     "should": true,
-    "expect": true
+    "expect": true,
+    "Ecpkn": true,
+    "XMLHttpRequest": true
   }
 }

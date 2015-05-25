@@ -32,3 +32,14 @@
 .search-input {
     
 }
+.news {
+    &-metas {
+        border-bottom: 1px dashed #bbb;
+        @extend .pt;
+        @extend .mb--extra;
+        &__title {
+
+        }
+
+    }
+}

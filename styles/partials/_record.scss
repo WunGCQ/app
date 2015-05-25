@@ -1,0 +1,27 @@
+.record {
+    &__list-item {
+        @extend .list__item;
+        @extend .list__item--light;
+        @extend .plr;
+        cursor: pointer;
+        border-bottom: 1px dashed #ccc;
+        &--active, &:hover{
+            background-color: #f6f6f6;
+        }
+    }
+    &__group {
+        &__title {
+            
+        }
+    }
+}
+.records-archive {
+    &__title {
+        @extend .ptb;
+        @extend .plr;
+        border-bottom: 2px solid $primary-blue;
+    }
+    &__body {
+
+    }
+}

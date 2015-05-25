@@ -1,18 +1,11 @@
-.news-category {
+.records-category {
     @extend .inline-block;
     @extend .column--full;
     width: $admin-news-list-width;
     border-right: 1px solid #ddd;
-    &__title {
-        @extend .mtb--0;
-        @extend .ptb--lg;
-        @extend .plr;
-        border-bottom: 1px solid #ddd;
-    }
 }
-#news-title-input {
+#record-title-input {
     display: block;
-    @extend .row--full;
     outline: none;
     @extend .ptb;
     @extend .plr;
@@ -21,11 +14,3 @@ body {
     @extend .box--clip;
 }
 
-.news-list__item {
-    @extend .list__item;
-    @extend .list__item--light;
-    @extend .link;
-    @include link-hover(black, $admin-news-list__item--hover_bgc);
-    cursor: pointer;
-    border-bottom: 1px dashed #ccc;
-}

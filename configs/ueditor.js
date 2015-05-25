@@ -14,7 +14,7 @@ module.exports = {
     "imageCompressBorder": 1600, /* 图片压缩最长边限制 */
     "imageInsertAlign": "none", /* 插入的图片浮动方式 */
     "imageUrlPrefix": "", /* 图片访问路径前缀 */
-    "imagePathFormat": "/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "imagePathFormat": "/statics/uploads/{yyyy}{mm}{dd}/{filename}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     /* {filename} 会替换成原文件名,配置这项需要注意中文乱码问题 */
     /* {rand:6} 会替换成随机数,后面的数字是随机数的位数 */
     /* {time} 会替换成时间戳 */
@@ -45,8 +45,8 @@ module.exports = {
     /* 抓取远程图片配置 */
     "catcherLocalDomain": ["127.0.0.1", "localhost", "img.baidu.com"],
     "catcherActionName": "catchimage", /* 执行抓取远程图片的action名称 */
-    "catcherFieldName": "source", /* 提交的图片列表表单名称 */
-    "catcherPathFormat": "/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "catcherFieldName": "upfile", /* 提交的图片列表表单名称 */
+    "catcherPathFormat": "/statics/uploads", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "catcherUrlPrefix": "", /* 图片访问路径前缀 */
     "catcherMaxSize": 2048000, /* 上传大小限制，单位B */
     "catcherAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 抓取图片格式显示 */
@@ -54,7 +54,7 @@ module.exports = {
     /* 上传视频配置 */
     "videoActionName": "uploadvideo", /* 执行上传视频的action名称 */
     "videoFieldName": "upfile", /* 提交的视频表单名称 */
-    "videoPathFormat": "/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "videoPathFormat": "/statics/uploads", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "videoUrlPrefix": "", /* 视频访问路径前缀 */
     "videoMaxSize": 102400000, /* 上传大小限制，单位B，默认100MB */
     "videoAllowFiles": [
