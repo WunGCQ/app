@@ -38,8 +38,10 @@
 ---
 
 ### \# workflow
-1. `npm start`
-2. `gulp dev`
+1. `npm install`
+2. `bower install`
+3. `npm start`
+4. `gulp dev`
 
 localhost:6005
 
