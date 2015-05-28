@@ -1,6 +1,9 @@
 
 
 #### \#\#目录结构
+- ### apis
+
+    > 数据库操作的直接 api, 
 - scripts
 
     > 页面脚本文件, 压缩后输出到 dist/scripts
