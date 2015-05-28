@@ -7,6 +7,7 @@
     xhr.onreadystatechange = function(){
         if(xhr.readyState == '4' && xhr.status == "200") {
             var res = JSON.parse(xhr.responseText);
+            res = res.list;
             if(res.length > 0){
                 for(var i in res) {
                     var record = res[i];

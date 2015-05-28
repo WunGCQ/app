@@ -3,13 +3,23 @@ var config = require('./config');
 
 var Ecpkn = {
     '/admin/news': {
-        groups: config.db.collections.news.groups
-    }
+        groups: config.db.collections.news.groups,
+    },
 };
 
-function mount(req, res, next) {
-    var path = req.path;
-    res.locals.Ecpkn = Ecpkn[path];
+function getEcpknMetas(path, LANG) {
+    var ecpkn = Ecpkn[path];
+
+    return ecpkn;
 }
 
-exports.mount = mount;
+function mount(req, res, next) {
+    var lang = req.query.lang || req.body.lang || 'zh';
+    var path = req.path;
+
+    res.locals.LANG = I18N[lang];
+    res.locals.Ecpkn = getEcpknMetas(path, res.locals.LANG);
+    next();
+}
+
+module.exports = mount;

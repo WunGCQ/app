@@ -1,5 +1,5 @@
 {
-  "curly": true,
+  "curly": false,
   "eqeqeq": true,
   "immed": true,
   "latedef": true,
@@ -30,6 +30,7 @@
     "should": true,
     "expect": true,
     "Ecpkn": true,
-    "XMLHttpRequest": true
+    "XMLHttpRequest": true,
+    "confirm": true
   }
 }

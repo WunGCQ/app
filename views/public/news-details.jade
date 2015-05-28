@@ -1,0 +1,30 @@
+extend ./public.jade
+
+block title
+    title=news.title
+
+block links
+    link(rel = 'stylesheet', href = '/statics/styles/public-news.min.css')
+
+block mainContent
+    div.main-wrapper__news.row--full.plr--extra.ptb--extra
+        article.news-wrapper.h-10.ptb--extra.plr--extra.inline-block
+            header.news-metas
+                h2.news-metas__title.text--center=news.title
+                h5.text--right
+                    span=LANG.news.publishedAt
+                    span=news.date
+            section#news-content!=news.content
+        aside.latest-news-container.inline-block.w-3.float--right
+            h4.row--single.latest-news-container__title.pl--lg.flag--left.flag--primary=LANG.news.latest
+                a.float--right.link__more(href="#")=LANG.actions.more
+            ul.news-list
+                each news in list
+                    li.news-list__item
+                        a.link(data-id=news._id, href=""+news._id)=news.title
+
+block scripts
+    script(src="/statics/libs/ueditor/ueditor.parse.min.js")
+    script.
+        uParse('#news-content');
+

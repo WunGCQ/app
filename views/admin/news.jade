@@ -13,7 +13,7 @@ block recordMetas
         select#record-group-selector.select.select--flat
             each key in LANG.news.groupsKey
                 option(value='#{key}')=LANG.news.groups[key]
-    input#record-title-input.input--flat.float--right.form-control.w-4(type="text" required placeholder=LANG.record.title)
+    input#record-title-input.input--flat.float--right.form-control.w-5(type="text" required placeholder=LANG.record.title)
 
 
 block append scripts

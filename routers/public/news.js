@@ -6,14 +6,13 @@ var router = require('express').Router();
 
 var News = require('../../apis/news');
 
-router.param('newsId', function(req,res,next,newsId){
+router.param('newsId', function(req, res, next, newsId) {
     req.newsId = newsId;
     next();
 });
 
-
 router.route('/:newsId')
-    .get(function(req,res){
+    .get(function(req, res) {
         var news = {};
         var fields = '_id title category createdAt';
         var conds = {
@@ -24,24 +23,24 @@ router.route('/:newsId')
         };
         News.get({
             _id: req.newsId
-        }).then(function(res){
+        }).then(function(res) {
             news = res[0];
-            if (news)
+            if (news) {
                 news.date = (new Date(news.createdAt)).toISOString().split('T')[0];
-        }).then(function(){
+            }
+        }).then(function() {
             return News.get(conds, fields, opts);
-        }).then(function(list){
-            res.render('public/news',{
+        }).then(function(list) {
+            res.render('public/news-details', {
                 news: news || {},
                 list: list
             });
-        },function(err){
-            res.render('public/news',{
+        }, function(err) {
+            res.render('public/news', {
                 news: {},
                 list: []
             });
         });
     });
-
 
 module.exports = router;

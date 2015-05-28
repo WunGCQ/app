@@ -1,4 +1,4 @@
-define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
+define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
     var Node = require('node');
     var Utils = require('utils');
     //===================
@@ -11,11 +11,12 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
             initialFrameHeight: editorRect.height - 120,
             initialContent: ueditorContainer.getAttribute('data-placeholder') || '新闻内容'
         });
-        ue.ready(function(){
+        ue.ready(function() {
             //disableEditors();
         });
         return ue;
     }
+
     function RecordCtrl(recordStore, conf) {
         this.conf = Utils.merge(CONF, conf);
         this.recordStore = recordStore;
@@ -27,7 +28,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
     var CONF = {
         SELECTORS: {
             RECORDS_ARCHIVES_CONTAINER: 'records-archives-container',
-            RECORDS_ARCHIVE:'records-archive', 
+            RECORDS_ARCHIVE: 'records-archive',
             RECORDS_ARCHIVE_TITLE: 'records-archive__title',
             RECORDS_ARCHIVE_BODY: 'records-archive__body',
             RECORD_LIST_ITEM: 'record__list-item',
@@ -35,7 +36,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
             RECORD_DELETE_BTN: 'record-delete-btn'
         }
     };
-    RecordCtrl.prototype.makeRecordItemNode = function (record) {
+    RecordCtrl.prototype.makeRecordItemNode = function(record) {
         var conf = this.conf;
         var $record = Node('<div>');
         var $recordTitle = Node('<h4>');
@@ -51,7 +52,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         $record.append($recordCreatedAt);
         return $record;
     };
-    RecordCtrl.prototype.makeRecordsArchiveNode = function (archive) {
+    RecordCtrl.prototype.makeRecordsArchiveNode = function(archive) {
         var _this = this;
         var conf = this.conf;
 
@@ -66,8 +67,8 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         $archiveTitle.text(metas.hash);
         $archive.hash = metas.hash;
 
-        Utils.each(list, function(record){
-           $archiveBody.append(_this.makeRecordItemNode(record));
+        Utils.each(list, function(record) {
+            $archiveBody.append(_this.makeRecordItemNode(record));
         });
 
         $archive.append($archiveTitle);
@@ -75,14 +76,14 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         $archive.$body = $archiveBody;
         return $archive;
     };
-    RecordCtrl.prototype.updateGroup = function (groupName, records) {
+    RecordCtrl.prototype.updateGroup = function(groupName, records) {
         var _this = this;
         var conf = this.conf;
         var group = this.groups[groupName];
         var $container = group.$container;
         var archives = Utils.archiveRecords(records);
 
-        var $archives = Utils.map(archives, function(archive){
+        var $archives = Utils.map(archives, function(archive) {
             return _this.makeRecordsArchiveNode(archive);
         });
 
@@ -90,7 +91,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         if ($lastArchive && $archives[0].hash === $lastArchive.hash) {
             var $archiveToBeMerge = $archives.shift();
         }
-        Utils.each($archives, function($archive){
+        Utils.each($archives, function($archive) {
             $container.append($archive);
         });
         group.$archives = group.$archives || [];
@@ -100,9 +101,13 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
 
     RecordCtrl.prototype.isCurrentRecordModified = function() {
         var record = this.currentRecord;
-        return record ? (record.title !== $recordTitleInput.val() || record.group !== $recordGroupSelector.val() || record.content !== recordContentEditor.getContent()) : false;
+        return record ?
+            (record.title !== $recordTitleInput.val() ||
+            record.group !== $recordGroupSelector.val() ||
+            record.content !== recordContentEditor.getContent()) :
+            false;
     };
-    RecordCtrl.prototype.insertRecord = function (record) {
+    RecordCtrl.prototype.insertRecord = function(record) {
         console.log(record);
         var group = this.groups[record.group];
         var recordMetas = Utils.makeDateMetas(record.createdAt);
@@ -110,7 +115,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         if ($archive && $archive.hash === recordMetas.hash) {
             $archive.$body.prepend(this.makeRecordItemNode(record));
         } else {
-            $archive = this.makeRecordsArchiveNode(Utils.archiveRecords([record])[0]); 
+            $archive = this.makeRecordsArchiveNode(Utils.archiveRecords([record])[0]);
             group.$archives = [$archive].concat(group.$archive);
             group.$container.prepend($archive);
         }
@@ -137,7 +142,6 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         $node.remove();
     };
 
-
     RecordCtrl.prototype.switchToGroup = function(groupName) {
         var conf = this.conf;
         var groups = this.groups;
@@ -160,7 +164,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         var group = this.groups[groupName];
         var _this = this;
         recordStore.getOnes(groupName)
-            .then(function(res){
+            .then(function(res) {
                 if (res && res.length > 0) {
                     _this.updateGroup(groupName, recordStore.getGroup(groupName));
                 } else {
@@ -183,41 +187,42 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
                 var ok = true;
                 if (conf.beforeCreateOne) ok = conf.beforeCreateOne.call(_this);
                 if (ok) {
-                    recordStore.createOne({group: _this.currentGroup})
-                        .then(function(record){
+                    recordStore.createOne({
+                            group: _this.currentGroup
+                        })
+                        .then(function(record) {
                             if (conf.onCreateOneSucceed) conf.onCreateOneSucceed.call(_this, record);
                             _this.insertRecord(record);
-                        },function(err){
+                        }, function(err) {
                             if (conf.onCreateOneFailed) conf.onCreateOneFailed.call(_this, err);
                         });
                 }
             }
         });
         // setup record item click
-        $recordsGroupContainer.delegate('click', '.' + conf.SELECTORS.RECORD_LIST_ITEM, function(event){
+        $recordsGroupContainer.delegate('click', '.' + conf.SELECTORS.RECORD_LIST_ITEM, function(event) {
             var $currentRecordNode = Node(event.currentTarget);
             var recordId = $currentRecordNode.attr('data-id');
             var $target = Node(event.target);
 
             if ($target.hasClass(conf.SELECTORS.RECORD_DELETE_BTN)) {
                 recordStore.deleteOne(recordId)
-                    .then(function(res){
+                    .then(function(res) {
                         _this.removeRecordItemNode($currentRecordNode);
                     });
             } else {
                 recordStore.getOne(recordId)
-                    .then(function(record){
+                    .then(function(record) {
                         if (conf.onGetOneSucceed) conf.onGetOneSucceed.call(_this, record);
                         _this.setCurrentRecord($currentRecordNode, record);
-                    },function(err){
+                    }, function(err) {
                         if (conf.onGetOneFailed) conf.onGetOneFailed.call(_this, err);
                     });
             }
         });
 
-
         // setup records group change
-        $recordsGroupSelector.on('change', function(event){
+        $recordsGroupSelector.on('change', function(event) {
             var groupName = $recordsGroupSelector.val();
             _this.switchToGroup(groupName);
         });
@@ -226,7 +231,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
         $recordPublishBtn.on('click', function(event) {
             if (!_this.currentRecord || !_this.isCurrentRecordModified()) return;
 
-            var modifiedRecord = recordStore.copyOne(_this.currentRecord); 
+            var modifiedRecord = recordStore.copyOne(_this.currentRecord);
             modifiedRecord.content = recordContentEditor.getContent();
             modifiedRecord.title = $recordTitleInput.val();
             modifiedRecord.group = $recordGroupSelector.val();
@@ -235,28 +240,27 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module){
 
             Utils.disableEl($recordPublishBtn);
             recordStore.saveOne(modifiedRecord)
-                .then(function(res){
+                .then(function(res) {
                     _this.setCurrentRecord(null, res);
                     Utils.enableEl($recordPublishBtn);
-                },function(err){
+                }, function(err) {
                     console.log(err);
                     Utils.enableEl($recordPublishBtn);
                 });
         });
 
-        
-        
     };
-    var $recordsGroupContainer  = RecordCtrl.$recordGroupsContainer = Node.one('#records-group-container');
+    var $recordsGroupContainer = RecordCtrl.$recordGroupsContainer = Node.one('#records-group-container');
     var $recordsLoaderIndicator = RecordCtrl.$recordsLoaderIndicator = Node.one('#records-loader-indicator');
-    var $recordTitleInput       = RecordCtrl.$recordTitleInput = Node.one('#record-title-input');
-    var $recordPublishBtn       = RecordCtrl.$recordPublishBtn = Node.one('#record-publish-btn');
-    var $recordCreateBtn        = RecordCtrl.$recordCreateBtn = Node.one('#record-create-btn');
-    var $recordsGroupSelector   = RecordCtrl.$recordsGroupSelector = Node.one('#records-group-selector');
-    var $recordGroupSelector    = RecordCtrl.$recordsGroupSelector = Node.one('#record-group-selector');
-    var $recordSavaDraftBtn     = RecordCtrl.$recordSaveDraftBtn = Node.one('#record-draft-btn');
-    var recordContentEditor     = RecordCtrl.recordContentEditor = initUEditor('ueditor');
-    RecordCtrl.currentRecord    = null;
+    var $recordTitleInput = RecordCtrl.$recordTitleInput = Node.one('#record-title-input');
+    var $recordPublishBtn = RecordCtrl.$recordPublishBtn = Node.one('#record-publish-btn');
+    var $recordCreateBtn = RecordCtrl.$recordCreateBtn = Node.one('#record-create-btn');
+    var $recordSavaDraftBtn = RecordCtrl.$recordSaveDraftBtn = Node.one('#record-draft-btn');
+    var $recordStickBtn = RecordCtrl.$recordStickBtn = Node.one('#record-stick-btn');
+    var $recordsGroupSelector = RecordCtrl.$recordsGroupSelector = Node.one('#records-group-selector');
+    var $recordGroupSelector = RecordCtrl.$recordsGroupSelector = Node.one('#record-group-selector');
+    var recordContentEditor = RecordCtrl.recordContentEditor = initUEditor('ueditor');
+    RecordCtrl.currentRecord = null;
 
     return RecordCtrl;
 });

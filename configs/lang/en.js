@@ -9,19 +9,28 @@ var sections = {
     party: 'Party',
     news: 'news',
     announcement: 'Announcement',
+    setting: 'Settings',
     about: 'About'
 };
 var actions = {
     add: 'Add',
     publish: 'Publish',
-    publishing: 'Publishing...',
     draft: 'Save draft',
-    drafting: 'Saving',
     more: 'More',
     search: 'Search',
-    setting: 'Settings',
-    signout: 'Sign out'
+    signout: 'Sign out',
+    stick: 'Stick',
+    unstick: 'Unstick'
 };
+var status = {
+    publishing: 'Publishing...',
+    saving: 'Saving',
+    sticking: 'Sticking',
+    sticked: 'Sticked',
+    applying: 'Applying...'
+};
+
+// section specified
 var news = {
     title: 'news title',
     content: 'news content',
@@ -42,9 +51,9 @@ en.actions = actions;
 en.news = news;
 en.components = components;
 en.record = news;
+en.status = status;
 
 en.LANG = 'en'; // <html lang=en.LANG>
 en.LANG_CODE = 'en'; // inject in to page for script reference
-
 
 module.exports = en;

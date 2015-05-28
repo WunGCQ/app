@@ -1,4 +1,4 @@
-define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, module){
+define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, module) {
     var Promise = require('promise');
     var Utils = require('utils');
     //===================================
@@ -16,20 +16,20 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
     function makeQueryString(query) {
         var pairs = [];
         var fields = Utils.keys(query);
-        Utils.each(fields, function(item){
+        Utils.each(fields, function(item) {
             pairs.push(encodeURIComponent(item) + '=' + encodeURIComponent(query[item]));
         });
         return pairs.join('&');
     }
 
-    RecordStore.prototype._prepare = function () {
+    RecordStore.prototype._prepare = function() {
         var groups = this.groups;
-        Utils.each(this.conf.groups, function(group){
+        Utils.each(this.conf.groups, function(group) {
             groups[group] = [];
         });
     };
 
-    RecordStore.prototype.getOne = function (id) {
+    RecordStore.prototype.getOne = function(id) {
         var defer = new Promise.Defer();
         var records = this.records;
         var record = records[id];
@@ -44,35 +44,35 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
             defer.resolve(record);
         } else {
             axios.get(url)
-                .then(function(res){
-                    record = res.data;
+                .then(function(res) {
+                    record = res.data.data;
                     records[id] = record;
                     defer.resolve(record);
-                },function(err){
+                }, function(err) {
                     defer.reject(err);
                 });
         }
 
         return defer.promise;
     };
-    RecordStore.prototype.deleteOne = function(recordId){
+    RecordStore.prototype.deleteOne = function(recordId) {
         var _this = this;
         var defer = new Promise.Defer();
         var apiConf = this.conf.deleteOne;
         var url = apiConf.url + '/' + recordId;
 
         axios.delete(url)
-            .then(function(res){
+            .then(function(res) {
                 console.log(res);
                 _this.deleteLocalOne(recordId);
                 defer.resolve(res.data);
-            }, function(err){
+            }, function(err) {
                 defer.reject(err);
             });
 
         return defer.promise;
     };
-    RecordStore.prototype.saveOne = function (record) {
+    RecordStore.prototype.saveOne = function(record) {
         record = record || {};
         var records = this.records;
         var defer = new Promise.Defer();
@@ -87,11 +87,11 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
         console.log(record);
 
         axios[method](url, record)
-            .then(function(res){
-                var record = res.data;
+            .then(function(res) {
+                var record = res.data.data;
                 records[id] = record;
                 defer.resolve(record);
-            },function(err){
+            }, function(err) {
                 defer.reject(err);
             });
         return defer.promise;
@@ -103,11 +103,15 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
     RecordStore.prototype.updataLocalOne = function(record) {
         var id = record._id;
         var records = this.records;
-        if (records[id]) records[id] = record;
+        if (records[id]) {
+            records[id] = record;
+        }
     };
-    RecordStore.prototype.deleteLocalOne = function(record){
+    RecordStore.prototype.deleteLocalOne = function(record) {
         record = typeof record === 'object' ? record._id : record;
-        if (this.records[record]) delete this.records[record];
+        if (this.records[record]) {
+            delete this.records[record];
+        }
     };
     RecordStore.prototype.getOnes = function(groupName, pageName) {
         var group = this.groups[groupName];
@@ -115,18 +119,21 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
         var apiConf = this.conf.getOnes;
         var url = apiConf.url;
 
-        url = url + '?' +  makeQueryString({category: 'news', group: groupName, skip: group.length});
+        url = url + '?' + makeQueryString({
+            category: 'news',
+            group: groupName,
+            skip: group.length
+        });
 
-            axios.get(url)
-                .then(function(res){
-                    var records = res.data;
-                    console.log(res);
-                    group.push.apply(group, records);
-                    defer.resolve(records);
-                },function(err){
-                    defer.reject(err);
-                });
-
+        axios.get(url)
+            .then(function(res) {
+                var records = res.data.list;
+                console.log(res);
+                group.push.apply(group, records);
+                defer.resolve(records);
+            }, function(err) {
+                defer.reject(err);
+            });
 
         return defer.promise;
     };
@@ -149,11 +156,11 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
             defer.resolve(page);
         } else {
             axios.get(url)
-                .then(function(res){
+                .then(function(res) {
                     page = res.data;
                     pages[pageNum] = page;
                     defer.resolve(page);
-                },function(err){
+                }, function(err) {
                     defer.reject(err);
                 });
         }
