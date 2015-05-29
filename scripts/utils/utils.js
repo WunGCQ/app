@@ -29,7 +29,7 @@ define('utils', ['util'], function(require, exports, module){
     function shouldRecordInGroup(record, group) {
         var _metas = group.metas;
         var metas = utils.makeDateMetas(record.createdAt);
-        return _metas.year === metas.year && _metas.month === metas.month;
+        return _metas.year === metas.year && _metas.month === metas.month && _metas.date === metas.date;
     }
     utils.makeDateMetas = function (d) {
         var date = new Date(d);

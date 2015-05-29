@@ -45,7 +45,14 @@
     &__title {
         @extend .ptb;
         @extend .plr;
+        @extend .cursor--pointer;
         border-bottom: 2px solid $primary-blue;
+        background-color: $true-blue;
+        color: white;
+    }
+    &__toggle {
+        @extend .abs;
+        @extend .abs--right; 
     }
     &__body {
 
