@@ -5,7 +5,7 @@ var config = require('../configs/config');
 var Schema = mongoose.Schema;
 var Q = require('q');
 
-var RECORD_STATUS_ENUM = ['published', 'draft'];
+var RECORD_STATUS_ENUM = ['published', 'draft', 'sticked'];
 var CATEGORIES_ENUM = config.db.collections.CATEGORIES;
 var GROUPS_ENUM = config.db.collections.GROUPS;
 
@@ -18,37 +18,32 @@ var Record = new Schema({
 
     category: {type: String, required: true, enum: CATEGORIES_ENUM},
     group: {type: String, enum: GROUPS_ENUM},
-    tags:[{type:String,trim: true}],
+    tags:[{type:String, trim: true}],
 
-    status: {type: String, enum: RECORD_STATUS_ENUM, default: 'draft'}, // 新闻状态：发布、草稿 
-    
+    status: {type: String, enum: RECORD_STATUS_ENUM, default: 'draft'}, // 新闻状态：发布、草稿
+
     lang: {type: String, default: 'zh'},
     url: {type: String, trim: true},
     images:[{type:Schema.Types.ObjectId, ref:'Attachment'}],
     attachments:[{type:Schema.Types.ObjectId, ref:'Attachment'}],
     createdAt: {type: Date, default: Date.now()},
-    hash: {type: String, trim: true} 
+    hash: {type: String, trim: true}
 });
 
-
-Record.post('remove',function(){
+Record.post('remove', function() {
     var record = this;
 
     console.log('/// post remove record');
     if (record.images.length > 0 || record.attachments.length > 0) {
         var ids = record.images.concat(record.attachments);
         AttachmentAPI.get({_id: {$in: ids}})
-            .then(function(attachments){
-                attachments.forEach(function(attachment){
+            .then(function(attachments) {
+                attachments.forEach(function(attachment) {
                     console.log(attachment);
                     attachment.remove();
                 });
             });
     }
 });
-
-
-
-
 
 module.exports = mongoose.model('Record', Record);

@@ -3,16 +3,42 @@
         @extend .list__item;
         @extend .list__item--light;
         @extend .plr;
+        @extend .rel;
         cursor: pointer;
         border-bottom: 1px dashed #ccc;
         &--active, &:hover{
             background-color: #f6f6f6;
+        }
+        &--sticked {
+            &::before, &::after {
+                @extend .abs;
+                @extend .abs--top;
+                @extend .abs--right;
+            }
+            &::before {
+                content: "";
+                @include triangle(46px, $record__list-item--sticked_bgc, up-right);
+            }
+            &::after {
+                content: "★";
+                color: green;
+                font-size: 1.4em;
+            }
         }
     }
     &__group {
         &__title {
             
         }
+    }
+    &-delete-btn {
+        font-size: 1.4em;
+        line-height: 1.2;
+        @extend .abs;
+        @extend .abs--bottom;
+        @extend .abs--right;
+        @extend .ptb;
+        @extend .plr;
     }
 }
 .records-archive {

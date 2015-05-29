@@ -88,7 +88,7 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
 
         axios[method](url, record)
             .then(function(res) {
-                var record = res.data.data;
+                var record = res.data;
                 records[id] = record;
                 defer.resolve(record);
             }, function(err) {

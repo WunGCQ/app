@@ -25,6 +25,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         this.currentRecord = null;
         this.$currentRecordNode = null;
     }
+
     var CONF = {
         SELECTORS: {
             RECORDS_ARCHIVES_CONTAINER: 'records-archives-container',
@@ -33,6 +34,9 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             RECORDS_ARCHIVE_BODY: 'records-archive__body',
             RECORD_LIST_ITEM: 'record__list-item',
             RECORD_LIST_ITEM_ACTIVE: 'record__list-item--active',
+            RECROD_LIST_ITEM_STICKED: 'record__list-item--sticked',
+            RECROD_LIST_ITEM_PUBLISHED: 'record__list-item--published',
+            RECROD_LIST_ITEM_DRAFT: 'record__list-item--draft',
             RECORD_DELETE_BTN: 'record-delete-btn'
         }
     };
@@ -42,14 +46,15 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var $recordTitle = Node('<h4>');
         var $recordCreatedAt = Node('<h5>');
         var $recordDeleteBtn = Node('<span>');
-        $recordDeleteBtn.addClass('fa fa-trash float--right record-delete-btn');
+        $recordDeleteBtn.addClass('fa fa-trash record-delete-btn');
         $record.addClass(conf.SELECTORS.RECORD_LIST_ITEM);
+        $record.addClass(conf.SELECTORS['RECROD_LIST_ITEM_' + record.status.toUpperCase()]);
         $record.attr('data-id', record._id);
-        $recordTitle.text(record.title);
+        $recordTitle.text(record.title.length > 20 ? record.title.slice(0, 20) + '...' : record.title);
         $recordCreatedAt.text((new Date(record.createdAt)).toLocaleString());
-        $record.append($recordDeleteBtn);
         $record.append($recordTitle);
         $record.append($recordCreatedAt);
+        $record.append($recordDeleteBtn);
         return $record;
     };
     RecordCtrl.prototype.makeRecordsArchiveNode = function(archive) {
@@ -99,28 +104,42 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         return $container;
     };
 
-    RecordCtrl.prototype.isCurrentRecordModified = function() {
+    RecordCtrl.prototype.isCurrentRecordModified = function(r) {
         var record = this.currentRecord;
         return record ?
             (record.title !== $recordTitleInput.val() ||
             record.group !== $recordGroupSelector.val() ||
-            record.content !== recordContentEditor.getContent()) :
+            record.content !== recordContentEditor.getContent() ||
+            (r && record.status !== r.status)) :
             false;
     };
     RecordCtrl.prototype.insertRecord = function(record) {
         console.log(record);
         var group = this.groups[record.group];
         var recordMetas = Utils.makeDateMetas(record.createdAt);
-        var $archive = group.$archives && group.$archives[0];
-        if ($archive && $archive.hash === recordMetas.hash) {
-            $archive.$body.prepend(this.makeRecordItemNode(record));
+        var archivesLen = group.$archives && group.$archives.length;
+        var $archive;
+        var $recordNode = null;
+        if (archivesLen > 0) {
+            for (var i = 0; i < archivesLen; i++) {
+                $archive = group.$archives[i];
+                if ($archive && $archive.hash === recordMetas.hash) {
+                    $recordNode = this.makeRecordItemNode(record);
+                    $archive.$body.prepend($recordNode);
+                    break;
+                }
+            }
         } else {
             $archive = this.makeRecordsArchiveNode(Utils.archiveRecords([record])[0]);
+            $recordNode = $archive.$body.first();
             group.$archives = [$archive].concat(group.$archive);
             group.$container.prepend($archive);
         }
+        return $recordNode;
     };
     RecordCtrl.prototype.setCurrentRecord = function($node, record) {
+        console.log($node);
+        console.log(record);
         var conf = this.conf;
         record = record || {};
         this.currentRecord = record;
@@ -135,11 +154,13 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
                 this.$currentRecordNode = $node;
             }
             this.$currentRecordNode.addClass(conf.SELECTORS.RECORD_LIST_ITEM_ACTIVE);
+            $recordStickBtn.setStatus(record.status);
             recordContentEditor.execCommand('serverparam', '_id', record._id);
         }
     };
     RecordCtrl.prototype.removeRecordItemNode = function($node) {
-        $node.remove();
+        $node = $node || this.$currentRecordNode;
+        if ($node) $node.remove();
     };
 
     RecordCtrl.prototype.switchToGroup = function(groupName) {
@@ -171,6 +192,61 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
                     group.status = 'empty';
                 }
                 console.log(res);
+            });
+    };
+    RecordCtrl.prototype.disableEditors = function() {
+
+    };
+
+    RecordCtrl.prototype.enableEditors = function() {
+
+    };
+
+    RecordCtrl.prototype.getModifiedRecordData = function() {
+        var currentRecord = this.currentRecord;
+        var record = null;
+        var title;
+        var group;
+        var content;
+
+        if (currentRecord) {
+            record = {};
+            title = $recordTitleInput.val();
+            group = $recordGroupSelector.val();
+            content = recordContentEditor.getContent();
+
+            if (content !== currentRecord.content) record.content = content;
+
+            record.title = title;
+            record.group = group;
+            record._id = currentRecord._id;
+            record.status = currentRecord.status;
+        }
+
+        return record;
+    };
+
+    RecordCtrl.prototype.updateRecord = function(record) {
+        var _this = this;
+        var recordStore = this.recordStore;
+
+        if (!_this.currentRecord || !_this.isCurrentRecordModified(record)) return;
+
+        record = record || {};
+        record._id = record._id || _this.currentRecord._id;
+
+        _this.disableEditors();
+        console.log(record);
+        return recordStore.saveOne(record)
+            .then(function(res) {
+                _this.removeRecordItemNode();
+                _this.setCurrentRecord(_this.insertRecord(res), res);
+                _this.enableEditors();
+                return res;
+            }, function(err) {
+                console.log(err);
+                _this.enableEditors();
+                return err;
             });
     };
 
@@ -229,24 +305,30 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
 
         // publish record
         $recordPublishBtn.on('click', function(event) {
-            if (!_this.currentRecord || !_this.isCurrentRecordModified()) return;
+            var record = _this.getModifiedRecordData();
+            if (!record) return;
+            record.status = record.status === 'sticked' ? record.status : 'published';
+            _this.updateRecord(record);
+        });
 
-            var modifiedRecord = recordStore.copyOne(_this.currentRecord);
-            modifiedRecord.content = recordContentEditor.getContent();
-            modifiedRecord.title = $recordTitleInput.val();
-            modifiedRecord.group = $recordGroupSelector.val();
-            delete modifiedRecord.attachments;
-            delete modifiedRecord.images;
-
-            Utils.disableEl($recordPublishBtn);
-            recordStore.saveOne(modifiedRecord)
-                .then(function(res) {
-                    _this.setCurrentRecord(null, res);
-                    Utils.enableEl($recordPublishBtn);
-                }, function(err) {
-                    console.log(err);
-                    Utils.enableEl($recordPublishBtn);
-                });
+        // stick || unstick record
+        $recordStickBtn.on('click', function() {
+            var currentRecord = _this.currentRecord;
+            if (!currentRecord) return;
+            var status = currentRecord.status;
+            var record;
+            if (status === 'draft') {
+                confirm('该文档未发布，置顶后将该为发布状态，确认继续?');
+            } else {
+                $recordStickBtn.setStatus('applying');
+                record = _this.getModifiedRecordData();
+                record.status = status === 'sticked' ? 'published' : 'sticked';
+                _this.updateRecord(record)
+                    .then(function(res) {
+                        console.log('/// stick res');
+                        console.log(res);
+                    });
+            }
         });
 
     };
@@ -261,6 +343,25 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
     var $recordGroupSelector = RecordCtrl.$recordsGroupSelector = Node.one('#record-group-selector');
     var recordContentEditor = RecordCtrl.recordContentEditor = initUEditor('ueditor');
     RecordCtrl.currentRecord = null;
+
+    $recordStickBtn.setStatus = (function() {
+        var stickText = $recordStickBtn.attr('data-stick-text');
+        var unstickText = $recordStickBtn.attr('data-unstick-text');
+        var stickedText = $recordStickBtn.attr('data-sticked-text');
+        return function(status) {
+            console.log(status);
+            if (status === 'applying') {
+                Utils.disableEl($recordStickBtn);
+            } else {
+                if (status === 'sticked') {
+                    $recordStickBtn.attr('data-enabled-text', stickedText);
+                } else {
+                    $recordStickBtn.attr('data-enabled-text', stickText);
+                }
+                Utils.enableEl($recordStickBtn);
+            }
+        };
+    })();
 
     return RecordCtrl;
 });

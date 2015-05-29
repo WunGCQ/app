@@ -31,9 +31,8 @@ exports.auth = {
     expiresInMinutes: 600
 };
 
-
 exports.server = {
-    address: "127.0.0.1",
+    address: '127.0.0.1',
     port: process.env.PORT || 6005
 };
 
@@ -51,6 +50,5 @@ exports.app = {
         SKIP: 0
     }
 };
-
 
 exports.server.domain = 'http://' + exports.server.address + ':' + exports.server.port;
