@@ -1,7 +1,7 @@
 extends ../base.jade
 
 block title
-    title news
+    title Admin Page
 
 
 block append commonLinks
@@ -16,8 +16,9 @@ block content
 
     div.side-menu.side-menu--dark.rel
         nav.side-menu__nav--top
-            a.link.link--light.side-menu__item.fa.fa-home(href="", data-type="tooltip", data-content=LANG.sections.home, data-placement="right")
-            a.link.link--light.side-menu__item.fa.fa-pencil(href="" data-type="tooltip", data-content=LANG.sections.news, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-home(href="/admin/home", data-type="tooltip", data-content=LANG.sections.home, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-pencil(href="/admin/news" data-type="tooltip", data-content=LANG.sections.news, data-placement="right")
+            a.link.link--light.side-menu__item.fa.fa-bullhorn(href="/admin/announcements" data-type="tooltip", data-content=LANG.sections.announcement, data-placement="right")
             a.link.link--light.side-menu__item.fa.fa-graduation-cap(href="" data-type="tooltip", data-content=LANG.sections.faculty, data-placement="right")
         nav.side-menu__nav--bottom
             a.link.link--light.side-menu__item.fa.fa-cogs(href="", data-type="tooltip", data-content=LANG.actions.setting, data-placement="right")

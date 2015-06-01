@@ -20,7 +20,7 @@ html(lang=LANG.LANG)
         block headScripts
             script(type='text/javascript').
                 var LANG_CODE = '#{LANG.LANG_CODE}';
-                var Ecpkn = !{JSON.stringify(Ecpkn || ''));
+                var Ecpkn = !{JSON.stringify(Ecpkn || '')) || {};
 
     body
     

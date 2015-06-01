@@ -8,7 +8,7 @@ require(['node', 'CONF', 'RecordStore', 'RecordCtrl', 'tooltip', 'toast'],
         getOnes: {
             url: CONF.API.record,
             queries: {
-                category: 'news'
+                category: 'announcement'
             }
         },
         deleteOne: {
@@ -20,7 +20,7 @@ require(['node', 'CONF', 'RecordStore', 'RecordCtrl', 'tooltip', 'toast'],
         saveOne: {
             url: CONF.API.record,
             params: {
-                category: 'news',
+                category: 'announcement',
                 group: 'default'
             }
         },

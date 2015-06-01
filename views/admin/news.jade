@@ -1,18 +1,18 @@
 extends ./record.jade
 
 block recordsListMetas
-    // span=LANG.news.listTitle
+    // span=LANG.record.listTitle
     div.inline-block.column--full
         select#records-group-selector.select.select--flat
-            each key in LANG.news.groupsKey
-                option(value='#{key}')=LANG.news.groups[key]
+            each key in LANG.record.groupsKey
+                option(value='#{key}')=LANG.record.groups[key]
 
 block recordMetas
     div.w-4.mr--lg
-        span=LANG.news.groupSelectorLabel 
+        span=LANG.record.groupSelectorLabel 
         select#record-group-selector.select.select--flat
-            each key in LANG.news.groupsKey
-                option(value='#{key}')=LANG.news.groups[key]
+            each key in LANG.record.groupsKey
+                option(value='#{key}')=LANG.record.groups[key]
     input#record-title-input.input--flat.float--right.form-control.w-5(type="text" required placeholder=LANG.record.title)
 
 

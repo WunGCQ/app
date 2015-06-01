@@ -1,7 +1,7 @@
 extends ./admin.jade
 
 block title
-    title news
+    title=LANG.record.categoryLabel 
 
 
 block links
@@ -12,6 +12,11 @@ block append content
     div.panel.record-groups
         div.panel__heading
             block recordsListMetas
+                // span=LANG.record.listTitle
+                div.inline-block.column--full
+                    select#records-group-selector.select.select--flat
+                        each key in LANG.record.groupsKey
+                            option(value='#{key}')=LANG.record.groups[key]
 
             span#record-create-btn.cursor--pointer.fa.fa-plus.float--right(data-type="tooltip", data-placement="bottom", data-content='#{LANG.actions.add}')
         div.panel__body
@@ -26,7 +31,16 @@ block append content
                  button#record-stick-btn.btn.btn-primary.inline-block.mr--lg.float--left(data-enabled-text=LANG.actions.stick, data-disabled-text=LANG.status.applying, data-stick-text=LANG.actions.stick, data-unstick-text=LANG.actions.unstick, data-sticked-text=LANG.actions.unstick)=LANG.actions.stick
         div.record-metas.ptb.plr.box--clip
             block recordMetas
-                input#record-title-input.input--flat.form-control(type="text" required placeholder=LANG.record.title)
+                div.w-4.mr--lg
+                    span=LANG.record.groupSelectorLabel 
+                    select#record-group-selector.select.select--flat
+                        each key in LANG.record.groupsKey
+                            option(value='#{key}')=LANG.record.groups[key]
+                input#record-title-input.input--flat.float--right.form-control.w-5(type="text" required placeholder=LANG.record.title)
+
+
+
+
         div#ueditor-container(data-placeholder='#{LANG.record.content}')
             script#ueditor(name="content", type="text/plain")
 

@@ -32,6 +32,8 @@ var status = {
 
 // section specified
 var news = {
+    category: 'news',
+    categoryLabel: '新闻',
     title: '新闻标题', // 创建新闻的默认标题.
     content: '新闻内容',
     latest: '最近新闻推荐',
@@ -44,11 +46,27 @@ var news = {
     },
     publishedAt: '发布日期:'
 };
+var announcement = {
+    category: 'announcement',
+    categoryLabel: '通告',
+    title: '通告标题', // 创建新闻的默认标题.
+    content: '通告内容',
+    latest: '最近通告',
+    listTitle:'通告列表',
+    groupSelectorLabel: '通告类别:',
+    groupsKey: ['default', 'school'],
+    groups: {
+        default: '学院通告',
+        school: '校际通告'
+    },
+    publishedAt: '发布日期:'
+};
 var components = {
 };
 zh.sections = sections;
 zh.actions = actions;
 zh.news = news;
+zh.announcement = announcement;
 zh.components = components;
 zh.record = news;
 zh.status = status;

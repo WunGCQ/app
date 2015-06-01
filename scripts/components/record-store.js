@@ -119,11 +119,10 @@ define('RecordStore', ['CONF', 'promise', 'utils'], function(require, exports, m
         var apiConf = this.conf.getOnes;
         var url = apiConf.url;
 
-        url = url + '?' + makeQueryString({
-            category: 'news',
+        url = url + '?' + makeQueryString(Utils.merge(apiConf.queries, {
             group: groupName,
             skip: group.length
-        });
+        }));
 
         axios.get(url)
             .then(function(res) {

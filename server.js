@@ -57,7 +57,9 @@ app.use('/news', router.public.news);
 app.use('/admin/attachments', router.admin.attachment);
 // admin
 app.use('/admin/editor', router.admin.editor);
+app.use('/admin/home', router.admin.home);
 app.use('/admin/news', router.admin.news);
+app.use('/admin/announcements', router.admin.announcement);
 app.use('/records', router.records);
 //
 

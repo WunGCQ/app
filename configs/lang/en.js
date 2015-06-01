@@ -32,6 +32,8 @@ var status = {
 
 // section specified
 var news = {
+    category: 'news',
+    categoryLabel: 'News',
     title: 'news title',
     content: 'news content',
     latest: 'Latest news',
@@ -44,11 +46,27 @@ var news = {
     },
     publishedAt: 'Published At:'
 };
+var announcement = {
+    category: 'announcement',
+    categoryLabel: 'Announcement',
+    title: 'Announcement title',
+    content: 'Announcement content',
+    latest: 'Latest Announcements',
+    listTitle:'Announcements List',
+    groupSelectorLabel: 'Announcements Group:',
+    groupsKey: ['default', 'school'],
+    groups: {
+        default: 'Default Announcements',
+        school: 'School Announcements'
+    },
+    publishedAt: 'Published At:'
+};
 var components = {
 };
 en.sections = sections;
 en.actions = actions;
 en.news = news;
+en.announcement = announcement;
 en.components = components;
 en.record = news;
 en.status = status;
