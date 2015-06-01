@@ -394,7 +394,7 @@
   -ms-flex: 10;
   flex: 10; }
 
-.abs, .tooltip-container, .tooltip__arrow, .side-menu__nav--bottom, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle {
+.abs, .tooltip-container, .tooltip__arrow, .side-menu__nav--bottom, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .records-archive__items-counter {
   position: absolute; }
   .abs--center {
     top: 50%;
@@ -409,7 +409,7 @@
   top: 0; }
 .abs--left, .fixed--left {
   left: 0; }
-.abs--right, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .fixed--right {
+.abs--right, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .records-archive__items-counter, .fixed--right {
   right: 0; }
 .abs--bottom, .side-menu__nav--bottom, .record-delete-btn, .fixed--bottom {
   bottom: 0; }
@@ -419,7 +419,7 @@
 .float--right {
   float: right; }
 
-.rel, .record__list-item {
+.rel, .record__list-item, .records-archive__title {
   position: relative; }
 
 .inline-block, .side-menu, .editor, .records-category {
@@ -521,7 +521,7 @@
 .pr--lg, .plr--lg {
   padding-right: 12px; }
 
-.mr--lg, .mlr--lg {
+.mr--lg, .mlr--lg, .records-archive__items-counter {
   margin-right: 12px; }
 
 .pt--lg, .ptb--lg, .link--flat, .list__item, .record__list-item, .panel__heading {

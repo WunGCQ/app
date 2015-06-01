@@ -15,12 +15,12 @@ var Attachment = new Schema({
     dir: {type: String}, // relative to app/
     url: {type: String},
     source: {type: String},
-    createdAt: {type: Date, default: Date.now()}
+    createdAt: {type: Date, default: Date.now}
 });
 
-Attachment.post('remove', function(){
-    fs.unlink(this.path, function(err){
+Attachment.post('remove', function() {
+    fs.unlink(this.path, function(err) {
     });
 });
 
-module.exports = mongoose.model('Attachment',Attachment);
+module.exports = mongoose.model('Attachment', Attachment);

@@ -45,6 +45,7 @@
     &__title {
         @extend .ptb;
         @extend .plr;
+        @extend .rel;
         @extend .cursor--pointer;
         border-bottom: 2px solid $primary-blue;
         background-color: $true-blue;
@@ -56,5 +57,10 @@
     }
     &__body {
 
+    }
+    &__items-counter{
+        @extend .abs;
+        @extend .abs--right;
+        @extend .mr--lg;
     }
 }

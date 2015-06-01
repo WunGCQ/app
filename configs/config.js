@@ -1,8 +1,11 @@
 'use strict';
 var _ = require('underscore');
 
+// mongolab
+var MONGODB_CONN = 'mongodb://ecpkn:ecpkn123456@ds041671.mongolab.com:41671/ecpkn';
+
 exports.db = {
-    connectionUrl: 'mongodb://localhost:27017/ecpkn',
+    connectionUrl: process.env.MONGODB_CONN || 'mongodb://localhost:27017/ecpkn',
     options: {
         server: {
             socketOptions: {

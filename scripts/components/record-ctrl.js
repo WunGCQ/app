@@ -33,6 +33,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             RECORDS_ARCHIVE_TITLE: 'records-archive__title',
             RECORDS_ARCHIVE_BODY_TOGGLE: 'records-archive__toggle',
             RECORDS_ARCHIVE_BODY: 'records-archive__body',
+            RECORDS_ARCHIVE_ITEMS_COUNTER: 'records-archive__items-counter',
             RECORD_LIST_ITEM: 'record__list-item',
             RECORD_LIST_ITEM_ACTIVE: 'record__list-item--active',
             RECROD_LIST_ITEM_STICKED: 'record__list-item--sticked',
@@ -47,10 +48,13 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var $recordTitle = Node('<h4>');
         var $recordCreatedAt = Node('<h5>');
         var $recordDeleteBtn = Node('<span>');
+        var recordMetas = Utils.makeDateMetas(record.createdAt);
         $recordDeleteBtn.addClass('fa fa-trash record-delete-btn');
         $record.addClass(conf.SELECTORS.RECORD_LIST_ITEM);
         $record.addClass(conf.SELECTORS['RECROD_LIST_ITEM_' + record.status.toUpperCase()]);
         $record.attr('data-id', record._id);
+        $record.attr('data-group', record.group);
+        $record.attr('data-hash', recordMetas.hash);
         $recordTitle.text(record.title.length > 20 ? record.title.slice(0, 20) + '...' : record.title);
         $recordCreatedAt.text((new Date(record.createdAt)).toLocaleString());
         $record.append($recordTitle);
@@ -68,8 +72,8 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var $archiveTitle = Node('<h4>');
         var $archiveBodyToggle = Node('<span>');
         var $archiveBody = Node('<div>');
+        var $archiveItemsCounter = Node('<span>');
         $archiveBodyToggle.addClass(conf.SELECTORS.RECORDS_ARCHIVE_BODY_TOGGLE);
-        console.log($archiveTitle);
         $archive.addClass(conf.SELECTORS.RECORDS_ARCHIVE);
         $archiveTitle.addClass(conf.SELECTORS.RECORDS_ARCHIVE_TITLE);
         $archiveBody.addClass(conf.SELECTORS.RECORDS_ARCHIVE_BODY);
@@ -80,10 +84,14 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             $archiveBody.append(_this.makeRecordItemNode(record));
         });
 
-        $archiveTitle.append($archiveBodyToggle);
+        $archiveItemsCounter.addClass(conf.SELECTORS.RECORDS_ARCHIVE_ITEMS_COUNTER);
+        $archiveItemsCounter.text(list.length);
+        //$archiveTitle.append($archiveBodyToggle);
+        $archiveTitle.append($archiveItemsCounter);
         $archive.append($archiveTitle);
         $archive.append($archiveBody);
         $archive.$body = $archiveBody;
+        $archive.$itemsCounter = $archiveItemsCounter;
         return $archive;
     };
     RecordCtrl.prototype.updateGroup = function(groupName, records) {
@@ -92,22 +100,33 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var group = this.groups[groupName];
         var $container = group.$container;
         var archives = Utils.archiveRecords(records);
-        console.log(archives);
+        var $formerArchives = group.$archives || [];
+        var $formerArchive;
         var $archives = Utils.map(archives, function(archive) {
             return _this.makeRecordsArchiveNode(archive);
         });
 
-        var $lastArchive = $container.last();
-        if ($lastArchive && $archives[0].hash === $lastArchive.hash) {
-            var $archiveToBeMerge = $archives.shift();
-            var $item;
-            while ($item = $archiveToBeMerge.$body.first()) $lastArchive.$body.append($item);
+        for (var i = $formerArchives.length - 1; i >= 0; i--) {
+            $formerArchive = $formerArchives[i];
+            if ($formerArchive.hash === $archives[0].hash) {
+                var $archiveToBeMerge = $archives.shift();
+                var $item;
+                while ($item = $archiveToBeMerge.$body.first()) {
+                    var count = $formerArchive.$itemsCounter.text();
+                    $formerArchive.$itemsCounter.text(count++);
+                    $formerArchive.$body.append($item);
+                }
+            }
         }
-        Utils.each($archives, function($archive) {
-            $container.append($archive);
-        });
-        group.$archives = group.$archives || [];
-        group.$archives = group.$archives.concat($archives);
+
+        if ($archives && $archives.length > 0) {
+            Utils.each($archives, function($archive) {
+                $container.append($archive);
+            });
+            console.log($archives);
+            group.$archives = $formerArchives.concat($archives);
+        }
+
         return $container;
     };
 
@@ -133,6 +152,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
                 $archive = group.$archives[i];
                 if ($archive && $archive.hash === recordMetas.hash) {
                     $recordNode = this.makeRecordItemNode(record);
+                    $archive.$itemsCounter.text(+$archive.$itemsCounter.text() + 1);
                     $archive.$body.prepend($recordNode);
                     break;
                 }
@@ -141,7 +161,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         if (!$recordNode) {
             $archive = this.makeRecordsArchiveNode(Utils.archiveRecords([record])[0]);
             $recordNode = $archive.$body.first();
-            group.$archives = [$archive].concat(group.$archive);
+            group.$archives = [$archive].concat(group.$archives);
             group.$container.prepend($archive);
         }
         return $recordNode;
@@ -168,8 +188,30 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         }
     };
     RecordCtrl.prototype.removeRecordItemNode = function($node) {
+        var $archives;
+        var $archive;
+        var $itemsCounter;
+        var count;
+        var hash;
         $node = $node || this.$currentRecordNode;
-        if ($node) $node.remove();
+        if ($node) {
+            $archives = this.groups[$node.attr('data-group')].$archives;
+            hash = $node.attr('data-hash');
+            for (var i = $archives.length - 1; i >= 0; i--) {
+                if ($archives[i].hash === hash) {
+                    $archive = $archives[i];
+                    $itemsCounter = $archive.$itemsCounter;
+                    count = +$itemsCounter.text();
+                    $node.remove();
+                    $itemsCounter.text(--count);
+                    if (count === 0) {
+                        $archives.splice(i, 1);
+                        $archive.remove();
+                    }
+                    break;
+                }
+            }
+        }
     };
 
     RecordCtrl.prototype.switchToGroup = function(groupName) {
