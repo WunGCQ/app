@@ -2,7 +2,7 @@
  * Created by wungcq on 15/5/25.
  */
 (function getNews(){
-    var url = "http://ecpkn.com/records?limit=10";
+    var url = "/records?limit=10";
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function(){
         if(xhr.readyState == '4' && xhr.status == "200") {
