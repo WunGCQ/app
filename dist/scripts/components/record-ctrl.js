@@ -152,9 +152,21 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             (r && record.status !== r.status)) :
             false;
     };
+    RecordCtrl.prototype.getGroup = function(groupName) {
+        var conf = this.conf;
+        var group = (this.groups[groupName] = this.groups[groupName] || {});
+        if (!group.$container) {
+            group.$container = Node.one('<div>');
+            group.$container.addClass(conf.SELECTORS.RECORDS_ARCHIVES_CONTAINE);
+        }
+        if (!group.$archives) {
+            group.$archives = [];
+        }
+        return group;
+    };
     RecordCtrl.prototype.insertRecord = function(record) {
         console.log(record);
-        var group = this.groups[record.group];
+        var group = this.getGroup(record.group);
         var recordMetas = Utils.makeDateMetas(record.createdAt);
         var archivesLen = group.$archives && group.$archives.length;
         var $archive;
@@ -227,15 +239,10 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
     };
 
     RecordCtrl.prototype.switchToGroup = function(groupName) {
-        var conf = this.conf;
-        var groups = this.groups;
-        var group = (groups[groupName] = groups[groupName] || {});
+        var group;
         if (this.currentGroup !== groupName) {
+            group = this.getGroup(groupName);
             this.currentGroup = groupName;
-            if (!group.$container) {
-                group.$container = Node.one('<div>');
-                group.$container.addClass(conf.SELECTORS.RECORDS_ARCHIVES_CONTAINE);
-            }
             $recordsGroupContainer.empty();
             $recordsGroupContainer.append(group.$container);
             if (group.$container.children().length === 0) {
@@ -245,7 +252,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
     };
     RecordCtrl.prototype.fillGroup = function(groupName) {
         var recordStore = this.recordStore;
-        var group = this.groups[groupName];
+        var group = this.getGroup(groupName);
         var _this = this;
         recordStore.getOnes(groupName)
             .then(function(res) {
