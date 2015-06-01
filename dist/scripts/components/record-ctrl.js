@@ -21,13 +21,13 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         Utils.each($$ctrls, function($ctrl) {
             if ($ctrl) $ctrl.attr('disabled', 'disabled');
         });
-        recordContentEditor.setDisable();
+        recordContentEditor.setDisabled();
     }
     function activeCtrls() {
         Utils.each($$ctrls, function($ctrl) {
             if ($ctrl) $ctrl.removeAttr('disabled');
         });
-        recordContentEditor.setEnable();
+        recordContentEditor.setEnabled();
     }
 
     function RecordCtrl(recordStore, conf) {
