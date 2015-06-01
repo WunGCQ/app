@@ -12,9 +12,22 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             initialContent: ueditorContainer.getAttribute('data-placeholder') || '新闻内容'
         });
         ue.ready(function() {
-            //disableEditors();
+            freezeCtrls();
         });
         return ue;
+    }
+
+    function freezeCtrls() {
+        Utils.each($$ctrls, function($ctrl) {
+            if ($ctrl) $ctrl.attr('disabled', 'disabled');
+        });
+        recordContentEditor.setDisable();
+    }
+    function activeCtrls() {
+        Utils.each($$ctrls, function($ctrl) {
+            if ($ctrl) $ctrl.removeAttr('disabled');
+        });
+        recordContentEditor.setEnable();
     }
 
     function RecordCtrl(recordStore, conf) {
@@ -143,7 +156,6 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         console.log(record);
         var group = this.groups[record.group];
         var recordMetas = Utils.makeDateMetas(record.createdAt);
-        console.log(recordMetas);
         var archivesLen = group.$archives && group.$archives.length;
         var $archive;
         var $recordNode = null;
@@ -167,8 +179,8 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         return $recordNode;
     };
     RecordCtrl.prototype.setCurrentRecord = function($node, record) {
-        console.log($node);
-        console.log(record);
+        activeCtrls();
+
         var conf = this.conf;
         record = record || {};
         this.currentRecord = record;
@@ -426,6 +438,9 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
     var $recordsGroupSelector = RecordCtrl.$recordsGroupSelector = Node.one('#records-group-selector');
     var $recordGroupSelector = RecordCtrl.$recordsGroupSelector = Node.one('#record-group-selector');
     var recordContentEditor = RecordCtrl.recordContentEditor = initUEditor('ueditor');
+    var $$ctrls = RecordCtrl.$$ctrls = [
+        $recordPublishBtn, $recordSaveDraftBtn, $recordStickBtn,
+        $recordTitleInput, $recordGroupSelector];
     RecordCtrl.currentRecord = null;
 
     $recordStickBtn.setStatus = (function() {
@@ -433,15 +448,10 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var unstickText = $recordStickBtn.attr('data-unstick-text');
         var stickedText = $recordStickBtn.attr('data-sticked-text');
         return function(status) {
-            console.log(status);
             if (status === 'applying') {
                 Utils.disableEl($recordStickBtn);
             } else {
-                if (status === 'sticked') {
-                    $recordStickBtn.attr('data-enabled-text', stickedText);
-                } else {
-                    $recordStickBtn.attr('data-enabled-text', stickText);
-                }
+                $recordStickBtn.attr('data-enabled-text', status === 'sticked' ? stickedText : stickText);
                 Utils.enableEl($recordStickBtn);
             }
         };

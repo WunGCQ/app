@@ -1,4 +1,4 @@
-define('utils', ['util'], function(require, exports, module){
+define('utils', ['util'], function(require, exports, module) {
     function Utils() {}
     Utils.prototype = require('util');
 
@@ -8,15 +8,19 @@ define('utils', ['util'], function(require, exports, module){
     Ecpkn.Utils = utils;
 
     utils.enableEl = function($el) {
-        $el.removeAttr('disabled');
-        if ($el.attr('data-enabled-text')) {
-            $el.text($el.attr('data-enabled-text'));
+        if ($el) {
+            $el.removeAttr('disabled');
+            if ($el.attr('data-enabled-text')) {
+                $el.text($el.attr('data-enabled-text'));
+            }
         }
     };
-    utils.disableEl = function($el){
-        $el.attr('disabled','disabled');
-        if ($el.attr('data-disabled-text')) {
-            $el.text($el.attr('data-disabled-text'));
+    utils.disableEl = function($el) {
+        if ($el) {
+            $el.attr('disabled', 'disabled');
+            if ($el.attr('data-disabled-text')) {
+                $el.text($el.attr('data-disabled-text'));
+            }
         }
     };
 
@@ -24,16 +28,15 @@ define('utils', ['util'], function(require, exports, module){
 
     };
 
-
     // archive records
     function shouldRecordInGroup(record, group) {
         var _metas = group.metas;
         var metas = utils.makeDateMetas(record.createdAt);
         return _metas.year === metas.year && _metas.month === metas.month && _metas.date === metas.date;
     }
-    utils.makeDateMetas = function (d) {
+    utils.makeDateMetas = function(d) {
         var date = new Date(d);
-        var metas= {
+        var metas = {
             year: date.getFullYear(),
             month: date.getMonth() + 1,
             date: date.getDate(),
@@ -48,14 +51,14 @@ define('utils', ['util'], function(require, exports, module){
         var record = null;
         var i;
 
-        for(i = 0; i < len; i++){
+        for (i = 0; i < len; i++) {
             record = records[i];
-            if(archives.length === 0 || !shouldRecordInGroup(record, archives[archives.length - 1])){
+            if (archives.length === 0 || !shouldRecordInGroup(record, archives[archives.length - 1])) {
                 archives.push({
                     metas: utils.makeDateMetas(record.createdAt),
                     list: [record]
                 });
-            }else{
+            } else {
                 archives[archives.length - 1].list.push(record);
             }
         }
