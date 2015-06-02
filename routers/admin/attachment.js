@@ -10,12 +10,12 @@ var Path = require('path');
 var Q = require('q');
 var Record = require('../../apis/record');
 
-function prepareAttachment (req) {
+function prepareAttachment(req) {
     var defer = Q.defer();
     var file = req.files && req.files.upfile;
     var attachment;
     if (file) {
-        attachment ={
+        attachment = {
             originalName: file.originalname,
             name: file.name,
             extension: Path.extname(file.name),
@@ -32,13 +32,16 @@ function prepareAttachment (req) {
         if (files) {
             files = [].concat(files);
             var filesCount = files.length;
-            var download = Download({mode: '775', extract: true});
+            var download = Download({
+                mode: '775',
+                extract: true
+            });
             for (var i = 0; i < filesCount; i++) {
                 download = download.get(files[i]);
             }
             download.dest(req._attachmentPath)
-                .run(function(err, files){
-                    var attachments = files.map(function(file){
+                .run(function(err, files) {
+                    var attachments = files.map(function(file) {
                         var name = file.history[0];
                         var path = file.history[1];
                         var attachment = {
@@ -60,19 +63,19 @@ function prepareAttachment (req) {
 }
 
 router.route('/')
-    .get(function(req,res){
+    .get(function(req, res) {
         res.status(200).send(ueditorConf);
     })
-    .post(function(req,res){
+    .post(function(req, res) {
 
         prepareAttachment(req)
-            .then(function(attachment){
+            .then(function(attachment) {
                 return Attachment.create(attachment);
             })
-            .then(function(attachment){
+            .then(function(attachment) {
                 var result = {};
-                if (attachment.length > 1) {
-                    result.list = attachment.map(function(a){
+                if (attachment.length >= 1) {
+                    result.list = attachment.map(function(a) {
                         return {
                             state: 'SUCCESS',
                             url: a.url,
@@ -87,18 +90,20 @@ router.route('/')
                         original: attachment.originalname,
                         type: '.' + attachment.extension,
                         size: attachment.size
-                    } ;
+                    };
                 }
                 result.state = 'SUCCESS';
 
                 var _id = req.query._id;
                 if (_id) {
-                    var data = {$pushAll: {}};
+                    var data = {
+                        $pushAll: {}
+                    };
                     data.$pushAll[req._attachmentType] = [].concat(attachment);
-                    Record.update(_id, data) 
-                        .then(function(record){
+                    Record.update(_id, data)
+                        .then(function(record) {
                             res.type('html').status(200).send(result);
-                        },function(err){
+                        }, function(err) {
                             res.type('html').status(200).send(err);
                         });
                 } else {
