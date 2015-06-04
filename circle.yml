@@ -15,21 +15,21 @@ dependencies:
   pre:
     - npm install -g npm@latest
     - npm install -g bower
-    - npm install -g mocha-casperjs
-    - npm install -g chai casper-chai
-    - npm install -g phantomjs
+    # - npm install -g mocha-casperjs
+    # - npm install -g chai casper-chai
+    # - npm install -g phantomjs
   override:
-    - npm install -g gulp # install gulp as global
+    # - npm install -g gulp # install gulp as global
     - npm install: # note ':' here
         timeout: 1800 # fail if command has no output for 30 minutes
 
-test:
-  pre:
-    - node server.js:
-        background: true
+# test:
+#   pre:
+#     - node server.js:
+#         background: true
 
-  override:
-    - gulp test # launch the gulp test task
+#   override:
+#     - gulp test # launch the gulp test task
 
 deployment:
   production:
