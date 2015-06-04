@@ -1,4 +1,4 @@
-define('mask', ['node', 'util', 'anim'], function(require, exports, module){
+define('mask', ['node', 'util', 'anim'], function(require, exports, module) {
     var $ = require('node');
     var Util = require('util');
     var Anim = require('anim');
@@ -24,7 +24,7 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module){
         hide: {
             props: {
                 'z-index': '-10',
-                'background-color': 'rgba(0,0,0,0)' 
+                'background-color': 'rgba(0,0,0,0)'
             },
             conf: {
                 duration: 0.2,
@@ -35,11 +35,11 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module){
     var conf = CONF;
     var isMaskAttached = false;
     var $mask = $('<div>');
-    $mask.on('click', function(){
+    $mask.on('click', function() {
         Mask.hide();
     });
 
-    Mask.setup = function(){
+    Mask.setup = function() {
         $mask.css(conf.hide.props);
         $mask.css(conf.base);
     };
@@ -50,7 +50,8 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module){
     };
     Mask.show = function(c) {
         if (!isMaskAttached) {
-            $('body').append($mask); 
+            $('body').append($mask);
+            Mask.conf(c);
             isMaskAttached = true;
         }
         var anim = new Anim($mask, conf.show.props, conf.show.conf);
@@ -60,12 +61,11 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module){
         var anim = new Anim($mask, conf.hide.props, conf.hide.conf);
         return anim.run();
     };
-    Mask.setContent = function(content){
+    Mask.setContent = function(content) {
         $mask.html(content);
         return Mask;
     };
     Mask.CONF = CONF; // export default conf
-
 
     return Mask;
 });

@@ -55,7 +55,8 @@ function prepareAttachment(req) {
                         };
                         return attachment;
                     });
-                    defer.resolve(attachments.length > 1 ? attachments : attachments[0]);
+                    // defer.resolve(attachments.length > 1 ? attachments : attachments[0]);
+                    defer.resolve(attachments);
                 });
         }
     }
@@ -69,28 +70,31 @@ router.route('/')
     .post(function(req, res) {
 
         prepareAttachment(req)
-            .then(function(attachment) {
-                return Attachment.create(attachment);
+            .then(function(attachments) {
+                return Attachment.create(attachments);
             })
-            .then(function(attachment) {
+            .then(function(attachments) {
+                console.log(attachments);
                 var result = {};
-                if (attachment.length >= 1) {
-                    result.list = attachment.map(function(a) {
+                if (attachments.length >= 1) {
+                    result.list = attachments.map(function(a) {
                         return {
                             state: 'SUCCESS',
-                            url: a.url,
+                            // url: a.url,
+                            url: a.source, // use origin link for dev, use a.url in prod
                             source: a.source,
                             title: a.name
                         };
                     });
-                } else {
-                    result = {
-                        url: attachment.url,
-                        title: attachment.name,
-                        original: attachment.originalname,
-                        type: '.' + attachment.extension,
-                        size: attachment.size
-                    };
+                // } else {
+                //     result = {
+                //         url: attachment.url,
+                //         title: attachment.name,
+                //         original: attachment.originalname,
+                //         type: '.' + attachment.extension,
+                //         source: attachment.source,
+                //         size: attachment.size
+                //     };
                 }
                 result.state = 'SUCCESS';
 
@@ -99,7 +103,7 @@ router.route('/')
                     var data = {
                         $pushAll: {}
                     };
-                    data.$pushAll[req._attachmentType] = [].concat(attachment);
+                    data.$pushAll[req._attachmentType] = [].concat(attachments);
                     Record.update(_id, data)
                         .then(function(record) {
                             res.type('html').status(200).send(result);

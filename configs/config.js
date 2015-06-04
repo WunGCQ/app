@@ -51,6 +51,10 @@ exports.app = {
         PER_PAGE: 10,
         LIMIT: 20,
         SKIP: 0
+    },
+    default: {
+        LIMIT: 20,
+        SKIP: 0
     }
 };
 
