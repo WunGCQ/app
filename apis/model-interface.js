@@ -9,8 +9,8 @@ var _ = require('lodash');
 var _allowedFields = '_id,title,content,createdAt,category,group,status,lang,images,attachments';
 var CONF = {
     opts: {
-        limit: config.default.LIMIT,
-        skip: config.default.SKIP,
+        limit: config.app.default.LIMIT,
+        skip: config.app.default.SKIP,
         sort: {
             createdAt: -1
         }
@@ -21,11 +21,11 @@ var CONF = {
     }
 };
 
-function ModelHelper(model, conf) {
+function ModelInterface(model, conf) {
     this.model = model;
     this.conf = _.merge({}, CONF, conf);
 }
-var proto = ModelHelper.prototype;
+var proto = ModelInterface.prototype;
 
 proto.isQueryFieldAllowed = function(field) {
     return this.conf.fields.allowed.indexOf(field) !== -1;
@@ -110,7 +110,7 @@ proto.get = function(conds, fields, opts, query) {
     console.log(fields);
     console.log(opts);
     var _query = this.model.find(conds, fields, opts);
-    var population = this.conf._opts.population;
+    var population = this.conf.opts.population;
     if (population) {
         _query.populate(population);
     }
@@ -212,4 +212,4 @@ proto.getCount = function(conds, query) {
     return this.model.count(conds).exec();
 };
 
-module.exports = ModelHelper;
+module.exports = ModelInterface;

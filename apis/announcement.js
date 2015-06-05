@@ -1,8 +1,12 @@
-/**
- */
 var Announcement = require('../models/record');
-var apis = require('./record');
+var ModelInterface = require('./model-interface');
 
-// 与 announcement 特定的api接口 goes here
+var conf = {
+    opts: {
+        population: 'images attachments'
+    }
+};
+// 实例化接口对象
+var announcementApi = new ModelInterface(Announcement, conf);
 
-module.exports = apis;
+module.exports = announcementApi;

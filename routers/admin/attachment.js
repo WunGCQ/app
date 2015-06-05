@@ -15,6 +15,8 @@ function prepareAttachment(req) {
     var file = req.files && req.files.upfile;
     var attachment;
     if (file) {
+        console.log('// files');
+        console.log(file);
         attachment = {
             originalName: file.originalname,
             name: file.name,
@@ -55,7 +57,6 @@ function prepareAttachment(req) {
                         };
                         return attachment;
                     });
-                    // defer.resolve(attachments.length > 1 ? attachments : attachments[0]);
                     defer.resolve(attachments);
                 });
         }
@@ -86,15 +87,15 @@ router.route('/')
                             title: a.name
                         };
                     });
-                // } else {
-                //     result = {
-                //         url: attachment.url,
-                //         title: attachment.name,
-                //         original: attachment.originalname,
-                //         type: '.' + attachment.extension,
-                //         source: attachment.source,
-                //         size: attachment.size
-                //     };
+                } else {
+                    result = {
+                        url: attachments.url,
+                        title: attachments.name,
+                        original: attachments.originalname,
+                        type: '.' + attachments.extension,
+                        source: attachments.source,
+                        size: attachments.size
+                    };
                 }
                 result.state = 'SUCCESS';
 

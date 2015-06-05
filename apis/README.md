@@ -2,7 +2,7 @@
 
 ---
 
-record.js
+model-interface.js
     - get(conds, fields, opts, query)
 
     > 根据 conds,opts 进行数据库查询，返回 promise， 通过promise#then(onfulfill)
