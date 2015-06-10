@@ -7,3 +7,4 @@ typescript
 /statics/uploads/attachments/
 /statics/uploads/avatars/
 /statics/uploads/images/
+!.gitignore
