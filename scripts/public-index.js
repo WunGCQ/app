@@ -24,7 +24,7 @@
                                 var img = record.images[0];
                                 var str = '';
                                 if (parent.children.length === 1) {
-                                    str = '<img src="' + (record.images[0] && record.images[0].url || '/statics/images/bg1.jpg') + '" class="img">';
+                                    str = '<img src="' + (record.images[0] && record.images[0].source || record.images[0].url || '/statics/images/bg1.jpg') + '" class="img">';
                                 } else {
                                     str = '';    
                                 }
