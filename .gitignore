@@ -4,7 +4,4 @@ bower_components/
 .settings/
 .idea/
 typescript
-/statics/uploads/attachments/
-/statics/uploads/avatars/
-/statics/uploads/images/
 !.gitignore
