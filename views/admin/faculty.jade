@@ -17,7 +17,7 @@ block append content
                 div.person-card
                     a.person-card__edit-btn.fa.fa-pencil
                     a.person-card__delete-btn.fa.fa-trash
-                    img.person-card__avatar(src=person.avatar.url)
+                    img.person-card__avatar(src=person.avatar&&person.avatar.url)
                     h4='@'+person.name
                     h4.person-card__meta
                         i.fa.fa-flag.person-card__meta-label
