@@ -19,6 +19,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     var TOOLTIP_DELETE_TEXT = LANG.actions.delete;
 
     var currentPerson = null;
+    var $currentPersonCard = null;
     var personAgent = new PersonAgent({
         saveOne: {
             url: CONF.API.person.root
@@ -44,9 +45,15 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         // });
         return io;
     }
-    function updateEditor(data) {
-        data = data || {};
+    function updateEditorData(person) {
+        person = person || {};
     }
+
+    function setCurrentPerson(person, $node) {
+        currentPerson = person;
+        $currentPersonCard = $node;
+    }
+
     function prependPersonCard(person) {
         var $card = $('<div>');
         var $editBtn = $('<a>');
@@ -132,9 +139,6 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     function isCurrentPersonModified() {
 
     }
-    function setCurrentPerson(person) {
-
-    }
     function openEditor() {
         $facultyEidtorWrapper.addClass('faculty-editor-wrapper--active');
         return Modal.open($facultyEidtorWrapper)
@@ -159,6 +163,8 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         var file = $personAvatarSelector[0].files[0];
         $personAvatarPreview.attr('src', URL.createObjectURL(file));
         console.log(file);
+    });
+    $gallery.delegate('click', '.person-card__edit-btn', function(event){
     });
 
     // tooltip

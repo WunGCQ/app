@@ -28,8 +28,9 @@ router.route('/')
     .post(function(req, res) {
         var record = req.body;
         var resData = {};
+        var defaultConf = res.locals.LANG[record.category];
         record.lang = record.lang || res.locals.LANG.LANG_CODE;
-        record.title = record.title || res.locals.LANG.news.title;
+        record.title = record.title || (defaultConf && defaultConf.title);
         record.category = record.category;
         Record.create(record)
             .then(function(record) {
