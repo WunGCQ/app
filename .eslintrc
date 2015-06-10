@@ -16,6 +16,7 @@
         "no-use-before-define": false,
         "no-extra-semi": false,
         "no-wrap-func": false,
+        "no-alert": false,
         "new-cap": false,
         "handle-callback-err": false,
         "strict": false,

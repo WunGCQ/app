@@ -1,6 +1,7 @@
 define('CONF', function() {
     var CONF = {};
     var API = CONF.API = {};
+    var APP = CONF.APP = {};
     var admin = API.admin = {};
     var public = API.public = {};
     var person = API.person = {};
@@ -16,6 +17,8 @@ define('CONF', function() {
 
     person.root = API.root + '/persons';
     person.uploadAvatar = '/admin/attachments?action=uploadimage&type=avatar&target=person';
+
+    APP.defaultAvatar = '/statics/images/default-avatar.png';
 
     return CONF;
 });

@@ -213,6 +213,11 @@ var components = {
     }
 };
 
+var feedbacks = {
+    succeeded: '操作成功',
+    failed: '操作失败'
+};
+
 zh.sections = sections;
 zh.actions = actions;
 
@@ -222,6 +227,7 @@ zh.faculty = faculty;
 
 zh.components = components;
 zh.status = status;
+zh.feedbacks = feedbacks;
 
 zh.LANG = 'zh-cmn-Hans'; // <html lang=...>
 zh.LANG_CODE = 'zh'; // 注入页面，供页面脚本识别当前语言

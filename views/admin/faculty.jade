@@ -14,14 +14,15 @@ block append content
 
         div.person-gallery
             each person in list
-                div.person-card
+                div.person-card(data-id='#{person._id}')
                     a.person-card__edit-btn.fa.fa-pencil
                     a.person-card__delete-btn.fa.fa-trash
-                    img.person-card__avatar(src=person.avatar&&person.avatar.url)
-                    h4='@'+person.name
+                    - var defaultAvatar = '/statics/images/default-avatar.png';
+                    img.person-card__avatar(src=person.avatar&&person.avatar.url||defaultAvatar)
+                    h4.person-card__name=person.name
                     h4.person-card__meta
                         i.fa.fa-flag.person-card__meta-label
-                        span=person.role
+                        span.person-card__role=person.role
                     p.person-card__description=person.description
 
 
