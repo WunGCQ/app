@@ -3,13 +3,11 @@
 var mongoose = require('mongoose');
 var config = require('../configs/config');
 var Schema = mongoose.Schema;
-var Q = require('q');
 
 var RECORD_STATUS_ENUM = ['published', 'draft', 'sticked'];
 var CATEGORIES_ENUM = config.db.collections.CATEGORIES;
 var GROUPS_ENUM = config.db.collections.GROUPS;
 
-var Attachment = require('./attachment');
 var AttachmentAPI = require('../apis/attachment');
 
 var Record = new Schema({
@@ -18,14 +16,14 @@ var Record = new Schema({
 
     category: {type: String, required: true, enum: CATEGORIES_ENUM},
     group: {type: String, enum: GROUPS_ENUM},
-    tags:[{type:String, trim: true}],
+    tags: [{type: String, trim: true}],
 
     status: {type: String, enum: RECORD_STATUS_ENUM, default: 'draft'}, // 新闻状态：发布、草稿
 
     lang: {type: String, default: 'zh'},
     url: {type: String, trim: true},
-    images:[{type:Schema.Types.ObjectId, ref:'Attachment'}],
-    attachments:[{type:Schema.Types.ObjectId, ref:'Attachment'}],
+    images: [{type: Schema.Types.ObjectId, ref: 'Attachment'}],
+    attachments: [{type: Schema.Types.ObjectId, ref: 'Attachment'}],
     createdAt: {type: Date, default: Date.now},
     hash: {type: String, trim: true}
 });

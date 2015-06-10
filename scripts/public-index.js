@@ -67,8 +67,8 @@
 })();
 (function () {
     var arg = {
-        tips: [ "注解1", "注解2", "注解3", "注解4" ],
-        picSrc: [ "/statics/images/bg.jpg", "/statics/images/2.jpg", "/statics/images/3.jpg", "/statics/images/4.jpg" ],
+        tips: [ "中法十年院庆", "图2", "图3", "注解4" ],
+        picSrc: [ "/statics/images/logo10.jpg", "/statics/images/2.jpg", "/statics/images/3.jpg", "/statics/images/4.jpg" ],
         href: [ "#1", "#2", "#3", "#4" ],
         navColor: [ "#051247", "#FFF1FFF", "#B60017", "#B4B4B4" ]
     };

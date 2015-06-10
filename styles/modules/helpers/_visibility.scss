@@ -18,3 +18,11 @@
     @extend .box-x--clip;
     @extend .box-y--clip;
 }
+.transparent {
+    opacity: 0;
+}
+.resize {
+    &--v {
+        resize: vertical;
+    }
+}

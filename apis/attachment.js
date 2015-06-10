@@ -1,24 +1,8 @@
 var Attachment = require('../models/attachment');
+var ModelInterface = require('./model-interface');
 
-exports.get = function (conds, fields, opts) {
-    conds = conds || {};
-    fields = fields;
-    opts = opts || {};
-    opts.sort = opts.sort || {createdAt: -1};
-    var query = Attachment.find(conds,fields,opts);
-    return query.exec();
-};
+var conf = {};
+// 实例化接口对象
+var attachmentApi = new ModelInterface(Attachment, conf);
 
-exports.create = function (data) {
-    return Attachment.create(data);
-};
-
-exports.update = function(id, update, opts) {
-    opts = opts || {};
-    if (opts.new === undefined) opts.new = true;
-    return Attachment.findByIdAndUpdate(id, update, opts).exec();
-};
-
-exports.delete = function (id) {
-
-};
+module.exports = attachmentApi;

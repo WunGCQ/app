@@ -92,6 +92,7 @@
   float: left;
   color: #fff;
   width: 142px;
+  width: 20%;
   line-height: 100px;
   height: 100px;
   background-position: center center;
@@ -142,7 +143,7 @@
   background-color: #427bb0;
   height: 20px;
   line-height: 20px;
-  width: 50px;
+  width: 80px;
   color: #fff;
   font-size: 14px;
   text-decoration: none;
@@ -269,9 +270,12 @@
   height: 310px;
   -webkit-transition: all ease-out 0.5s;
           transition: all ease-out 0.5s;
+  background-color: white;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat; }
+  .pic-round .pic-wrapper .img:nth-child(2) {
+    background-size: contain; }
 
 .pic-round .pic-wrapper .img .tip {
   display: block;
@@ -341,6 +345,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   text-align: center;
   display: block;
   min-height: 765px;
@@ -352,6 +357,7 @@ body .wrap {
   margin: auto;
   width: 100%;
   height: calc(100% - 100px);
+  height: calc(100% - 40px);
   text-align: center;
   vertical-align: middle; }
 
@@ -386,4 +392,22 @@ body .wrap .container-wrapper .container .main {
   background-size: 80%;
   background-position: center;
   background-repeat: no-repeat; }
+
+.container .footer-section .link {
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; }
+  .container .footer-section .link:nth-child(1) {
+    background-image: url(/statics/images/LILLE-LOGO.png); }
+  .container .footer-section .link:nth-child(2) {
+    background-size: cover;
+    background-image: url(/statics/images/logo-CentraleSupelec.png); }
+  .container .footer-section .link:nth-child(3) {
+    background-size: cover;
+    background-image: url(/statics/images/LOGO-MARSEILLE.png); }
+  .container .footer-section .link:nth-child(4) {
+    background-image: url(/statics/images/Lyon-LOGO.png); }
+  .container .footer-section .link:nth-child(5) {
+    background-image: url(/statics/images/Nantes-logo.png); }
 

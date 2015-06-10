@@ -5,41 +5,59 @@
  */
 
 // commons
-$row--single_line-height:               40px !default;
+$row--single_line-height:                         40px !default;
 
 // admin side menu
-$admin-side-menu_bgc:                   $oxford-blue !default;
-$admin-side-menu--dark_bgc:             $oxford-blue !default;
-$admin-side-menu__item--hover_bgc:      tint($admin-side-menu_bgc, 12%) !default;
-$admin-side-menu__item_bc:              tint($admin-side-menu_bgc, 36%) !default;
-$admin-side-menu_width:                 46px !default;
-$admin-side-menu__item_line-height:     44px !default;
-$admin-news-list__title-line-height:    44px !default;
-$admin-news-list__item--hover_bgc:      #eee !default;
-$admin-news-list_width:                 32% !default;
+$admin-side-menu_bgc:                             $oxford-blue !default;
+$admin-side-menu--dark_bgc:                       rgb(20,35,52) !default;
+$admin-side-menu__item--hover_bgc:                shade($admin-side-menu_bgc, 43%) !default;
+$admin-side-menu__item_bc:                        shade($admin-side-menu_bgc, 36%) !default;
+$admin-side-menu_width:                           46px !default;
+$admin-side-menu__item_line-height:               44px !default;
+$admin-side-menu__item_c:                         rgb(69, 140,220) !default;
+$admin-news-list__title-line-height:              44px !default;
+$admin-news-list__item--hover_bgc:                #eee !default;
+$admin-news-list_width:                           32% !default;
+$admin-ueditor-action-bar-height:                 46px !default;
+
+$admin-faculty-main_bgc:                          shade($admin-side-menu_bgc, 36) !default;
+$admin-faculty-editor_bgc:                        white !default;
+$admin-faculty-banner_shadow-color:               $admin-side-menu__item_c !default;
+$admin-faculty-banner_height:                     88px !default;
+$admin-faculty-person-card__action-color:         $azure !default;
+
+
 
 // public header & footer
-$public-header_bgc:                     $primary-blue !default;
-$public-header--blue_bgc:               $primary-blue !default;
-$public-logo_width:                     260px !default;
-$public-header__link_c:                 $dark-white !default;
-$public-header__link--hover_c:          shade($public-header_bgc, 8%) !default;
-$public-header__link--hover_bgc:        shade($public-header_bgc, 16%) !default;
-$public-header__sub-nav_bgc:            $light-dark !default;
-$public-header__main-nav_height:        100px !default;
-$public-header__sub-nav_height:         42px !default;
-$public-footer_height:                  90px !default;
-$public-footer--dark_bgc:               $light-dark !default;
+$public-header_bgc:                               $primary-blue !default;
+$public-header--blue_bgc:                         $primary-blue !default;
+$public-logo_width:                               260px !default;
+$public-header__link_c:                           $dark-white !default;
+$public-header__link--hover_c:                    shade($public-header_bgc, 8%) !default;
+$public-header__link--hover_bgc:                  shade($public-header_bgc, 16%) !default;
+$public-header__sub-nav_bgc:                      $light-dark !default;
+$public-header__main-nav_height:                  100px !default;
+$public-header__sub-nav_height:                   42px !default;
+$public-footer_height:                            90px !default;
+$public-header_height:                            120px !default;
+$public-footer--dark_bgc:                         $light-dark !default;
 
 // public news page
-$public-news-main-wrapper_height:       calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
-$public-news__height:                   600px !default;
-$public-latest-news_height:             600px !default;
-$public-latest-news_width:              300px !default;
-$public-news-wrapper_width:             calc(100% - #{$public-latest-news_width} - 60px);
+$public-news-main-wrapper_height:                 calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
+$public-news__height:                             600px !default;
+$public-latest-news_height:                       600px !default;
+$public-latest-news_width:                        300px !default;
+$public-news-wrapper_width:                       calc(100% - #{$public-latest-news_width} - 60px);
 
 // components
-$tooltip--dark_bgc:                     rgba(0,0,0,0.8) !default;
-$tooltip__arrow_size:                   8px !default;
-$record__list-item--sticked_bgc:                   yellow !default;
+$tooltip--dark_bgc:                               rgba(0,0,0,0.8) !default;
+$tooltip__arrow_size:                             8px !default;
+$record__list-item--sticked_bgc:                  yellow !default;
+$avatar--sm_width:                                68px !default;
+$avatar--m_width:                                 100px !default;
+$avatar--lg_width:                                120px !default;
+$avatar_bgc:                                      #eee !default;
+$label-primary_bgc:                               rgb(55,123,181) !default;
+
+$toast-primary:                                   $primary-blue !default;
 

@@ -5,4 +5,4 @@ exports.home = require('./home');
 exports.news = require('./news');
 exports.announcement = require('./announcement');
 exports.attachment = require('./attachment');
-
+exports.faculty = require('./faculty');

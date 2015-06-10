@@ -1,11 +1,5 @@
 extends ./admin.jade
 
-block title
-    title=LANG.record.categoryLabel 
-
-
-block links
-    link(rel="stylesheet", href="/statics/styles/admin-record.min.css")
 
 
 block append content
@@ -23,7 +17,7 @@ block append content
             div#records-group-container
             div#records-loader-indicator
 
-    div.editor
+    div.ueditor
         div.ueditor-action-bar.ptb.plr
             block editorActionBar
                  button#record-publish-btn.btn.btn-primary.inline-block.mr--lg.float--right(data-enabled-text=LANG.actions.publish, data-disabled-text=LANG.status.publishing)=LANG.actions.publish

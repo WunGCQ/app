@@ -1,0 +1,25 @@
+.modal {
+    &__header {
+        @extend .ptb;
+        @extend .plr;
+        border-bottom: 1px solid #eaeaea;
+    }
+    &__title {
+        @extend .mtb;
+    }
+    &__closer {
+        @extend .abs;
+        @extend .abs--right;
+        @extend .mr;
+        @extend .cursor--pointer;
+    }
+    &__body {
+        @extend .ptb;
+        @extend .plr;
+    }
+    &__footer {
+        @extend .ptb;
+        @extend .plr;
+        border-top: 1px solid #eaeaea;
+    }
+}

@@ -436,6 +436,10 @@
     .table-cell--middle {
       vertical-align: middle; }
 
+.center--h {
+  margin-left: auto;
+  margin-right: auto; }
+
 /**
  * padding and margin helper
  * =============================== */
@@ -577,6 +581,33 @@
 .box-y--clip, .box--clip {
   overflow-y: hidden; }
 
+.transparent {
+  opacity: 0; }
+
+.resize--v {
+  resize: vertical; }
+
+.transparent {
+  background-color: transparent; }
+
+.text-white {
+  color: white; }
+
+.text--white {
+  color: white; }
+
+.bg-white {
+  background-color: white; }
+
+/**
+ * color & background-color and their hover transition 
+ * @param  {[type]} $color:           $default-color [description]
+ * @param  {[type]} $hover-color:     $color         [description]
+ * @param  {[type]} $bg-color:        transparent    [description]
+ * @param  {[type]} $bg-hover-color:  transparent    [description]
+ * @param  {[type]} $with-transition: null           [description]
+ * @return {[type]}                   [description]
+ */
 .link, .site-header__link {
   text-decoration: none; }
   .link:hover, .site-header__link:hover {
@@ -603,6 +634,13 @@
     color: #0e151b; }
   .input:focus {
     box-shadow: 0 0 8px 2px #428bca; }
+  .input--void {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none; }
+  .input--bb {
+    border-bottom: 1px solid #ddd; }
 
 .flag--left {
   border-left: 2px solid; }
@@ -629,6 +667,9 @@ pre > code {
 
 html body input[disabled] {
   cursor: not-allowed; }
+
+.label {
+  vertical-align: top; }
 
 .site-header {
   color: white;

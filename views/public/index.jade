@@ -16,73 +16,20 @@ block content
           header.header
             .logo
             nav.nav
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-              .item
-                a.item-txt(href='') 内容
-                .sub-menu
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
-                  a.sub-item(href='') 项目1
+              each group in LANG.components.publicLinks.header
+                .item
+                  a.item-txt(href=group.url)=group.name
+                  if (group.subs && group.subs.length > 0)
+                    .sub-menu
+                        each item in group.subs
+                          a.sub-item(href=item.url)=item.name
           // main
           section.main
             .search-section
               input.search-input(type='text')
               button.search-btn G
             .left-nav
-              a.item.active(href='#', tabindex='1') 新闻
+              a.item.active(href='#', tabindex='1') 学院新闻
               .page#news-block
                 //.first
                 //  img.img(src='../img/fxjj.jpg', alt='')
@@ -92,10 +39,10 @@ block content
                 //  time.time 4.18
                 //  |               里是关于它的介绍链接关于它的介绍链接
                 a.more(href='') 更多
-              a.item(href='#', tabindex='2') tab2
+              a.item(href='#', tabindex='2') 通知公告
               .page#announcement-block
                 a.more(href='') 更多
-              a.item(href='#', tabindex='3') tab3
+              a.item(href='#', tabindex='3') 十年院庆
               .page
                 a.more(href='') 更多
             .pic-round
@@ -114,18 +61,18 @@ block content
                   em.tip 图片注解1
           // footer
           section.footer-section
-            nav.system-nav
-              .item
-                a.a(href='') 系统1
-              .item
-                a.a(href='') 系统1
-              .item
-                a.a(href='') 系统1
-            a.link(href='') link1
-            a.link(href='') link2
-            a.link(href='') link3
-            a.link(href='') link4
-            a.link(href='') link5
+            //nav.system-nav
+              //.item
+                //a.a(href='') 系统1
+              //.item
+                //a.a(href='') 系统1
+              //.item
+                //a.a(href='') 系统1
+            a.link(href='')
+            a.link(href='http://www.ecp.fr/')
+            a.link(href='https://www.centrale-marseille.fr/')
+            a.link(href='http://www.ec-lyon.fr/')
+            a.link(href='http://www.ec-nantes.fr/')
     footer.footer
       .txt
         span 版权所有2010北京航空航天大学   

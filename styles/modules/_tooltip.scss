@@ -11,8 +11,9 @@
         @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, left);
     }
     &--left {
-        left: 0px;
-        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, left);
+        right: $tooltip__arrow_size/2;
+        top: calc(50% - #{$tooltip__arrow_size/2});
+        @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, right);
     }
     &--top {
         @include triangle($tooltip__arrow_size, $tooltip--dark_bgc, up);

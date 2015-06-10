@@ -2,13 +2,22 @@ var I18N = require('./lang');
 var config = require('./config');
 
 var ECPKN = {
+    '/admin/home': {
+        page: 'home'
+    },
     '/admin/news': {
+        page: 'news',
         category: 'news',
         groups: config.db.collections.news.groups,
     },
     '/admin/announcements': {
+        page: 'announcements',
         category: 'announcement',
         groups: config.db.collections.news.groups,
+    },
+    '/admin/faculty': {
+        page: 'faculty',
+        category: 'faculty'
     }
 };
 

@@ -1,0 +1,200 @@
+.faculty-content-wrapper{
+    @extend .column--full;
+    @extend .inline-block;
+    width: calc(100% - #{$admin-side-menu_width});
+    background-image: linear-gradient( 90deg , $admin-side-menu--dark_bgc, $admin-faculty-main_bgc);
+    background: radial-gradient(circle, #192A39 0%, shade($admin-side-menu--dark_bgc, 10%) 100%);
+}
+
+.add-person-btn {
+    font-size: 1.4em;
+    border-radius: 50%;
+    z-index: 111;
+}
+
+.faculty-editor-wrapper {
+    @extend .rel;
+    display: none;
+    &--active {
+        display: block;
+    }
+}
+
+.faculty-editor {
+    @extend .abs;
+    width: 600px;
+    background-color: $admin-faculty-editor_bgc; 
+    border-radius: 6px;
+    left: 50%;
+    top: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    &--up {
+        transition: transform 0.2s ease-out, opacity 0.5s ease-out;
+        transform: translate(-50%, -54%);
+        opacity: 1;
+    }
+}
+
+.faculty-banner {
+    @extend .ptb--lg;
+    @extend .fixed;
+    @extend .fix--top;
+    &__title {
+        @extend .text--center;
+        color: white;
+    }
+    &::after {
+        @extend .abs;
+        @extend .row--full;
+        //border-radius: 0 0 50% 50% / 0 0 20px 20px;
+        box-shadow: 0 8px 20px -6px $admin-faculty-banner_shadow-color;
+        content: "";
+        height: 20px;
+    }
+}
+@keyframes bounce {
+    from {
+        transform: scale(1.02);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+.person {
+    &-gallery {
+        @extend .row--full;
+        @extend .box--auto;
+        margin-top: 120px;
+        padding-bottom: 60px;
+        height: calc(100% - #{$admin-faculty-banner_height});
+    }
+    &-card {
+        @extend .rel;
+        @extend .inline-block;
+        @extend .mtb--extra;
+        @extend .mlr--extra;
+        @extend .text--center;
+        @extend .box--clip;
+        animation: bounce 1s ease;
+        width: 280px;
+        border-radius: 8px;
+        background-color: white;
+        color: $true-blue;
+        &__avatar {
+            @extend .rel;
+            border-radius: 6px;
+            z-index: 1;
+            max-width: 96%;
+            width: 240px;
+            height: 196px;
+            margin-top: 60px;
+        }
+        &__meta {
+            @extend .plr--lg;
+            @extend .ptb;
+            text-align: left;
+            border-right: 4px solid;
+            &-label {
+                @extend .mr;
+            }
+        }
+        &__description {
+            @extend .abs;
+            @extend .abs--left;
+            @extend .abs--bottom;
+            @extend .row--full;
+            @extend .mb--0;
+            @extend .text--white;
+            @extend .ptb;
+            @extend .plr;
+            @extend .box--auto;
+            max-height: 80%;
+            border-radius: 0 0 6px 6px;
+            background-color: rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, opacity 0.4s ease;
+            transform: translate(0, 40px);
+            opacity: 0;   
+        }
+        &__edit-btn {
+            @extend .abs;
+            @extend .abs--top;
+            @extend .mlr;
+            @extend .mtb;
+            @extend .ptb;
+            @extend .plr;
+            @extend .text--white;
+            @extend .cursor--pointer;
+            @extend .abs--left;
+            @include link-color($admin-faculty-person-card__action-color, null, white);
+            font-size: 1.2em;
+        }
+        &__delete-btn {
+            @extend .abs;
+            @extend .abs--top;
+            @extend .mlr;
+            @extend .mtb;
+            @extend .ptb;
+            @extend .plr;
+            @extend .text--white;
+            @extend .cursor--pointer;
+            @extend .abs--right;
+            @include link-color($admin-faculty-person-card__action-color, null, white);
+            font-size: 1.2em;
+        }
+        &:hover {
+            .person-card__description {
+                opacity: 1;
+                transform: translate(0,0);
+            } 
+        }
+        &::before {
+            @extend .abs;
+            @extend .abs--left;
+            @extend .abs--top;
+            @extend .row--full;
+            border-radius: 6px 6px 0 0;
+            height: 120px;
+            content: "";
+        }
+        &:nth-of-type(3n) {
+            animation-delay: 0.2s;
+            &::before {
+                background-color: $lovely-green;
+            }
+            .person-card__meta {
+                border-color: $lovely-green;
+            }
+            .person-card__description {
+                background-color: transparentize($lovely-green, 0.4);
+                border-top: 1px dashed $lovely-green;
+            }
+        }
+        &:nth-of-type(3n+1) {
+            animation-delay: 0.6s;
+            &::before{
+                background-color: $admin-faculty-banner_shadow-color;
+            }
+            .person-card__meta {
+                border-color: $admin-faculty-banner_shadow-color;
+            }
+            .person-card__description {
+                background-color: transparentize($admin-faculty-banner_shadow-color, 0.4);
+                border-top: 1px dashed $admin-faculty-banner_shadow-color;
+            }
+        }
+        &:nth-of-type(3n+2) {
+            animation-delay: 1s;
+            &::before {
+                background-color: $facebook-blue;
+            }
+            .person-card__meta {
+                border-color: $facebook-blue;
+            }
+            .person-card__description {
+                background-color: transparentize($facebook-blue, 0.4);
+                border-top: 1px dashed $facebook-blue;
+            }
+        }
+    }
+}

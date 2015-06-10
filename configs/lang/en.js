@@ -20,10 +20,16 @@ var actions = {
     search: 'Search',
     signout: 'Sign out',
     stick: 'Stick',
-    unstick: 'Unstick'
+    unstick: 'Unstick',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    selectAvatar: 'Select Avatar',
+    edit: 'Edit',
+    delete: 'Delete'
 };
 var status = {
     publishing: 'Publishing...',
+    submitting: 'Submitting..',
     saving: 'Saving',
     sticking: 'Sticking',
     sticked: 'Sticked',
@@ -37,7 +43,7 @@ var news = {
     title: 'news title',
     content: 'news content',
     latest: 'Latest news',
-    listTitle:'News List',
+    listTitle: 'News List',
     groupSelectorLabel: 'News Group:',
     groupsKey: ['default', 'school'],
     groups: {
@@ -52,7 +58,7 @@ var announcement = {
     title: 'Announcement title',
     content: 'Announcement content',
     latest: 'Latest Announcements',
-    listTitle:'Announcements List',
+    listTitle: 'Announcements List',
     groupSelectorLabel: 'Announcements Group:',
     groupsKey: ['default', 'school'],
     groups: {
@@ -61,14 +67,29 @@ var announcement = {
     },
     publishedAt: 'Published At:'
 };
+
+var faculty = {
+    category: 'faculty',
+    categoryLabel: 'Faculty',
+    galleryLabel: 'Person Gallery',
+    editorTitle: 'Profile Card',
+    name: 'Name',
+    role: 'Role',
+    description: 'Description'
+};
+
+// 链接
 var components = {
 };
+
 en.sections = sections;
 en.actions = actions;
+
 en.news = news;
 en.announcement = announcement;
+en.faculty = faculty;
+
 en.components = components;
-en.record = news;
 en.status = status;
 
 en.LANG = 'en'; // <html lang=en.LANG>

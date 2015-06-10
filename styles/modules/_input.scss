@@ -11,4 +11,14 @@
     &:focus {
         box-shadow: 0 0 8px 2px $true-blue;
     }
+    &--void {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        @extend %bare;
+    }
+    &--bb {
+        border-bottom: 1px solid #ddd;
+    }
 }

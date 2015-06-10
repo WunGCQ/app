@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "amd": true
+    },
+    "globals": {
+        "axios": true,
+        "LANG": true,
+        "Ecpkn": true
+    },
+    "rules": {
+        "quotes": [1, "single"],
+        "no-underscore-dangle": false,
+        "no-unused-vars": false,
+        "no-use-before-define": false,
+        "no-extra-semi": false,
+        "no-wrap-func": false,
+        "new-cap": false,
+        "handle-callback-err": false,
+        "strict": false,
+        "curly": false,
+        "no-new": false
+    }
+}

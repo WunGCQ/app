@@ -21,3 +21,11 @@ body {
 html body input[disabled]{
     cursor: not-allowed;
 }
+
+[contenteditable="true"] {
+    @extend %bare;
+}
+
+.label {
+    vertical-align: top;
+}

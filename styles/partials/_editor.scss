@@ -1,19 +1,36 @@
-.editor {
+.ueditor {
     @extend .inline-block;
     @extend .column--full;
     @extend .ptb;
     @extend .plr;
-    width: calc(100% - #{$side-menu-width} - #{$admin-news-list-width});
+    width: calc(100% - #{$admin-side-menu_width} - #{$admin-news-list-width});
 }
 .ueditor-action-bar {
-    height: $ueditor-action-bar-height;
+    height: $admin-ueditor-action-bar-height;
     background-color: $dark-white;
 }
 #ueditor-container {
-    height: calc(100% - #{$ueditor-action-bar-height});
+    height: calc(100% - #{$admin-ueditor-action-bar-height} * 2);
     text-align: center;
 }
 .edui-default.edui-editor {
     border-top-left-radius: 0px !important;
     border-top-right-radius: 0px !important;
+}
+
+.editor {
+    &__row {
+        @extend .mb--lg;
+    }
+    &__field {
+        min-width: 5em;
+        @extend .plr;
+        @extend .input;
+        @extend .input--light;
+        &-label {
+            color: white;
+            background-color: $label-primary_bgc;
+            border-radius: 4px;
+        }
+    }
 }

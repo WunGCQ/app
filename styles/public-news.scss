@@ -7,7 +7,6 @@
 
 // app related configs
 @import 'configs/_colors';
-@import 'configs/_sizes';
 // default value of $vars for theming
 @import 'configs/_vars';
 
@@ -24,6 +23,7 @@
 @import 'modules/helpers/_position';
 @import 'modules/helpers/_text';
 @import 'modules/helpers/_visibility';
+@import 'modules/helpers/_color';
 @import 'modules/_link';
 @import 'modules/_list';
 @import 'modules/_input';

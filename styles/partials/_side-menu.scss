@@ -13,7 +13,10 @@
         line-height: $admin-side-menu__item-line-height;
         @include link-hover(null, $admin-side-menu__item--hover_bgc);
         &:nth-of-type(n+2){
-            border-top: 1px dashed $admin-side-menu__item_bc;
+            //border-top: 1px solid $admin-side-menu__item_bc;
+        }
+        &--active {
+            background-color: $admin-side-menu__item--hover_bgc;
         }
     }
     &__nav {

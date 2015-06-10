@@ -25,7 +25,18 @@ define('utils', ['util'], function(require, exports, module) {
     };
 
     utils.appendQueries = function(url, query) {
+        var pairs = [];
+        var fields = utils.keys(query);
+        var hasQuery = url.indexOf('?') !== -1;
+        var pre1 = /\?$/.test(url);
+        var pre2 = /&$/.test(url);
+        utils.each(fields, function(item) {
+            pairs.push(encodeURIComponent(item) + '=' + encodeURIComponent(query[item]));
+        });
 
+        var prefix = (pre1 || pre2) ? '' : (hasQuery ? '&' : '?');
+        pairs = pairs.join('&');
+        return url.concat(prefix).concat(pairs);
     };
 
     // archive records

@@ -8,7 +8,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var editorRect = ueditorContainer.getBoundingClientRect();
         var ue = UE.getEditor(container, {
             initialFrameWidth: editorRect.width,
-            initialFrameHeight: editorRect.height - 120,
+            initialFrameHeight: editorRect.height - 98,
             initialContent: ueditorContainer.getAttribute('data-placeholder') || '新闻内容'
         });
         ue.ready(function() {

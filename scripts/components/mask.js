@@ -1,6 +1,6 @@
-define('mask', ['node', 'util', 'anim'], function(require, exports, module) {
+define('mask', ['node', 'utils', 'anim'], function(require, exports, module) {
     var $ = require('node');
-    var Util = require('util');
+    var Util = require('utils');
     var Anim = require('anim');
     var Mask = {};
     var CONF = {
@@ -8,42 +8,49 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module) {
             height: '100%',
             width: '100%',
             position: 'fixed',
+            'background-color': '#000000',
             top: '0',
             left: '0'
         },
         show: {
             props: {
-                'z-index': 1000,
-                'background-color': 'rgba(0,0,0,0.8)'
+                'z-index': 500,
+                'background-color': 'rgba(0,0,0,0.3)'
+                // 'opacity': '0.98'
             },
             conf: {
-                duration: 0.2,
+                duration: 0.1,
                 easing: 'easeNone'
             }
         },
         hide: {
             props: {
-                'z-index': '-10',
+                'z-index': '-100',
                 'background-color': 'rgba(0,0,0,0)'
+                // 'opacity': '0'
             },
             conf: {
-                duration: 0.2,
+                duration: 0.1,
                 easing: 'easeNone'
             }
-        }
+        },
+        hideOnMaskClicked: true
     };
     var conf = CONF;
     var isMaskAttached = false;
     var $mask = $('<div>');
-    $mask.on('click', function() {
-        Mask.hide();
+    $mask.addClass('mask');
+    $mask.on('click', function(event) {
+        if (conf.hideOnMaskClicked && $(event.target).hasClass('mask')) {
+            Mask.hide();
+        }
     });
 
     Mask.setup = function() {
         $mask.css(conf.hide.props);
         $mask.css(conf.base);
     };
-    Mask.conf = function(c) {
+    Mask.config = function(c) {
         conf = Util.mix(conf, c, true, undefined, true);
         Mask.setup();
         return Mask;
@@ -51,7 +58,7 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module) {
     Mask.show = function(c) {
         if (!isMaskAttached) {
             $('body').append($mask);
-            Mask.conf(c);
+            Mask.config(c);
             isMaskAttached = true;
         }
         var anim = new Anim($mask, conf.show.props, conf.show.conf);
@@ -62,7 +69,11 @@ define('mask', ['node', 'util', 'anim'], function(require, exports, module) {
         return anim.run();
     };
     Mask.setContent = function(content) {
-        $mask.html(content);
+        if (content !== Mask.content) {
+            Mask.content = content;
+            $mask.empty();
+            $mask.append(content);
+        }
         return Mask;
     };
     Mask.CONF = CONF; // export default conf

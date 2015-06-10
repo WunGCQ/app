@@ -3,6 +3,7 @@
     @extend .column--full;
     width: $admin-news-list-width;
     border-right: 1px solid #ddd;
+    background-color: rgb(236,236,236);
 }
 .record-metas {
     & > * {

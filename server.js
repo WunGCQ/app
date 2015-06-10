@@ -60,7 +60,9 @@ app.use('/admin/editor', router.admin.editor);
 app.use('/admin/home', router.admin.home);
 app.use('/admin/news', router.admin.news);
 app.use('/admin/announcements', router.admin.announcement);
+app.use('/admin/faculty', router.admin.faculty);
 app.use('/records', router.records);
+app.use('/persons', router.persons);
 //
 
 app.listen(config.server.port);

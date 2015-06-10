@@ -13,12 +13,20 @@ function detect(req) {
     switch (action) {
         case 'uploadimage':
         case 'catchimage':
-            detection.dest = type === 'avatars' ? DEST.avatars : DEST.images;
-            detection.type = 'images';
+            if (type === 'avatar') {
+                detection.dest = DEST.avatars;
+                detection.attachmentHolderField ='avatar';
+                detection.attachmentHolderFieldType = 'string';
+            } else {
+                detection.dest = DEST.images;
+                detection.attachmentHolderField ='images';
+                detection.attachmentHolderFieldType = 'array';
+            }
             break;
         case 'uploadfile':
             detection.dest = DEST.attachments;
-            detection.type = 'attachments';
+            detection.attachmentHolderField = 'attachments';
+            detection.attachmentHolderFieldType = 'array'
             break;
         default:
             break;
@@ -46,8 +54,9 @@ uploadHelper.expose = function(req, res, next) {
         req._attachmentDest = detection.dest;
         req._attachmentPath = DEST_PREFIX + detection.dest;
     }
-    if (detection.type) {
-        req._attachmentType = detection.type;
+    if (detection.attachmentHolderField) {
+        req._attachmentHolderField = detection.attachmentHolderField;
+        req._attachmentHolderFieldType = detection.attachmentHolderFieldType;
     }
     next();
 };

@@ -3,6 +3,7 @@ define('CONF', function() {
     var API = CONF.API = {};
     var admin = API.admin = {};
     var public = API.public = {};
+    var person = API.person = {};
 
     var apiRoot = 'http://ecpkn.com';
     apiRoot = '';
@@ -12,6 +13,9 @@ define('CONF', function() {
 
     admin.root = API.root + '/admin';
     admin.news = admin.root + '/news';
+
+    person.root = API.root + '/persons';
+    person.uploadAvatar = '/admin/attachments?action=uploadimage&type=avatar&target=person';
 
     return CONF;
 });

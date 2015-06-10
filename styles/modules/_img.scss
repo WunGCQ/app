@@ -1,0 +1,10 @@
+.avatar {
+    background-color: $avatar_bgc;
+    border-radius: 4px;
+    &--sm {
+        @include size($avatar--sm_width);
+    }
+    &--m {
+        @include size($avatar--m_width);
+    }
+}

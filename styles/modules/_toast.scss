@@ -1,0 +1,14 @@
+.toast {
+    @extend .fixed;
+    @extend .fixed--top;
+    @extend .ptb;
+    @extend .plr--lg;
+    background-color: transparentize($toast-primary, 0.4);
+    color: white;
+    left: 50%;
+    z-index: 10002;
+    border-radius: 0 0 4px 4px;
+    transform: translate(-50%,0);
+    &--shown {
+    }
+}

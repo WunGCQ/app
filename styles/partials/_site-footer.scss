@@ -2,7 +2,7 @@
     @extend .text--center;
     @extend .ptb--extra;
     border-top: 1px dashed #ccc;
-    height: $site-footer-height;
+    height: $public-footer_height;
     color: white;
     background-color: transparentize($oxford-blue, 0.4);
 

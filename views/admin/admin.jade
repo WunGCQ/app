@@ -1,7 +1,7 @@
 extends ../base.jade
 
 block title
-    title Admin Page
+    title=LANG.record && LANG.record.categoryLabel
 
 
 block append commonLinks
@@ -16,13 +16,21 @@ block content
 
     div.side-menu.side-menu--dark.rel
         nav.side-menu__nav--top
-            a.link.link--light.side-menu__item.fa.fa-home(href="/admin/home", data-type="tooltip", data-content=LANG.sections.home, data-placement="right")
-            a.link.link--light.side-menu__item.fa.fa-pencil(href="/admin/news" data-type="tooltip", data-content=LANG.sections.news, data-placement="right")
-            a.link.link--light.side-menu__item.fa.fa-bullhorn(href="/admin/announcements" data-type="tooltip", data-content=LANG.sections.announcement, data-placement="right")
-            a.link.link--light.side-menu__item.fa.fa-graduation-cap(href="" data-type="tooltip", data-content=LANG.sections.faculty, data-placement="right")
+            - var activeClass = 'side-menu__item--active';
+            // 首页
+            a.link.side-menu__item.fa.fa-home(href="/admin/home", data-type="tooltip", data-content=LANG.sections.home, data-placement="right", class=Ecpkn.page==='home'&&activeClass)
+
+            // 新闻
+            a.link.side-menu__item.fa.fa-pencil(href="/admin/news" data-type="tooltip", data-content=LANG.sections.news, data-placement="right", class=Ecpkn.page==='news'&&activeClass)
+
+            // 通告
+            a.link.side-menu__item.fa.fa-bullhorn(href="/admin/announcements" data-type="tooltip", data-content=LANG.sections.announcement, data-placement="right", class=Ecpkn.page==='announcements'&&activeClass)
+
+            // 师资力量
+            a.link.side-menu__item.fa.fa-graduation-cap(href="/admin/faculty" data-type="tooltip", data-content=LANG.sections.faculty, data-placement="right", class=Ecpkn.page==='faculty'&&activeClass)
         nav.side-menu__nav--bottom
-            a.link.link--light.side-menu__item.fa.fa-cogs(href="", data-type="tooltip", data-content=LANG.actions.setting, data-placement="right")
-            a.link.link--light.side-menu__item.fa.fa-sign-out(href="", data-type="tooltip", data-content=LANG.actions.signout, data-placement="right")
+            a.link.side-menu__item.fa.fa-cogs(href="", data-type="tooltip", data-content=LANG.actions.setting, data-placement="right")
+            a.link.side-menu__item.fa.fa-sign-out(href="", data-type="tooltip", data-content=LANG.actions.signout, data-placement="right")
 block append scripts
     script(src="/statics/axios/dist/axios.min.js")
     script(src="/statics/scripts/components/axios-interceptors.min.js")
@@ -33,3 +41,4 @@ block append scripts
         script(src="/statics/scripts/components/mask.js")
         script(src="/statics/scripts/components/toast.js")
         script(src="/statics/scripts/components/tooltip.js")
+        script(src="/statics/scripts/components/modal.js")

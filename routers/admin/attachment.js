@@ -9,14 +9,34 @@ var Download = require('download');
 var Path = require('path');
 var Q = require('q');
 var Record = require('../../apis/record');
+var Person = require('../../apis/person');
+
+var API = {
+    person: Person,
+    record: Record
+};
+function getAPIHolder(type) {
+    return API[type] || API.record;
+}
+function makeUpdateCmds (req, attachments) {
+    var data = {};
+    var field = req._attachmentHolderField;
+    if (req._attachmentHolderFieldType === 'array') {
+        data.$pushAll = {};
+        data.$pushAll[field] = [].concat(attachments);
+    } else {
+        data[field] = (attachments && attachments.length !== undefined ? attachments[0] : attachments);
+    }
+    return data;
+}
 
 function prepareAttachment(req) {
     var defer = Q.defer();
     var file = req.files && req.files.upfile;
+    console.log('////upload files');
+    console.log(file);
     var attachment;
     if (file) {
-        console.log('// files');
-        console.log(file);
         attachment = {
             originalName: file.originalname,
             name: file.name,
@@ -75,6 +95,7 @@ router.route('/')
                 return Attachment.create(attachments);
             })
             .then(function(attachments) {
+                console.log('// attachments');
                 console.log(attachments);
                 var result = {};
                 if (attachments.length >= 1) {
@@ -99,14 +120,12 @@ router.route('/')
                 }
                 result.state = 'SUCCESS';
 
-                var _id = req.query._id;
+                var _id = req.query._id || req.body._id;
                 if (_id) {
-                    var data = {
-                        $pushAll: {}
-                    };
-                    data.$pushAll[req._attachmentType] = [].concat(attachments);
-                    Record.update(_id, data)
-                        .then(function(record) {
+                    var upData = makeUpdateCmds(req, attachments);
+                    var APIHolder = getAPIHolder(req.query.target);
+                    APIHolder.update(_id, upData)
+                        .then(function(r) {
                             res.type('html').status(200).send(result);
                         }, function(err) {
                             res.type('html').status(200).send(err);

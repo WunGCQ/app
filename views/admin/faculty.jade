@@ -1,0 +1,62 @@
+extends ./admin.jade
+
+block links
+    link(rel="stylesheet", href="/statics/styles/admin-faculty.min.css")
+
+block append content
+    main.faculty-content-wrapper
+
+        a.add-person-btn.fixed.fixed--right.fixed--top.ptb--lg.plr--lg.mtb--lg.mlr--lg.fa.fa-user-plus.btn.btn-primary(data-type="tooltip", data-content=LANG.actions.add, data-placement="left")
+
+        div.center-block.row--full.faculty-banner
+            h2.faculty-banner__title=LANG.faculty.categoryLabel
+
+
+        div.person-gallery
+            each person in list
+                div.person-card
+                    a.person-card__edit-btn.fa.fa-pencil
+                    a.person-card__delete-btn.fa.fa-trash
+                    img.person-card__avatar(src=person.avatar.url)
+                    h4='@'+person.name
+                    h4.person-card__meta
+                        i.fa.fa-flag.person-card__meta-label
+                        span=person.role
+                    p.person-card__description=person.description
+
+
+        div.faculty-editor-wrapper.row--full.column--full.box--auto
+            div.editor.faculty-editor.center--h
+                div.modal__header
+                    h3.modal__title=LANG.record.editorTitle
+                        span.fa.fa-times.modal__closer
+                div.modal__body
+                    form#up-form.avatar.avatar--m.center--h.rel.mb--lg
+                        input.person__avatar-selector.column--full.row--full.cursor--pointer.transparent.abs(type="file", name="upfile", data-type="tooltip", data-content=LANG.actions.selectAvatar, data-placement="right")
+                        img.person__avatar-preview.avatar.avatar--m.center--h.inline-block.cursor--pointer()
+                    div
+                        div.input-group.editor__row
+                            span.input-group-addon.editor__field-label=LANG.faculty.name
+                            input.person__name-editor.form-control(type="text")
+                        div.input-group.editor__row.mtb--lg
+                            span.input-group-addon.editor__field-label=LANG.faculty.role
+                            input.person__role-editor.form-control(type="text")
+                        div.editor__row.panel.panel-primary
+                            div.panel-heading
+                                h5.text--center.mtb--0=LANG.faculty.description
+                            textarea.person__description-editor.resize--v.form-control.input--bb.inline-block.editor__field(rows="10")
+
+                div.modal__footer.box--clip
+                    button.modal__confirm-btn.btn.btn-primary.float--right(data-enabled-text=LANG.actions.confirm, data-disabled-text=LANG.status.submitting)=LANG.actions.confirm
+
+                    button.modal__cancel-btn.btn.btn-primary.float--right.mr--lg=LANG.actions.cancel
+
+
+       // div.search-box.w-8.center--h.input-group
+       //     input.form-control
+       //     span.input-group-addon
+       //         span.fa.fa-search
+
+block append scripts
+    script(src="/statics/scripts/components/person-agent.js")
+    script(src="/statics/scripts/admin-faculty.js")

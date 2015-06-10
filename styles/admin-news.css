@@ -21,6 +21,25 @@
  * @param  {[type]} $actived: $link         [description]
  * @return {[type]}           [description]
  */
+/*  placeholder utils */
+/*
+================================*/
+.select, .input--void, [contenteditable="true"] {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none; }
+
+/**
+ * get mapping color
+ * @param  {string} $schema mapping schema, see '/configs/_color.scss'
+ * @return {colorValue}        color 
+ */
+/**
+ * get mapping background-color
+ * @param  {string} $schema mapping schema, see '/configs/_color.scss'
+ * @return {colorValue}    background-color
+ */
 /* ====================================
  * handy width|height helpers
  * ===================================== */
@@ -87,7 +106,7 @@
 .w-10, .row--full, .shape--cover, html, body {
   width: 100%; }
 
-.h-10, .column--full, .shape--cover, html, body, .side-menu, .editor, .records-category {
+.h-10, .column--full, .shape--cover, html, body, .side-menu, .ueditor, .record-groups, .records-category {
   height: 100%; }
 
 .col-0 {
@@ -422,7 +441,7 @@
 .rel, .record__list-item, .records-archive__title {
   position: relative; }
 
-.inline-block, .side-menu, .editor, .records-category {
+.inline-block, .side-menu, .ueditor, .record-groups, .record-metas > *, .records-category {
   display: inline-block;
   vertical-align: top; }
 
@@ -436,6 +455,10 @@
       vertical-align: top; }
     .table-cell--middle {
       vertical-align: middle; }
+
+.center--h {
+  margin-left: auto;
+  margin-right: auto; }
 
 /**
  * padding and margin helper
@@ -476,49 +499,49 @@
 .mr--sm, .mlr--sm {
   margin-right: 3px; }
 
-.pt--sm, .ptb--sm, .tooltip__content {
+.pt--sm, .ptb--sm, .tooltip__content, .select {
   padding-top: 3px; }
 
 .mt--sm, .mtb--sm {
   margin-top: 3px; }
 
-.pb--sm, .ptb--sm, .tooltip__content {
+.pb--sm, .ptb--sm, .tooltip__content, .select {
   padding-bottom: 3px; }
 
 .mb--sm, .mtb--sm {
   margin-bottom: 3px; }
 
-.pl, .plr, .tooltip__content, .panel__heading, .editor, .record__list-item, .record-delete-btn, .records-archive__title, #record-title-input, .list__item {
+.pl, .plr, .tooltip__content, .panel__heading, .ueditor, .editor__field, .record__list-item, .record-delete-btn, .records-archive__title, #record-title-input, .list__item {
   padding-left: 6px; }
 
 .ml, .mlr {
   margin-left: 6px; }
 
-.pr, .plr, .tooltip__content, .panel__heading, .editor, .record__list-item, .record-delete-btn, .records-archive__title, #record-title-input {
+.pr, .plr, .tooltip__content, .panel__heading, .ueditor, .editor__field, .record__list-item, .record-delete-btn, .records-archive__title, #record-title-input {
   padding-right: 6px; }
 
 .mr, .mlr {
   margin-right: 6px; }
 
-.pt, .ptb, .editor, .record-delete-btn, .records-archive__title, #record-title-input {
+.pt, .ptb, .ueditor, .record-delete-btn, .records-archive__title, #record-title-input {
   padding-top: 6px; }
 
 .mt, .mtb {
   margin-top: 6px; }
 
-.pb, .ptb, .editor, .record-delete-btn, .records-archive__title, #record-title-input {
+.pb, .ptb, .ueditor, .record-delete-btn, .records-archive__title, #record-title-input {
   padding-bottom: 6px; }
 
 .mb, .mtb {
   margin-bottom: 6px; }
 
-.pl--lg, .plr--lg {
+.pl--lg, .plr--lg, .select {
   padding-left: 12px; }
 
 .ml--lg, .mlr--lg {
   margin-left: 12px; }
 
-.pr--lg, .plr--lg {
+.pr--lg, .plr--lg, .select {
   padding-right: 12px; }
 
 .mr--lg, .mlr--lg, .records-archive__items-counter {
@@ -533,7 +556,7 @@
 .pb--lg, .ptb--lg, .link--flat, .list__item, .record__list-item, .panel__heading {
   padding-bottom: 12px; }
 
-.mb--lg, .mtb--lg {
+.mb--lg, .mtb--lg, .editor__row {
   margin-bottom: 12px; }
 
 .pl--extra, .plr--extra, .link--flat {
@@ -578,6 +601,33 @@
 .box-y--clip, .box--clip, body {
   overflow-y: hidden; }
 
+.transparent {
+  opacity: 0; }
+
+.resize--v {
+  resize: vertical; }
+
+.transparent {
+  background-color: transparent; }
+
+.text-white {
+  color: white; }
+
+.text--white {
+  color: white; }
+
+.bg-white {
+  background-color: white; }
+
+/**
+ * color & background-color and their hover transition 
+ * @param  {[type]} $color:           $default-color [description]
+ * @param  {[type]} $hover-color:     $color         [description]
+ * @param  {[type]} $bg-color:        transparent    [description]
+ * @param  {[type]} $bg-hover-color:  transparent    [description]
+ * @param  {[type]} $with-transition: null           [description]
+ * @return {[type]}                   [description]
+ */
 .link {
   text-decoration: none; }
   .link:hover {
@@ -609,11 +659,12 @@
   border-right: 4px solid rgba(0, 0, 0, 0.8);
   border-top: 4px solid transparent; }
 .tooltip__arrow--left {
-  left: 0px;
+  right: 4px;
+  top: calc(50% - 4px);
   height: 0;
   width: 0;
   border-bottom: 4px solid transparent;
-  border-right: 4px solid rgba(0, 0, 0, 0.8);
+  border-left: 4px solid rgba(0, 0, 0, 0.8);
   border-top: 4px solid transparent; }
 .tooltip__arrow--top {
   height: 0;
@@ -641,6 +692,39 @@
 .panel__heading {
   border-bottom: 1px solid #ddd; }
 
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  border: 1px dashed #ccc; }
+
+.input, .editor__field {
+  outline: none;
+  border: none;
+  border-radius: 4px; }
+  .input--light, .editor__field {
+    color: #0e151b; }
+  .input:focus, .editor__field:focus {
+    box-shadow: 0 0 8px 2px #428bca; }
+  .input--void {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none; }
+  .input--bb {
+    border-bottom: 1px solid #ddd; }
+
+.avatar {
+  background-color: #eee;
+  border-radius: 4px; }
+  .avatar--sm {
+    height: 68px;
+    width: 68px; }
+  .avatar--m {
+    height: 100px;
+    width: 100px; }
+
 img {
   max-width: 100%; }
 
@@ -659,8 +743,11 @@ pre > code {
 html body input[disabled] {
   cursor: not-allowed; }
 
+.label {
+  vertical-align: top; }
+
 .side-menu--dark {
-  background-color: #152436;
+  background-color: #142334;
   color: white; }
 .side-menu__item {
   width: 46px;
@@ -668,11 +755,11 @@ html body input[disabled] {
   font-size: 1.2em;
   line-height: 44px; }
   .side-menu__item:hover {
-    background-color: #313e4e; }
-  .side-menu__item:nth-of-type(n+2) {
-    border-top: 1px dashed #69727e; }
+    background-color: #0b141e; }
+  .side-menu__item--active {
+    background-color: #0b141e; }
 
-.editor {
+.ueditor {
   width: calc(100% - 46px - 32%); }
 
 .ueditor-action-bar {
@@ -680,12 +767,19 @@ html body input[disabled] {
   background-color: #f2f5f9; }
 
 #ueditor-container {
-  height: calc(100% - 46px);
+  height: calc(100% - 46px * 2);
   text-align: center; }
 
 .edui-default.edui-editor {
   border-top-left-radius: 0px !important;
   border-top-right-radius: 0px !important; }
+
+.editor__field {
+  min-width: 5em; }
+  .editor__field-label {
+    color: white;
+    background-color: #377bb5;
+    border-radius: 4px; }
 
 .record__list-item {
   cursor: pointer;
@@ -710,6 +804,18 @@ html body input[disabled] {
   border-bottom: 2px solid #005faf;
   background-color: #428bca;
   color: white; }
+
+.record-groups {
+  width: 32%;
+  border-right: 1px solid #ddd;
+  background-color: #ececec; }
+
+#record-title-input {
+  outline: none;
+  min-width: 300px; }
+
+#record-create-btn {
+  line-height: 32px; }
 
 .records-category {
   width: 32%;
