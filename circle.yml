@@ -36,6 +36,10 @@ deployment:
     branch: master
     heroku:
       appname: ecpkn
+  dev:
+    branch: dev
+    heroku:
+      appname: ecpkn-dev
   # staging:
   #   branch: staging
   #   heroku:
