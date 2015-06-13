@@ -1,6 +1,6 @@
 .main-wrapper {
+    min-height: $public-main-wrapper_height;
     &__news {
-        min-height: $public-news-main-wrapper_height;
         padding: 4%;
     }
 }

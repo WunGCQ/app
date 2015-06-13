@@ -109,7 +109,9 @@
             @extend .ptb;
             @extend .plr;
             @extend .box--auto;
-            max-height: 80%;
+            text-indent: 2em;
+            z-index: 20;
+            max-height: 72%;
             border-radius: 0 0 6px 6px;
             background-color: rgba(0,0,0,0.5);
             transition: transform 0.2s ease, opacity 0.4s ease;
@@ -166,7 +168,7 @@
                 border-color: $lovely-green;
             }
             .person-card__description {
-                background-color: transparentize($lovely-green, 0.4);
+                background-color: transparentize($lovely-green, 0.2);
                 border-top: 1px dashed $lovely-green;
             }
         }
@@ -179,7 +181,7 @@
                 border-color: $admin-faculty-banner_shadow-color;
             }
             .person-card__description {
-                background-color: transparentize($admin-faculty-banner_shadow-color, 0.4);
+                background-color: transparentize($admin-faculty-banner_shadow-color, 0.2);
                 border-top: 1px dashed $admin-faculty-banner_shadow-color;
             }
         }
@@ -192,7 +194,7 @@
                 border-color: $facebook-blue;
             }
             .person-card__description {
-                background-color: transparentize($facebook-blue, 0.4);
+                background-color: transparentize($facebook-blue, 0.2);
                 border-top: 1px dashed $facebook-blue;
             }
         }

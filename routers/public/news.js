@@ -11,6 +11,16 @@ router.param('newsId', function(req, res, next, newsId) {
     next();
 });
 
+router.route('/')
+    .get(function(req, res) {
+        News.get(null, null, null, req.query)
+            .then(function(list) {
+                res.render('public/news-list', {
+                    list: list
+                });
+            });
+    });
+
 router.route('/:newsId')
     .get(function(req, res) {
         var news = {};
@@ -23,8 +33,8 @@ router.route('/:newsId')
         };
         News.get({
             _id: req.newsId
-        }).then(function(res) {
-            news = res[0];
+        }).then(function(result) {
+            news = result[0];
             if (news) {
                 news.date = (new Date(news.createdAt)).toISOString().split('T')[0];
             }

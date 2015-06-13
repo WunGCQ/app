@@ -128,12 +128,17 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     }
     function updatePersonCard(person, $card) {
         $card = $card || $currentPersonCard;
+        console.log(person);
         if ($card && person && person._id) {
             $card.one(PERSON_CARD_AVATAR_SELECTOR).attr('src', person.avatar && person.avatar.url || CONF.APP.defaultAvatar);
             $card.one(PERSON_CARD_NAME_SELECTOR).text(person.name);
             $card.one(PERSON_CARD_ROLE_SELECTOR).text(person.role);
             $card.one(PERSON_CARD_DESCRIPTION_SELECTOR).text(person.description);
         }
+    }
+
+    function isCurrentPersonModified() {
+
     }
 
     // 添加、更新person
@@ -146,14 +151,19 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         personAgent.saveOne(person)
             .then(function(res) {
                 currentPerson = res;
-                Toast.make('first');
+                Toast.make('saving..');
                 var file = $personAvatarSelector[0].files[0];
                 return file ? uploadAvatar(file) : res;
             })
             .then(function(res) {
                 console.log(res);
-                var a = res[0];
-                currentPerson.avatar = a;
+                if (res && res.length > 0) {
+                    currentPerson.avatar = res[0];
+                } else {
+                    currentPerson.avatar = {
+                        url: $personAvatarPreview.attr('src')
+                    };
+                }
                 Toast.make('done');
                 Utils.enableEl($editorConfirmBtn);
 
@@ -192,10 +202,15 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
 
     }
     function getPersonDataFromEditor() {
-        var person = {};
-        person.name = $personNameEditor.val();
-        person.role = $personRoleEditor.val();
-        person.description = $personDescriptionEditor.val();
+        var person = {
+            _id: $facultyEditor.attr('data-id'),
+            name: $personNameEditor.val(),
+            role: $personRoleEditor.val(),
+            description: $personDescriptionEditor.val(),
+            avatar: {
+                url: $personAvatarPreview.attr('src')
+            }
+        };
         return person;
     }
     function getPersonDataFromCard($card) {
@@ -210,9 +225,6 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         };
         console.log(person);
         return person;
-    }
-    function isCurrentPersonModified() {
-
     }
     function openEditor() {
         $facultyEidtorWrapper.addClass('faculty-editor-wrapper--active');

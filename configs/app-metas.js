@@ -8,12 +8,12 @@ var ECPKN = {
     '/admin/news': {
         page: 'news',
         category: 'news',
-        groups: config.db.collections.news.groups
+        groups: config.db.collections.record.news.groups
     },
     '/admin/announcements': {
         page: 'announcements',
         category: 'announcement',
-        groups: config.db.collections.news.groups
+        groups: config.db.collections.record.announcement.groups
     },
     '/admin/faculty': {
         page: 'faculty',

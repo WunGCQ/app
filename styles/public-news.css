@@ -702,9 +702,10 @@ html body input[disabled] {
   .site-footer--dark {
     background-color: #0e151b; }
 
-.main-wrapper__news {
-  min-height: calc(100% - 100px - 42px - 90px);
-  padding: 4%; }
+.main-wrapper {
+  min-height: calc(100% - 100px - 42px - 90px); }
+  .main-wrapper__news {
+    padding: 4%; }
 
 .news-wrapper {
   height: 100%;

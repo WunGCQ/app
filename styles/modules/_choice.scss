@@ -1,0 +1,54 @@
+.choice {
+    $root: '.choice';
+    @extend .inline-block;
+    @extend .ptb--sm;
+    @extend .plr--sm;
+    @extend .mtb--sm;
+    @extend .mlr--sm;
+    @extend .cursor--pointer;
+    border-radius: 2px;
+    &--sm {
+        &#{$root} {
+            @extend .ptb--0;
+        }
+    }
+    &--disabled {
+        @extend .cursor--disabled;
+    }
+    &--primary {
+        background-color: $bootstrap-primary;
+        color: $azure;
+        &::before {
+            background-color: $azure;
+        }
+        &#{$root}--disabled {
+            background-color: tint($bootstrap-primary, 18%);
+            color: shade($azure, 4%);
+            &::before {
+                background-color: shade($azure, 4%);
+            }
+        }
+    }
+    &::before {
+        @extend .inline-block;
+        @extend .mr--lg;
+        @include size(8px);
+        content: "";
+        vertical-align: initial;
+        border-radius: 50%;
+    }
+    &--selected{
+        border: 1px solid;
+        &#{$root}--primary {
+            @extend .text--white;
+            background-color: $bootstrap-primary;
+            box-shadow: 0 0 4px 2px $bootstrap-primary;
+            &::before {
+                background-color: transparent;
+            }
+        }
+        &::before {
+            content: $check-icon;
+        }
+    }
+}

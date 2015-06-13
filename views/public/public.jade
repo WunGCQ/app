@@ -10,7 +10,8 @@ block links
 block content
     div.site-header.site-header--blue
         div.site-header__row.site-header__main-nav.ptb--lg.plr--extra.table.row--full
-            img.site-header__logo(src="/statics/images/logo.png" style="margin-top:15px;").table-cell
+            a(href="/")
+                img.site-header__logo(src="/statics/images/logo.png" style="margin-top:15px;").table-cell
             div.site-header__link-group.table-cell.table-cell--middle
                 a.site-header__link.link--flat(href="#")=LANG.sections.overview
                 a.site-header__link.link--flat(href="#")=LANG.sections.news
@@ -25,7 +26,7 @@ block content
             a.site-header__link.site-header__link--flat.link--light(href="#")=LANG.sections.announcement
             input.input.input--light.w-2.abs.abs--center.abs--right.mr--extra.ptb.plr(type="search" placeholder=LANG.actions.search)
 
-    div.main-wrappe.row--full.ptb--extra
+    div.main-wrapper.row--full.ptb--extra
         block mainContent
     div.site-footer.site-footer--dark
         a.link.link--flat.link--light(href="#")=LANG.sections.about

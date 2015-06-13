@@ -43,7 +43,8 @@ $public-header_height:                            120px !default;
 $public-footer--dark_bgc:                         $light-dark !default;
 
 // public news page
-$public-news-main-wrapper_height:                 calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
+$public-main-wrapper_height:                      calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
+$public-news-main-wrapper_height:                 $public-main-wrapper_height;
 $public-news__height:                             600px !default;
 $public-latest-news_height:                       600px !default;
 $public-latest-news_width:                        300px !default;
@@ -61,3 +62,7 @@ $label-primary_bgc:                               rgb(55,123,181) !default;
 
 $toast-primary:                                   $primary-blue !default;
 
+
+//////// components
+$check-icon: "✓";
+$cross-icon: "⤬";

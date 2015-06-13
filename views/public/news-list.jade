@@ -1,0 +1,15 @@
+extend ./public.jade
+
+block title
+
+block links
+    link(rel = 'stylesheet', href = '/statics/styles/public-news.min.css')
+
+block mainContent
+    div.main-wrapper__news.row--full.plr--extra.ptb--extra
+        div.inline-block.w-8
+            h4.row--single.latest-news-container__title.pl--lg.flag--left.flag--primary=LANG.news.latest
+            ul.news-list
+                each news in list
+                    li.news-list__item
+                        a.link(data-id=news._id, href="/news/"+news._id)=news.title

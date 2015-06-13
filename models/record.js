@@ -5,8 +5,8 @@ var config = require('../configs/config');
 var Schema = mongoose.Schema;
 
 var RECORD_STATUS_ENUM = ['published', 'draft', 'sticked'];
-var CATEGORIES_ENUM = config.db.collections.CATEGORIES;
-var GROUPS_ENUM = config.db.collections.GROUPS;
+var CATEGORIES_ENUM = config.db.metas.RECROD_CATEGORIES;
+var GROUPS_ENUM = config.db.metas.RECORD_GROUPS;
 
 var AttachmentAPI = require('../apis/attachment');
 

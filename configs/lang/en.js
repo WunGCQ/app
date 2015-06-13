@@ -60,10 +60,11 @@ var announcement = {
     latest: 'Latest Announcements',
     listTitle: 'Announcements List',
     groupSelectorLabel: 'Announcements Group:',
-    groupsKey: ['default', 'school'],
+    groupsKey: ['default', 'school', 'job'],
     groups: {
         default: 'Default Announcements',
-        school: 'School Announcements'
+        school: 'School Announcements',
+        job: 'Job & Internship'
     },
     publishedAt: 'Published At:'
 };
@@ -75,7 +76,13 @@ var faculty = {
     editorTitle: 'Profile Card',
     name: 'Name',
     role: 'Role',
-    description: 'Description'
+    title: 'Title',
+    description: 'Description',
+    teacher: 'Teacher',
+    student: 'Student',
+    leader: 'Leader',
+    profession: 'Professional Teacher',
+    french: 'French Teacher'
 };
 
 var components = {
@@ -133,7 +140,7 @@ var components = {
             }]
         }, {
             name: '学院新闻',
-            url: '#'
+            url: '/news'
         }, {
             name: '师资队伍',
             url: '#',

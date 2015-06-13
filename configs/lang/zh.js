@@ -60,10 +60,11 @@ var announcement = {
     latest: '最近通告',
     listTitle: '通告列表',
     groupSelectorLabel: '通告类别:',
-    groupsKey: ['default', 'school'],
+    groupsKey: ['default', 'school', 'job'],
     groups: {
         default: '学院通告',
-        school: '校际通告'
+        school: '校际通告',
+        job: '实习就业'
     },
     publishedAt: '发布日期:'
 };
@@ -75,7 +76,13 @@ var faculty = {
     editorTitle: '人物卡片',
     name: '姓名',
     role: '职位',
-    description: '简介'
+    title: '头衔',
+    description: '简介',
+    teacher: '教师',
+    student: '学生',
+    leader: '领导',
+    profession: '专业教师',
+    french: '法语教师'
 };
 
 var components = {
@@ -133,7 +140,7 @@ var components = {
             }]
         }, {
             name: '学院新闻',
-            url: '#'
+            url: '/news'
         }, {
             name: '师资队伍',
             url: '#',

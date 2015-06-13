@@ -14,20 +14,41 @@ exports.db = {
         }
     },
     collections: {
-        news: {
-            groups: ['default', 'school']
+        attachment: {},
+        record: {
+            news: {
+                groups: ['default', 'school']
+            },
+            announcement: {
+                groups: ['school', 'job', 'download']
+            }
         },
-        announcement: {
-            groups: []
+        person: {
+            teacher: {
+                groups: ['leader', 'profession', 'french']
+            },
+            student: {
+
+            }
         }
     }
 };
-exports.db.collections.CATEGORIES = _.keys(exports.db.collections);
-exports.db.collections.GROUPS = _.union.apply(null,
-    _.map(exports.db.collections.CATEGORIES,
+exports.db.metas = {};
+exports.db.metas.RECORD_CATEGORIES = _.keys(exports.db.collections.record);
+exports.db.metas.RECORD_GROUPS = _.union.apply(null,
+    _.map(exports.db.metas.RECORD_CATEGORIES,
         function(category) {
-            return exports.db.collections[category].groups;
+            return exports.db.collections.record[category].groups;
         }));
+
+exports.db.metas.PERSON_CATEGORIES = _.keys(exports.db.collections.person);
+exports.db.metas.PERSON_GROUPS = _.union.apply(null,
+    _.map(exports.db.metas.PERSON_CATEGORIES,
+        function(category) {
+            return exports.db.collections.person[category].groups;
+        }));
+
+
 
 exports.auth = {
     secretToken: 'secretToken',

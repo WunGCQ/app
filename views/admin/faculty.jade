@@ -35,6 +35,14 @@ block append content
                     form#up-form.avatar.avatar--m.center--h.rel.mb--lg
                         input.person__avatar-selector.column--full.row--full.cursor--pointer.transparent.abs(type="file", name="upfile", data-type="tooltip", data-content=LANG.actions.selectAvatar, data-placement="right")
                         img.person__avatar-preview.avatar.avatar--m.center--h.inline-block.cursor--pointer()
+                    div.text--center.mtb.person__metas-setter
+                        div.inline-block.mlr--extra
+                            label.choice.choice--sm.choice--primary(data-category="teacher", data-group="profession")=LANG.faculty.profession
+                            label.choice.choice--disabled.choice--sm.choice--primary(data-category="teacher", data-group="french")=LANG.faculty.french
+                            label.choice.choice--sm.choice--primary.choice--selected(data-role="leader")=LANG.faculty.leader
+                        span.separator--v
+                        div.inline-block
+                            label.choice.choice--sm.choice--primary(data-category="student")=LANG.faculty.student
                     div
                         div.input-group.editor__row
                             span.input-group-addon.editor__field-label=LANG.faculty.name

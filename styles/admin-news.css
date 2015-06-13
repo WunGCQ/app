@@ -688,6 +688,8 @@
 
 .cursor--pointer, .records-archive__title {
   cursor: pointer; }
+.cursor--disabled {
+  cursor: not-allowed; }
 
 .panel__heading {
   border-bottom: 1px solid #ddd; }
