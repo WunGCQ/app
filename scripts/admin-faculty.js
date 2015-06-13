@@ -10,6 +10,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     var $editorAvatarForm = $('#up-form');
     var $personAvatarPreview = $('.person__avatar-preview');
     var $personAvatarSelector = $('.person__avatar-selector');
+    var $personMetasSetter = $('.person__metas-setter');
     var $personNameEditor = $('.person__name-editor');
     var $personRoleEditor = $('.person__role-editor');
     var $personDescriptionEditor = $('.person__description-editor');
@@ -274,6 +275,9 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     $personAvatarSelector.on('change', function(event) {
         var file = $personAvatarSelector[0].files[0];
         $personAvatarPreview.attr('src', URL.createObjectURL(file));
+    });
+    $personMetasSetter.delegate('click', function(event) {
+        var $target = $(event.target);
     });
 
     // tooltip

@@ -6,8 +6,8 @@ var jwt = require('express-jwt');
 var router = require('express').Router();
 
 router.route('/')
-    .get(function(req,res){
-        res.render('public/index',{
+    .get(function(req, res){
+        res.render('public/index', {
             name: 'ueditor demo'
         });
     });
