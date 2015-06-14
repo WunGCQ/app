@@ -80,12 +80,13 @@
     var navs = document.querySelectorAll(".pic-round .pic-wrapper .pic-nav");
     var pagenum = arg.length;
     for (var i = 0; i < pagenum; i++) {
-        imgs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].url + "\")";
+        imgs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].source + "\")";
         imgs[ i ].href = '/news/'+arg[i]._id;
         imgs[ i ].getElementsByClassName("tip")[ 0 ].innerHTML = arg[i].title;
 //              navs[ i ].style[ "background-color" ] = arg.navColor[ i ];
-        navs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].url+ "\")";
-//              navs[i].setAttribute("data-id",i);
+        navs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].source+ "\")";
+
+
     }
     var num = 0;
 
