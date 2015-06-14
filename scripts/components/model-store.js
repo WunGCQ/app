@@ -81,7 +81,7 @@ define('ModelStore', ['CONF', 'promise', 'utils'], function(require, exports, mo
     ModelStore.prototype.copyOne = function(item) {
         return Utils.clone(item);
     };
-    ModelStore.prototype.updataLocalOne = function(item) {
+    ModelStore.prototype.updateLocalOne = function(item) {
         var id = item._id;
         var items = this.items;
         if (items[id]) {

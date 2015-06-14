@@ -10,17 +10,17 @@ block append content
 
         div.center-block.row--full.faculty-banner.text--center
             h2.faculty-banner__title=LANG.faculty.categoryLabel
-            div.btn-group.inline-block
-                button.btn.btn-primary=LANG.faculty.profession
-                button.btn.btn-primary=LANG.faculty.french
-                button.btn.btn-primary=LANG.faculty.leader
-                button.btn.btn-primary=LANG.faculty.student
+            div.person-of-role-switcher.btn-group.inline-block
+                button.btn.btn-primary.active(data-active="profession")=LANG.faculty.profession
+                button.btn.btn-primary(data-active="french")=LANG.faculty.french
+                button.btn.btn-primary(data-active="leader")=LANG.faculty.leader
+                button.btn.btn-primary(data-active="student")=LANG.faculty.student
 
 
 
         div.person-gallery
             each person in list
-                div.person-card(data-id='#{person._id}')
+                div.person-card(data-id='#{person._id}', data-roles=person.roles.join('|'))
                     a.person-card__edit-btn.fa.fa-pencil
                     a.person-card__delete-btn.fa.fa-trash
                     - var defaultAvatar = '/statics/images/default-avatar.png';
@@ -43,7 +43,7 @@ block append content
                         img.person__avatar-preview.avatar.avatar--m.center--h.inline-block.cursor--pointer()
                     div.text--center.mtb.person__roles-setter
                         label.choice.choice--sm.choice--primary(data-role="profession")=LANG.faculty.profession
-                        label.choice.choice--disabled.choice--sm.choice--primary(data-role="french")=LANG.faculty.french
+                        label.choice.choice--sm.choice--primary(data-role="french")=LANG.faculty.french
                         label.choice.choice--sm.choice--primary.choice--selected.mr--extra(data-role="leader")=LANG.faculty.leader
                         label.choice.choice--sm.choice--primary.ml--extra(data-role="student")=LANG.faculty.student
                     div

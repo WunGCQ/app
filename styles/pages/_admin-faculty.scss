@@ -72,6 +72,16 @@
         margin-top: 120px;
         padding-bottom: 60px;
         height: calc(100% - #{$admin-faculty-banner_height});
+        $filters: ('profession', 'french', 'student', 'leader');
+        @each $filter in $filters {
+            &-#{$filter} {
+                .person-card {
+                    &:not([data-roles*=#{$filter}]) {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
     &-card {
         @extend .rel;

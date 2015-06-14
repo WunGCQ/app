@@ -930,6 +930,14 @@ html body input[disabled] {
   margin-top: 120px;
   padding-bottom: 60px;
   height: calc(100% - 88px); }
+  .person-gallery-profession .person-card:not([data-roles*=profession]) {
+    display: none; }
+  .person-gallery-french .person-card:not([data-roles*=french]) {
+    display: none; }
+  .person-gallery-student .person-card:not([data-roles*=student]) {
+    display: none; }
+  .person-gallery-leader .person-card:not([data-roles*=leader]) {
+    display: none; }
 .person-card {
   -webkit-animation: bounce 1s ease;
           animation: bounce 1s ease;

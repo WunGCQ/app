@@ -22,6 +22,7 @@ router.route('/')
     })
     .post(function(req, res) {
         var rawPerson = req.body;
+        delete rawPerson.avatar;
         var resData = {};
         Person.create(rawPerson)
             .then(function(person) {

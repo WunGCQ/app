@@ -14,6 +14,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
     var $personNameEditor = $('.person__name-editor');
     var $personTitleEditor = $('.person__title-editor');
     var $personDescriptionEditor = $('.person__description-editor');
+    var $personOfRoleSwitcher = $('.person-of-role-switcher');
     var $gallery = $('.person-gallery');
 
     var TOOLTIP_EDIT_TEXT = Ecpkn.LANG.actions.edit;
@@ -34,6 +35,9 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
     var currentPerson = null;
     var $currentPersonCard = null;
     var personStore = new PersonStore({
+        getOne: {
+            url: CONF.API.person.root
+        },
         saveOne: {
             url: CONF.API.person.root
         },
@@ -59,6 +63,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
     }
 
     function setEditorData(person) {
+        console.log(person);
         person = person || {};
         if (person._id) {
             $facultyEditor.attr('data-id', person._id);
@@ -66,6 +71,11 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
         $personNameEditor.val(person.name);
         $personTitleEditor.val(person.title);
         $personDescriptionEditor.val(person.description);
+        $personRolesSetter.all('.choice').each(function($r) {
+            if (person.roles.indexOf($r.attr('data-role')) !== -1) {
+                $r.addClass('choice--selected');
+            }
+        });
         $personAvatarPreview.attr('src', person.avatar && person.avatar.url || CONF.APP.defaultAvatar);
     }
     function clearEditorData() {
@@ -75,6 +85,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
         $personAvatarSelector.val('');
         $personAvatarPreview.attr('src', CONF.APP.defaultAvatar);
         $facultyEditor.removeAttr('data-id');
+        $personRolesSetter.all('.choice').removeClass('choice--selected');
     }
 
     function setCurrentPerson(person, $card) {
@@ -118,6 +129,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
 
         $card.addClass('person-card');
         $card.attr('data-id', person._id);
+        $card.attr('data-roles', person.roles.join('|'));
         $card.append($editBtn);
         $card.append($deleteBtn);
         $card.append($avatar);
@@ -135,6 +147,8 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
             $card.one(PERSON_CARD_NAME_SELECTOR).text(person.name);
             $card.one(PERSON_CARD_TITLE_SELECTOR).text(person.title);
             $card.one(PERSON_CARD_DESCRIPTION_SELECTOR).text(person.description);
+            $card.attr('data-roles', person.roles.join('|'));
+            personStore.updateLocalOne(person);
         }
     }
 
@@ -148,9 +162,11 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
         if (currentPerson && currentPerson._id) {
             person._id = currentPerson._id;
         }
+        delete person.avatar;
         Utils.disableEl($editorConfirmBtn);
         personStore.saveOne(person)
             .then(function(res) {
+                console.log(res);
                 currentPerson = res;
                 Toast.make('saving..');
                 var file = $personAvatarSelector[0].files[0];
@@ -168,6 +184,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
                 Toast.make('done');
                 Utils.enableEl($editorConfirmBtn);
 
+                console.log(currentPerson);
                 $personAvatarSelector.val('');
                 closeEditor()
                     .then(function(){
@@ -210,8 +227,14 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
             description: $personDescriptionEditor.val(),
             avatar: {
                 url: $personAvatarPreview.attr('src')
-            }
+            },
+            roles: []
         };
+
+        $personRolesSetter.all('.choice--selected').each(function($r) {
+            person.roles.push($r.attr('data-role'));
+        });
+
         return person;
     }
     function getPersonDataFromCard($card) {
@@ -222,8 +245,10 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
             description: $card.one(PERSON_CARD_DESCRIPTION_SELECTOR).text(),
             avatar: {
                 url: $card.one(PERSON_CARD_AVATAR_SELECTOR).attr('src')
-            }
+            },
+            roles: $card.attr('data-roles').split('|')
         };
+
         console.log(person);
         return person;
     }
@@ -251,6 +276,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
             // edit person
             var person = getPersonDataFromCard($card);
             setCurrentPerson(person, $card);
+            clearEditorData();
             setEditorData(person);
             openEditor();
 
@@ -263,6 +289,25 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
         }
     });
 
+    // gallery
+    $personOfRoleSwitcher.delegate('click', '.btn', function(event) {
+        var PREFIX = 'person-gallery-';
+        var $target = $(event.target);
+        var galleryFilter = $target.attr('data-active');
+        var preFilter = $gallery.attr('data-filter');
+
+        if (preFilter) {
+            $gallery.replaceClass(PREFIX + preFilter, PREFIX + galleryFilter);
+        } else {
+            $gallery.addClass(PREFIX + galleryFilter);
+        }
+        $gallery.attr('data-filter', galleryFilter);
+
+        $personOfRoleSwitcher.one('.active').removeClass('active');
+        $target.addClass('active');
+    });
+
+
 
     // editor manager
     $addPersonBtn.on('click', function() {
@@ -272,12 +317,26 @@ require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'mo
     });
     $editorCloser.on('click', closeEditor);
     $editorConfirmBtn.on('click', function(){savePerson(); });
+    $editorCancelBtn.on('click', function() {getPersonDataFromEditor(); });
     $personAvatarSelector.on('change', function(event) {
         var file = $personAvatarSelector[0].files[0];
         $personAvatarPreview.attr('src', URL.createObjectURL(file));
     });
-    $personRolesSetter.on('click', function(event) {
+    $personRolesSetter.delegate('click', '.choice', function(event) {
         var $target = $(event.target);
+        if ($target.index() === 3) {
+            if ($target.hasClass('choice--selected')) {
+                $target.removeClass('choice--selected');
+            } else {
+                $target.addClass('choice--selected');
+                while ($target = $target.prev()) {
+                    $target.removeClass('choice--selected');
+                }
+            }
+        } else {
+            $personRolesSetter.last().removeClass('choice--selected');
+            $target.toggleClass('choice--selected');
+        }
     });
 
     // tooltip
