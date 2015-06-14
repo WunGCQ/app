@@ -1,6 +1,9 @@
 /**
  * Created by wungcq on 15/5/25.
  */
+(function(){
+    document.getElementsByTagName("body")[0 ].style["height"] = "auto !important";
+})();
 (function getNews(){
     var url = "/records?limit=10";
     var xhr = new XMLHttpRequest();
@@ -66,21 +69,22 @@
     });
 })();
 (function () {
-    var arg = {
-        tips: [ "中法十年院庆", "图2", "图3", "注解4" ],
-        picSrc: [ "/statics/images/logo10.jpg", "/statics/images/2.jpg", "/statics/images/3.jpg", "/statics/images/4.jpg" ],
-        href: [ "#1", "#2", "#3", "#4" ],
-        navColor: [ "#051247", "#FFF1FFF", "#B60017", "#B4B4B4" ]
-    };
+//    var arg = {
+//        tips: [ "中法十年院庆", "图2", "图3", "注解4" ],
+//        picSrc: [ "/statics/images/logo10.jpg", "/statics/images/2.jpg", "/statics/images/3.jpg", "/statics/images/4.jpg" ],
+//        href: [ "#1", "#2", "#3", "#4" ],
+//        navColor: [ "#051247", "#FFF1FFF", "#B60017", "#B4B4B4" ]
+//    };
+    window.arg = JSON.parse(list);
     var imgs = document.querySelectorAll(".pic-round .pic-wrapper .img");
     var navs = document.querySelectorAll(".pic-round .pic-wrapper .pic-nav");
-    var pagenum = arg.tips.length;
+    var pagenum = arg.length;
     for (var i = 0; i < pagenum; i++) {
-        imgs[ i ].style[ "background-image" ] = "url(\"" + arg.picSrc[ i ] + "\")";
-        imgs[ i ].href = arg.href[ i ];
-        imgs[ i ].getElementsByClassName("tip")[ 0 ].innerHTML = arg.tips[ i ];
+        imgs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].url + "\")";
+        imgs[ i ].href = '/news/'+arg[i]._id;
+        imgs[ i ].getElementsByClassName("tip")[ 0 ].innerHTML = arg[i].title;
 //              navs[ i ].style[ "background-color" ] = arg.navColor[ i ];
-        navs[ i ].style[ "background-image" ] = "url(\"" + arg.picSrc[ i ] + "\")";
+        navs[ i ].style[ "background-image" ] = "url(\"" + arg[i ].images[0 ].url+ "\")";
 //              navs[i].setAttribute("data-id",i);
     }
     var num = 0;

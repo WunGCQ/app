@@ -3,6 +3,11 @@
  * --------------------------------------------
  * naming: item-name__sub-item-name--state-name_prop-name
  */
+@import "_colors";
+@font-face {
+  font-family: "lth";
+  src: url("/statics/assets/fonts/lth.TTF");
+}
 
 // commons
 $row--single_line-height:                         40px !default;
@@ -43,8 +48,7 @@ $public-header_height:                            120px !default;
 $public-footer--dark_bgc:                         $light-dark !default;
 
 // public news page
-$public-main-wrapper_height:                      calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
-$public-news-main-wrapper_height:                 $public-main-wrapper_height;
+$public-news-main-wrapper_height:                 calc(100% - #{$public-header__main-nav_height} - #{$public-header__sub-nav_height} - #{$public-footer_height}) !default;
 $public-news__height:                             600px !default;
 $public-latest-news_height:                       600px !default;
 $public-latest-news_width:                        300px !default;
@@ -61,8 +65,6 @@ $avatar_bgc:                                      #eee !default;
 $label-primary_bgc:                               rgb(55,123,181) !default;
 
 $toast-primary:                                   $primary-blue !default;
+$header-font-zh:                                  "lth";
 
 
-//////// components
-$check-icon: "✓";
-$cross-icon: "⤬";

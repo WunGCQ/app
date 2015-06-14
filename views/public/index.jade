@@ -88,4 +88,9 @@ block content
         span 文保网安备案号1001080018
 
 block scripts
-    script(src="/statics/scripts/public-index.js")
+  script(type='text/javascript').
+    var list= !{JSON.stringify(list || [])} || {};
+
+  script(src="/statics/scripts/public-index.js")
+
+

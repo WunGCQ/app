@@ -1,14 +1,15 @@
-@charset 'utf-8';
+@import 'pages/_public-index';
 
 
 // import third-party libs
 @import 'configs/_imports';
 
 
-// app related configs
-@import 'configs/_colors';
 // default value of $vars for theming
 @import 'configs/_vars';
+
+// app related configs
+@import 'configs/_colors';
 
 
 // import utils
@@ -25,17 +26,7 @@
 @import 'modules/helpers/_visibility';
 @import 'modules/helpers/_color';
 @import 'modules/_link';
-@import 'modules/_list';
 @import 'modules/_input';
 @import 'modules/_flag';
-@import 'modules/_row';
 
 
-@import 'base/_tags';
-
-
-// partials
-@import 'partials/_site-header';
-@import 'partials/_site-footer';
-@import 'partials/_common';
-@import 'pages/_public_index_2';
