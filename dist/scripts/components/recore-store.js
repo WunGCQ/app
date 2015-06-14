@@ -43,5 +43,5 @@ define('RecordStore', ['CONF', 'promise', 'utils', 'ModelStore'], function(requi
             return this.groups[groupName];
         }
     });
-    return RecordStore;
+
 });

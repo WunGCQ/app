@@ -4,13 +4,14 @@ var Schema = mongoose.Schema;
 var AttachmentAPI = require('../apis/attachment');
 var CATEGORIES_ENUM = config.db.metas.PERSON_CATEGORIES;
 var GROUPS_ENUM = config.db.metas.PERSON_GROUPS;
+var ROLES_ENUM = config.db.metas.PERSON_ROLES;
 
 var Person = new Schema({
     name: {type: String},
     avatar: {type: Schema.Types.ObjectId, ref: 'Attachment'},
-    category: {type: String, required: true, enum: CATEGORIES_ENUM},
-    group: {type: String, enum: GROUPS_ENUM},
-    role: {type: String},
+    // category: {type: String, required: true, enum: CATEGORIES_ENUM},
+    // group: {type: String, enum: GROUPS_ENUM},
+    roles: [{type: String, trim: true, enum: ROLES_ENUM}],
     title: {type: String},
     description: {type: String},
     status: {type: String},

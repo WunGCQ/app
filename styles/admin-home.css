@@ -589,6 +589,9 @@
 .text--right {
   text-align: right; }
 
+.text--left {
+  text-align: left; }
+
 .box-x--auto, .box--auto {
   overflow-x: auto; }
 

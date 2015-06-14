@@ -245,6 +245,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
             this.currentGroup = groupName;
             $recordsGroupContainer.empty();
             $recordsGroupContainer.append(group.$container);
+            console.log(group);
             if (group.$container.children().length === 0) {
                 this.fillGroup(groupName);
             }
@@ -256,6 +257,7 @@ define('RecordCtrl', ['node', 'utils'], function(require, exports, module) {
         var _this = this;
         recordStore.getOnes(groupName)
             .then(function(res) {
+                console.log(res);
                 if (res && res.length > 0) {
                     _this.updateGroup(groupName, recordStore.getGroup(groupName));
                 } else {

@@ -37,7 +37,7 @@ require(['node', 'CONF', 'RecordStore', 'RecordCtrl', 'tooltip', 'toast'],
     };
     var recordStore = new RecordStore(conf);
     var recordCtrl = new RecordCtrl(recordStore, ctrlConf);
-    recordCtrl.switchToGroup('default');
+    recordCtrl.switchToGroup('school');
     window.recordCtrl = recordCtrl;
     Tooltip.init();
     recordCtrl.init();

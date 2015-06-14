@@ -48,7 +48,8 @@ var news = {
     groupsKey: ['default', 'school'],
     groups: {
         default: '学院新闻',
-        school: '校际新闻'
+        school: '校际新闻',
+        job: '实习就业'
     },
     publishedAt: '发布日期:'
 };
@@ -71,7 +72,7 @@ var announcement = {
 
 var faculty = {
     category: 'faculty',
-    categoryLabel: '师资力量',
+    categoryLabel: '人员管理',
     galleryLabel: '人物画廊',
     editorTitle: '人物卡片',
     name: '姓名',
@@ -80,7 +81,7 @@ var faculty = {
     description: '简介',
     teacher: '教师',
     student: '学生',
-    leader: '领导',
+    leader: '学院领导',
     profession: '专业教师',
     french: '法语教师'
 };

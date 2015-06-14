@@ -41,11 +41,15 @@
     @extend .fixed;
     @extend .fix--top;
     &__title {
-        @extend .text--center;
-        color: white;
+        @extend .text--left;
+        @extend .pl--extra;
+        @extend .ml--extra;
+        color: $admin-side-menu__item_c;
     }
-    &::after {
+    &::before {
         @extend .abs;
+        @extend .abs--left;
+        bottom: 30px;
         @extend .row--full;
         //border-radius: 0 0 50% 50% / 0 0 20px 20px;
         box-shadow: 0 8px 20px -6px $admin-faculty-banner_shadow-color;

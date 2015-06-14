@@ -20,7 +20,7 @@ exports.db = {
                 groups: ['default', 'school']
             },
             announcement: {
-                groups: ['school', 'job', 'download']
+                groups: ['default', 'school', 'job', 'download']
             }
         },
         person: {

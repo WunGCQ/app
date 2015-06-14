@@ -1,5 +1,5 @@
 /* global URL */
-require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'modal', 'io'], function($, Utils, Tooltip, CONF, PersonAgent, Mask, Toast, Modal, IO) {
+require(['node', 'utils', 'tooltip', 'CONF', 'PersonStore', 'mask', 'toast', 'modal', 'io'], function($, Utils, Tooltip, CONF, PersonStore, Mask, Toast, Modal, IO) {
     var $addPersonBtn = $('.add-person-btn');
     var $facultyEidtorWrapper = $('.faculty-editor-wrapper');
     var $facultyEditor = $('.faculty-editor');
@@ -10,9 +10,9 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     var $editorAvatarForm = $('#up-form');
     var $personAvatarPreview = $('.person__avatar-preview');
     var $personAvatarSelector = $('.person__avatar-selector');
-    var $personMetasSetter = $('.person__metas-setter');
+    var $personRolesSetter = $('.person__roles-setter');
     var $personNameEditor = $('.person__name-editor');
-    var $personRoleEditor = $('.person__role-editor');
+    var $personTitleEditor = $('.person__title-editor');
     var $personDescriptionEditor = $('.person__description-editor');
     var $gallery = $('.person-gallery');
 
@@ -23,17 +23,17 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     var PERSON_CARD_AVATAR_CLSN = 'person-card__avatar';
     var PERSON_CARD_NAME_CLSN = 'person-card__name';
     var PERSON_CARD_DESCRIPTION_CLSN = 'person-card__description';
-    var PERSON_CARD_ROLE_CLSN = 'person-card__role';
+    var PERSON_CARD_TITLE_CLSN = 'person-card__title';
     var PERSON_CARD_EDIT_BTN_SELECTOR = '.' + PERSON_CARD_EDIT_BTN_CLSN;
     var PERSON_CARD_DELETE_BTN_SELECTOR = '.' + PERSON_CARD_DELETE_BTN_CLSN;
     var PERSON_CARD_AVATAR_SELECTOR = '.' + PERSON_CARD_AVATAR_CLSN;
     var PERSON_CARD_NAME_SELECTOR = '.' + PERSON_CARD_NAME_CLSN;
-    var PERSON_CARD_ROLE_SELECTOR = '.' + PERSON_CARD_ROLE_CLSN;
+    var PERSON_CARD_TITLE_SELECTOR = '.' + PERSON_CARD_TITLE_CLSN;
     var PERSON_CARD_DESCRIPTION_SELECTOR = '.' + PERSON_CARD_DESCRIPTION_CLSN;
 
     var currentPerson = null;
     var $currentPersonCard = null;
-    var personAgent = new PersonAgent({
+    var personStore = new PersonStore({
         saveOne: {
             url: CONF.API.person.root
         },
@@ -64,13 +64,13 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
             $facultyEditor.attr('data-id', person._id);
         }
         $personNameEditor.val(person.name);
-        $personRoleEditor.val(person.role);
+        $personTitleEditor.val(person.title);
         $personDescriptionEditor.val(person.description);
         $personAvatarPreview.attr('src', person.avatar && person.avatar.url || CONF.APP.defaultAvatar);
     }
     function clearEditorData() {
         $personNameEditor.val('');
-        $personRoleEditor.val('');
+        $personTitleEditor.val('');
         $personDescriptionEditor.val('');
         $personAvatarSelector.val('');
         $personAvatarPreview.attr('src', CONF.APP.defaultAvatar);
@@ -88,9 +88,9 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         var $deleteBtn = $('<a>');
         var $avatar = $('<img>');
         var $name = $('<h4>');
-        var $roleMeta = $('<h4>');
-        var $roleIcon = $('<i>');
-        var $roleText = $('<span>');
+        var $title = $('<h4>');
+        var $titleIcon = $('<i>');
+        var $titleText = $('<span>');
         var $description = $('<p>');
 
         $editBtn.addClass('person-card__edit-btn fa fa-pencil');
@@ -106,12 +106,12 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         $name.addClass(PERSON_CARD_NAME_CLSN);
         $name.text(person.name);
 
-        $roleIcon.addClass('fa fa-flag person-card__meta-label');
-        $roleText.addClass(PERSON_CARD_ROLE_CLSN);
-        $roleText.text(person.role);
-        $roleMeta.addClass('person-card__meta');
-        $roleMeta.append($roleIcon);
-        $roleMeta.append($roleText);
+        $titleIcon.addClass('fa fa-flag person-card__meta-label');
+        $titleText.addClass(PERSON_CARD_TITLE_CLSN);
+        $titleText.text(person.title);
+        $title.addClass('person-card__meta');
+        $title.append($titleIcon);
+        $title.append($titleText);
 
         $description.addClass(PERSON_CARD_DESCRIPTION_CLSN);
         $description.text(person.description);
@@ -122,7 +122,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         $card.append($deleteBtn);
         $card.append($avatar);
         $card.append($name);
-        $card.append($roleMeta);
+        $card.append($title);
         $card.append($description);
 
         $gallery.prepend($card);
@@ -133,7 +133,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         if ($card && person && person._id) {
             $card.one(PERSON_CARD_AVATAR_SELECTOR).attr('src', person.avatar && person.avatar.url || CONF.APP.defaultAvatar);
             $card.one(PERSON_CARD_NAME_SELECTOR).text(person.name);
-            $card.one(PERSON_CARD_ROLE_SELECTOR).text(person.role);
+            $card.one(PERSON_CARD_TITLE_SELECTOR).text(person.title);
             $card.one(PERSON_CARD_DESCRIPTION_SELECTOR).text(person.description);
         }
     }
@@ -149,7 +149,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
             person._id = currentPerson._id;
         }
         Utils.disableEl($editorConfirmBtn);
-        personAgent.saveOne(person)
+        personStore.saveOne(person)
             .then(function(res) {
                 currentPerson = res;
                 Toast.make('saving..');
@@ -188,7 +188,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     function deletePerson($card) {
         var pid = $card.attr('data-id');
         console.log(pid);
-        return personAgent.deleteOne(pid)
+        return personStore.deleteOne(pid)
             .then(function(res) {
                 Toast.make('deleted');
                 console.log(res);
@@ -206,7 +206,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         var person = {
             _id: $facultyEditor.attr('data-id'),
             name: $personNameEditor.val(),
-            role: $personRoleEditor.val(),
+            title: $personTitleEditor.val(),
             description: $personDescriptionEditor.val(),
             avatar: {
                 url: $personAvatarPreview.attr('src')
@@ -218,7 +218,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         var person = {
             _id: $card.attr('data-id'),
             name: $card.one(PERSON_CARD_NAME_SELECTOR).text(),
-            role: $card.one(PERSON_CARD_ROLE_SELECTOR).text(),
+            title: $card.one(PERSON_CARD_TITLE_SELECTOR).text(),
             description: $card.one(PERSON_CARD_DESCRIPTION_SELECTOR).text(),
             avatar: {
                 url: $card.one(PERSON_CARD_AVATAR_SELECTOR).attr('src')
@@ -276,7 +276,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
         var file = $personAvatarSelector[0].files[0];
         $personAvatarPreview.attr('src', URL.createObjectURL(file));
     });
-    $personMetasSetter.delegate('click', function(event) {
+    $personRolesSetter.on('click', function(event) {
         var $target = $(event.target);
     });
 
@@ -294,7 +294,7 @@ require(['node', 'utils', 'tooltip', 'CONF', 'personAgent', 'mask', 'toast', 'mo
     Tooltip.init();
     window.Mask = Mask;
     window.Toast = Toast;
-    window.personAgent = personAgent;
+    window.personStore = personStore;
     window.$editorAvatarForm = $editorAvatarForm;
     window.$personAvatarSelector = $personAvatarSelector;
 });

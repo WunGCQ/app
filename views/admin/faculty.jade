@@ -8,8 +8,14 @@ block append content
 
         a.add-person-btn.fixed.fixed--right.fixed--top.ptb--lg.plr--lg.mtb--lg.mlr--lg.fa.fa-user-plus.btn.btn-primary(data-type="tooltip", data-content=LANG.actions.add, data-placement="left")
 
-        div.center-block.row--full.faculty-banner
+        div.center-block.row--full.faculty-banner.text--center
             h2.faculty-banner__title=LANG.faculty.categoryLabel
+            div.btn-group.inline-block
+                button.btn.btn-primary=LANG.faculty.profession
+                button.btn.btn-primary=LANG.faculty.french
+                button.btn.btn-primary=LANG.faculty.leader
+                button.btn.btn-primary=LANG.faculty.student
+
 
 
         div.person-gallery
@@ -22,7 +28,7 @@ block append content
                     h4.person-card__name=person.name
                     h4.person-card__meta
                         i.fa.fa-flag.person-card__meta-label
-                        span.person-card__role=person.role
+                        span.person-card__title=person.title
                     p.person-card__description=person.description
 
 
@@ -35,21 +41,18 @@ block append content
                     form#up-form.avatar.avatar--m.center--h.rel.mb--lg
                         input.person__avatar-selector.column--full.row--full.cursor--pointer.transparent.abs(type="file", name="upfile", data-type="tooltip", data-content=LANG.actions.selectAvatar, data-placement="right")
                         img.person__avatar-preview.avatar.avatar--m.center--h.inline-block.cursor--pointer()
-                    div.text--center.mtb.person__metas-setter
-                        div.inline-block.mlr--extra
-                            label.choice.choice--sm.choice--primary(data-category="teacher", data-group="profession")=LANG.faculty.profession
-                            label.choice.choice--disabled.choice--sm.choice--primary(data-category="teacher", data-group="french")=LANG.faculty.french
-                            label.choice.choice--sm.choice--primary.choice--selected(data-role="leader")=LANG.faculty.leader
-                        span.separator--v
-                        div.inline-block
-                            label.choice.choice--sm.choice--primary(data-category="student")=LANG.faculty.student
+                    div.text--center.mtb.person__roles-setter
+                        label.choice.choice--sm.choice--primary(data-role="profession")=LANG.faculty.profession
+                        label.choice.choice--disabled.choice--sm.choice--primary(data-role="french")=LANG.faculty.french
+                        label.choice.choice--sm.choice--primary.choice--selected.mr--extra(data-role="leader")=LANG.faculty.leader
+                        label.choice.choice--sm.choice--primary.ml--extra(data-role="student")=LANG.faculty.student
                     div
                         div.input-group.editor__row
                             span.input-group-addon.editor__field-label=LANG.faculty.name
                             input.person__name-editor.form-control(type="text")
                         div.input-group.editor__row.mtb--lg
-                            span.input-group-addon.editor__field-label=LANG.faculty.role
-                            input.person__role-editor.form-control(type="text")
+                            span.input-group-addon.editor__field-label=LANG.faculty.title
+                            input.person__title-editor.form-control(type="text")
                         div.editor__row.panel.panel-primary
                             div.panel-heading
                                 h5.text--center.mtb--0=LANG.faculty.description
@@ -67,5 +70,6 @@ block append content
        //         span.fa.fa-search
 
 block append scripts
-    script(src="/statics/scripts/components/person-agent.js")
+    script(src="/statics/scripts/components/model-store.js")
+    script(src="/statics/scripts/components/person-store.js")
     script(src="/statics/scripts/admin-faculty.js")

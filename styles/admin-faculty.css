@@ -103,7 +103,7 @@
 .h-9 {
   height: 90%; }
 
-.w-10, .row--full, .shape--cover, html, body, .faculty-banner::after, .person-gallery, .person-card__description, .person-card::before {
+.w-10, .row--full, .shape--cover, html, body, .faculty-banner::before, .person-gallery, .person-card__description, .person-card::before {
   width: 100%; }
 
 .h-10, .column--full, .shape--cover, html, body, .side-menu, .ueditor, .record-groups, .faculty-content-wrapper {
@@ -413,7 +413,7 @@
   -ms-flex: 10;
   flex: 10; }
 
-.abs, .tooltip-container, .tooltip__arrow, .modal__closer, .side-menu__nav--bottom, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .records-archive__items-counter, .faculty-editor, .faculty-banner::after, .person-card__description, .person-card__edit-btn, .person-card__delete-btn, .person-card::before {
+.abs, .tooltip-container, .tooltip__arrow, .modal__closer, .side-menu__nav--bottom, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .records-archive__items-counter, .faculty-editor, .faculty-banner::before, .person-card__description, .person-card__edit-btn, .person-card__delete-btn, .person-card::before {
   position: absolute; }
   .abs--center {
     top: 50%;
@@ -426,7 +426,7 @@
 
 .abs--top, .record__list-item--sticked::before, .record__list-item--sticked::after, .person-card__edit-btn, .person-card__delete-btn, .person-card::before, .fixed--top, .toast {
   top: 0; }
-.abs--left, .person-card__description, .person-card__edit-btn, .person-card::before, .fixed--left {
+.abs--left, .faculty-banner::before, .person-card__description, .person-card__edit-btn, .person-card::before, .fixed--left {
   left: 0; }
 .abs--right, .modal__closer, .record__list-item--sticked::before, .record__list-item--sticked::after, .record-delete-btn, .records-archive__toggle, .records-archive__items-counter, .person-card__delete-btn, .fixed--right {
   right: 0; }
@@ -559,10 +559,10 @@
 .mb--lg, .mtb--lg, .editor__row {
   margin-bottom: 12px; }
 
-.pl--extra, .plr--extra, .link--flat {
+.pl--extra, .plr--extra, .link--flat, .faculty-banner__title {
   padding-left: 24px; }
 
-.ml--extra, .mlr--extra, .person-card {
+.ml--extra, .mlr--extra, .person-card, .faculty-banner__title {
   margin-left: 24px; }
 
 .pr--extra, .plr--extra, .link--flat {
@@ -583,11 +583,14 @@
 .mb--extra, .mtb--extra, .person-card {
   margin-bottom: 24px; }
 
-.text--center, .side-menu__item, .faculty-banner__title, .person-card {
+.text--center, .side-menu__item, .person-card {
   text-align: center; }
 
 .text--right {
   text-align: right; }
+
+.text--left, .faculty-banner__title {
+  text-align: left; }
 
 .box-x--auto, .box--auto, .person-gallery, .person-card__description {
   overflow-x: auto; }
@@ -898,8 +901,9 @@ html body input[disabled] {
     opacity: 1; }
 
 .faculty-banner__title {
-  color: white; }
-.faculty-banner::after {
+  color: #458cdc; }
+.faculty-banner::before {
+  bottom: 30px;
   box-shadow: 0 8px 20px -6px #458cdc;
   content: "";
   height: 20px; }
