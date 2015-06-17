@@ -449,7 +449,7 @@ body .wrap .container-wrapper .container .main {
 }
 
 .container .footer-section .link:nth-child(1) {
-    background-image: url(/statics/images/logo_buaa.png)
+    background-image: url(http://wcqblog.github.io/assets/images/logo_buaa.png)
 }
 .container .footer-section .link:nth-child(2) {
     background-image: url(/statics/images/LILLE-LOGO.png)
