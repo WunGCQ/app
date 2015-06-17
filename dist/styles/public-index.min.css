@@ -1239,3 +1239,8 @@ body .wrap .container-wrapper .container .main {
 .flag--primary {
     border-color: #001D59
 }
+
+.header .nav {
+    width : 900px;
+    width : calc(100% - 225px);
+}
