@@ -751,6 +751,10 @@ html body input[disabled] {
 .label {
   vertical-align: top; }
 
+@font-face {
+  font-family: "lth";
+  src: url("/statics/assets/fonts/lth.TTF"); }
+
 .side-menu--dark {
   background-color: #142334;
   color: white; }
