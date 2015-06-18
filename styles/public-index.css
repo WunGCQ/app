@@ -715,11 +715,6 @@ html body input[disabled] {
   .main-wrapper__news {
     padding: 4%; }
 
-/**
- * default $var related for theming
- * --------------------------------------------
- * naming: item-name__sub-item-name--state-name_prop-name
- */
 .container {
   width: 100%;
   min-width: 1000px; }
