@@ -61,6 +61,7 @@ router.route('/:recordId')
     .put(function(req, res) {
         var record = req.body || {};
         var id = record._id;
+
         delete record._id;
 
         Record.update(id, record)

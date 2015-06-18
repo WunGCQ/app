@@ -12,7 +12,7 @@ var CONF = {
         limit: config.app.default.LIMIT,
         skip: config.app.default.SKIP,
         sort: {
-            createdAt: -1
+            updatedAt: -1
         }
     },
     fields: {

@@ -25,6 +25,7 @@ var Record = new Schema({
     images: [{type: Schema.Types.ObjectId, ref: 'Attachment'}],
     attachments: [{type: Schema.Types.ObjectId, ref: 'Attachment'}],
     createdAt: {type: Date, default: Date.now},
+    updatedAt: {type: Date, default: Date.now},
     hash: {type: String, trim: true}
 });
 
